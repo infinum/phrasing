@@ -1,0 +1,49 @@
+.inline-editable-container{
+  // border: 1px solid red;
+  position: relative;
+
+  .inline-editable{
+    // text-decoration: underline;
+    border-bottom: 1px dotted #cccccc;
+    // position: relative;
+
+  }
+
+
+  &:hover{
+    background-color: #FFFADE;
+    cursor: pointer;
+
+    .inline-edit-link{
+      display: block;
+      color: white;
+      background-color: #333333;
+    }
+  }  
+
+  .inline-edit-link{
+    border: 1px solid gray;
+    display: none;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: black !important;
+    color: white;
+    border-radius: 3px;
+    padding: 2px 10px 0px 10px;
+    line-height: 28px;
+    position: absolute;
+    right: -47px;
+    bottom: 0;
+    // margin-top: -20px
+
+  }  
+}
+
+
+.popover.editable-container{
+  width: auto !important;
+
+  textarea{
+    width: 400px;
+  }
+}
