@@ -1,3 +1,7 @@
+require "copycat/engine"
+require "copycat/implementation"
+require "copycat/routes"
+require "copycat/simple"
 require 'copycat'
 require 'bootstrap-editable-rails'
 
