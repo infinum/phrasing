@@ -1,0 +1,18 @@
+%h2 Import
+%div
+  %p
+    Upload a YAML (.yml) file following
+    = succeed "." do
+      %a{:href => "http://guides.rubyonrails.org/i18n.html"} I18n conventions
+  = form_tag 'upload', :multipart => true, :'accept-charset' => 'UTF-8' do
+    = file_field_tag "file"
+    = submit_tag "Upload"
+
+- unless Copycat.staging_server_endpoint.nil? || Rails.env.staging?
+  %h2 Staging syncing
+  %div
+    = link_to "Sync from staging server", sync_copycat_translations_path
+
+%h2 Export
+%div
+  = link_to "Download as YAML", download_copycat_translations_path

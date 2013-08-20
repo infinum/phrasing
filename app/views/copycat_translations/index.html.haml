@@ -1,0 +1,17 @@
+#search
+  = form_tag copycat_translations_path, :method => :get do
+    - locale_options = options_for_select([nil] + @locale_names.map{|l| [l,l]}, params[:locale])
+    = select_tag 'locale', locale_options
+    = text_field_tag :search, params[:search], :placeholder => 'Search for keys or values', :size => 40
+    = submit_tag 'Search'
+- if @copycat_translations.any?
+  %table
+    %tr
+      %th Key
+      %th Value
+    - @copycat_translations.each do |t|
+      %tr
+        %td.key
+          = link_to "#{t.key}", edit_copycat_translation_path(t)
+        %td.value
+          = t.value
