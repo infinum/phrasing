@@ -16,6 +16,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
 #  s.add_dependency('copycat')
+  s.add_dependency(%q<rails>, [">= 3.1.0"])
+  s.add_dependency(%q<haml-rails>)
   s.add_dependency('bootstrap-editable-rails')
   #s.add_dependency('actionpack', '~> 3.0')
 end
