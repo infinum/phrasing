@@ -1,7 +1,7 @@
 namespace :copycat do
   desc "Install the plugin, including the migration."
   task :install do
-    Rake::Task["copycat_engine:install:migrations"].invoke
+    # Rake::Task["copycat_engine:install:migrations"].invoke
     Rake::Task["copycat:install_initializer"].invoke
   end
 
