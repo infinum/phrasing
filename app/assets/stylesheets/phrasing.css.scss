@@ -32,7 +32,7 @@
   }  
 
   .popover.editable-container{
-    max-height:230px;
+    // max-height:230px;
     max-width:none;
     text-align:center;
     .popover-title{
@@ -58,6 +58,9 @@
               margin-left:3px;
             }
           }
+          .editable-error-block{
+            margin-top:20px;
+          }
         }
       }
     }
@@ -66,5 +69,3 @@
 
 
 }
-
-
