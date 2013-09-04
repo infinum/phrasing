@@ -21,6 +21,8 @@
 //= require_tree .
 ```
 
+On production you can include `bootstrap-editable.min` instead of `bootstrap-editable`
+
 6.a) add to your layout file: ( most of the time its your application.html)
 
 = stylesheet_link_tag "phrasing" if current_user
@@ -34,7 +36,7 @@
 
 7.b) Start with adding your phrases w/ phrase('my-first-phrase')
 
-8. The username and password for the HTTP Basic authentification are placedin the config/initializers/copycat.rb file . 
+8. The username and password for the HTTP Basic authentification are placedin the config/initializers/copycat.rb file.
    If you are going to change them, remember that you should restart your server.
 
 # Current user
