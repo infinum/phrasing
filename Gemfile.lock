@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    phrasing (0.9.0)
+    phrasing (0.9.1)
       bootstrap-editable-rails
       haml-rails
       rails (>= 3.1.0)
