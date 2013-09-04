@@ -27,6 +27,7 @@ jQuery ($) ->
           data    : params
           type    : 'PUT' # TODO: should be 'POST' when create new object
           dataType: 'json'
+          success: $("span").find("[data-url='" + originalUrl + "']").text(params["copycat_translation"]["value"]);
         }, @options.ajaxOptions))
     @saveWithoutUrlHook(value)
   EditableForm.prototype.saveWithoutUrlHook = EditableForm.prototype.save
