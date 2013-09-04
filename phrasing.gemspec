@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = "Phrasing!"
   s.authors     = ['Tomislav Car']
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = `git ls-files`.split("\n")  
   s.require_paths = ["lib"]
 
 #  s.add_dependency('copycat')
