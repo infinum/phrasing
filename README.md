@@ -1,44 +1,45 @@
 # Phrasing!
 
-1. gem install phrasing
+A inline editing gem, a small CMS substitute for editing live websites. 
+It is stacked upon two other gems, Copycat and Bootstrap-editable-rails, immensely using their codes, so thank you to the authors and all the contributors! 
 
-2. rake copycat:install
+## Requirements
 
-3. rake db:migrate
+1. Phrasing expects that your view helpers have a <tt>current_user</tt> method defined.
+	
+2. Must install the bootstrap gem.
 
-4. must have a current_user method
+## How to use phrasing?
 
-5.a) must have bootstrap in your app
+1. <tt> gem install phrasing </tt>
 
-5.b) your application.js file should look something like this:
+2. <tt> rake copycat:install </tt>
 
-```javascript
+	This will create a migration file and a config file. The config file will be placed in the <tt>config/initializers/copycat.rb</tt> and you will be able to change your HTTP basic auth username and password for editing the live content. 
+
+3. <tt> rake db:migrate </tt>
+
+4. Include the javascript files (most often its your application.js file). It should look something like this:
+
+	```javascript
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-editable
 //= require bootstrap-editable-rails
 //= require_tree .
-```
+	```
 
-On production you can include `bootstrap-editable.min` instead of `bootstrap-editable`
+	On production you can include `bootstrap-editable.min` instead of `bootstrap-editable`
 
-6.a) add to your layout file: ( most of the time its your application.html)
+5. Add to your layout file ( most of the time its your application.html):
 
-= stylesheet_link_tag "phrasing" if current_user
+	<tt>= stylesheet_link_tag "phrasing" if current_user</tt>
 	
-6.b) add to your application.css.scss
+6. If you haven't done it yet, require <tt>bootstrap</tt> in your layout file:
 
-//= require bootstrap
---------//= require bootstrap-editable
+	<tt>//= require bootstrap</tt>
 
-7.a) Restart your server after adding all of these assets!
+7. Start with adding your phrases simply by writting in your view file:
 
-7.b) Start with adding your phrases w/ phrase('my-first-phrase')
-
-8. The username and password for the HTTP Basic authentification are placedin the config/initializers/copycat.rb file.
-   If you are going to change them, remember that you should restart your server.
-
-# Current user
-
-Phrasing expects that your view helpers have a <tt>current_user</tt> method defined.
+	<tt>phrase('my-first-phrase')</tt>
