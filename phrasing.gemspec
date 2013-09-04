@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency(%q<rails>, [">= 3.1.0"])
   s.add_dependency "railties", ">= 3.1"
   s.add_dependency(%q<haml-rails>)
-  s.add_dependency('bootstrap-editable-rails')
+  # s.add_dependency('bootstrap-editable-rails')
   #s.add_dependency('actionpack', '~> 3.0')
 end
