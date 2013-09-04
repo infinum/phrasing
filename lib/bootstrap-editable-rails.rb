@@ -1,4 +1,3 @@
-require 'bootstrap-editable-rails/version'
 require 'bootstrap-editable-rails/view_helper'
 
 module Bootstrap
