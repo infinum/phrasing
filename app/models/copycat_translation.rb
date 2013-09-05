@@ -19,13 +19,11 @@ class CopycatTranslation < ActiveRecord::Base
   end
 
   def self.check_ambiguity_on_ancestors(key)
-    number_of_dots = key.count('.')
-    if number_of_dots > 0
-      number_of_dots.times do |x|
-        key_ancestor = key.split('.')[0..-(2+x)].join('.')
-        if CopycatTranslation.where(key: key_ancestor).count > 0
-          raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists a '#{key_ancestor}' key, unable to call a new key '#{key}'"
-        end
+    stripped_key = key
+    while stripped_key.include?('.')
+      stripped_key = stripped_key.split('.')[0..-2].join('.')
+      if CopycatTranslation.where(key: stripped_key).count > 0
+          raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists a '#{stripped_key}' key, unable to call a new key '#{key}'"
       end
     end
   end
