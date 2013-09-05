@@ -1,4 +1,5 @@
 class CopycatTranslation < ActiveRecord::Base
+  require 'phrasing/ambiguous_phrases_error'
 
   unless ENV['COPYCAT_DEBUG']
     self.logger = Logger.new('/dev/null')
@@ -6,6 +7,35 @@ class CopycatTranslation < ActiveRecord::Base
 
   validates :key, :presence => true
   validates :locale, :presence => true
+
+  def self.create_phrase(key)
+      check_ambiguity(key)
+      create!(key: key, value: key.to_s.humanize, locale: I18n.locale)
+  end
+
+  def self.check_ambiguity(key)
+    check_ambiguity_on_ancestors(key)
+    check_ambiguity_on_successors(key)
+  end
+
+  def self.check_ambiguity_on_ancestors(key)
+    number_of_dots = key.count('.')
+    if number_of_dots > 0
+      number_of_dots.times do |x|
+        key_ancestor = key.split('.')[0..-(2+x)].join('.')
+        if CopycatTranslation.where(key: key_ancestor).count > 0
+          raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists a '#{key_ancestor}' key, unable to call a new key '#{key}'"
+        end
+      end
+    end
+  end
+
+  def self.check_ambiguity_on_successors(key)
+    key_successor = "#{key}."
+    if CopycatTranslation.where(CopycatTranslation.arel_table[:key].matches("%#{key_successor}%")).count > 0
+      raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists one or multiple keys beginning with '#{key_successor}', unable to call a new key '#{key}'"
+    end
+  end
 
   module Serialize
 

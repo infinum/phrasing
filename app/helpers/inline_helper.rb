@@ -4,7 +4,7 @@ module InlineHelper
       @object = CopycatTranslation.where(key: key).try(:first)
 
       if @object.blank?
-        @object = CopycatTranslation.create!(key: key, value: key.to_s.humanize, locale: I18n.locale)
+        @object = CopycatTranslation.create_phrase(key)
       end
       inline(@object, :value)
     else
