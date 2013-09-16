@@ -9,5 +9,5 @@ Rails.application.routes.draw do
       post 'upload'
     end
   end
-  get 'phrasing/update_phrase', to: 'phrasing#update_phrase'
+  put 'phrasing/update_phrase/', to: 'phrasing#update_phrase'
 end

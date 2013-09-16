@@ -1,7 +1,7 @@
 module InlineHelper
   def phrase(key, options = {})
     if current_user
-      @object = CopycatTranslation.where(key: key).try(:first)
+      @object = CopycatTranslation.where(key: key).first
 
       if @object.blank?
         @object = CopycatTranslation.create_phrase(key)
@@ -9,6 +9,24 @@ module InlineHelper
       inline(@object, :value)
     else
       t(key)
+    end
+  end
+
+  def model_phrase(object, attribute)
+    if current_user
+      inline(object, attribute)
+    else
+      object.send(attribute).to_s.html_safe
+    end
+  end
+
+  def phrasing_polymorphic_url(object, attribute = nil)
+    basic_url = "#{root_url}phrasing/update_phrase"
+    if object.class == CopycatTranslation
+      polymorphic_url(object)
+    else
+      query_parameters = "?class=#{object.class.to_s.downcase}&id=#{object.id}&attribute=#{attribute}"
+      basic_url + query_parameters
     end
   end
 
@@ -21,7 +39,7 @@ module InlineHelper
       options[:as] = "textarea"
     end
 
-    options[:url] ||= polymorphic_url(object)
+    options[:url] ||= phrasing_polymorphic_url(object, field_name)
 
     html_options = {
       "href" => '#',
