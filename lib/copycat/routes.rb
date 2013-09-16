@@ -11,11 +11,11 @@ module Copycat
           post 'upload'
         end
       end
-      resources CopyCat.route, as: 'phrasing', controller: 'phrasing' do
-        collection do
-          post 'update_phrase'
-        end
-      end
+      # resources CopyCat.route, as: 'phrasing', controller: 'phrasing' do
+      #   collection do
+      #     post 'update_phrase'
+      #   end
+      # end
     end
 
 
