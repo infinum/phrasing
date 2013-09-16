@@ -13,7 +13,7 @@ module Copycat
     end
 
     mapper.instance_eval do 
-      resources CopyCat.route, as: 'phrasing', controller: 'phrasing_controller' do
+      resources CopyCat.route, as: 'phrasing', controller: 'phrasing' do
         collection do
           post 'update_phrase'
         end
