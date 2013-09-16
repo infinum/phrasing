@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  Copycat.routes(self)
+  #Copycat.routes(self)
+  resources :copycat
 end
