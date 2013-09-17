@@ -181,7 +181,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
                     msg = lines.join('<br>');
                 }
                 $group.addClass($.fn.editableform.errorGroupClass);
-                $block.addClass($.fn.editableform.errorBlockClass).html("Something went wrong. Please look at the log or contact your web developer.").show();
+                $block.addClass($.fn.editableform.errorBlockClass).html(msg).show();
             }
         },
 

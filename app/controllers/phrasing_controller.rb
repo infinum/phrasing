@@ -1,34 +1,15 @@
 class PhrasingController < ActionController::Base
 
   def update_phrase
-    if params[:class] and params[:attribute]
-      update_model_phrase
+    klass, attribute = params[:class], params[:attribute]
+    if Phrasing.is_whitelisted?(klass, attribute)
+      class_object = klass.classify.constantize
+      @object = class_object.where(id: params[:id]).first
+      @object.update_attributes({attribute => params[:new_value]})
+      render :json => @copycat_translation
     else
-      update_non_model_phrase
-    end
-  end
-
-  private
-
-  def update_model_phrase
-    klass = params[:class]
-    attribute = params[:attribute]
-
-    Phrasing.check_if_whitelisted!(klass,attribute)
-
-    class_object = klass.classify.constantize
-    @object = class_object.where(id: params[:id]).first
-    @object.update_attributes({attribute => params[:new_value]})
-
-    render :json => @copycat_translation
-  end
-
-  def update_non_model_phrase
-    @copycat_translation = CopycatTranslation.find(params[:id])
-    @copycat_translation.value = params[:new_value]
-    @copycat_translation.save!
-    
-    render :json => @copycat_translation
+      render status: 403, text: "#{klass}.#{attribute} not whitelisted."
+    end    
   end
 
 end
