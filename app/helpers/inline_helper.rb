@@ -25,7 +25,7 @@ module InlineHelper
     if object.class == CopycatTranslation
       query_parameters = "?id=#{object.id}"
     else
-      query_parameters = "?class=#{object.class.to_s.downcase}&id=#{object.id}&attribute=#{attribute}"
+      query_parameters = "?class=#{object.class.to_s}&id=#{object.id}&attribute=#{attribute}"
     end
     basic_url + query_parameters
   end

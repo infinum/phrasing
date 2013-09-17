@@ -14,6 +14,8 @@ class PhrasingController < ActionController::Base
     klass = params[:class]
     attribute = params[:attribute]
 
+    Phrasing.check_if_whitelisted!(klass,attribute)
+
     class_object = klass.classify.constantize
     @object = class_object.where(id: params[:id]).first
     @object.update_attributes({attribute => params[:new_value]})
