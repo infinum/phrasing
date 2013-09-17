@@ -4,7 +4,7 @@ require "copycat/routes"
 require "copycat/simple"
 require 'copycat'
 require 'phrasing/phrasable_error_handler'
-require 'phrasing/not_whitelisted_attribute_error'
+require 'phrasing/blacklisted_attribute_error'
 require 'bootstrap-editable-rails'
 
 module Phrasing
@@ -45,8 +45,8 @@ module Phrasing
   end
 
   def self.check_if_whitelisted!(klass,attribute)
-    unless self.allow_update_on_all_models_and_attributes == true
-      raise BlacklistedAttributeError if self.whitelist.exclude? "#{klass}.#{attribute}"
+    if self.allow_update_on_all_models_and_attributes != true and self.whitelist.exclude? "#{klass}.#{attribute}"
+        raise BlacklistedAttributeError, "You have to whitelist #{klass}.#{attribute} in order to use it in Phrasing. Check out the Readme."
     end
   end
 
