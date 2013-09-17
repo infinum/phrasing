@@ -8,8 +8,7 @@ class PhrasingController < ActionController::Base
     end
   end
 
-
-  #not routable
+  private
 
   def update_model_phrase
     klass = params[:class]
@@ -17,19 +16,17 @@ class PhrasingController < ActionController::Base
 
     class_object = klass.classify.constantize
     @object = class_object.where(id: params[:id]).first
-    @object.update_attributes({attribute => params[klass.downcase][attribute]})
+    @object.update_attributes({attribute => params[:new_value]})
 
     render :json => @copycat_translation
   end
 
   def update_non_model_phrase
     @copycat_translation = CopycatTranslation.find(params[:id])
-    @copycat_translation.value = params[:copycat_translation][:value]
+    @copycat_translation.value = params[:new_value]
     @copycat_translation.save!
     
-    format.js do
-      render :json => @copycat_translation
-    end
+    render :json => @copycat_translation
   end
 
 end

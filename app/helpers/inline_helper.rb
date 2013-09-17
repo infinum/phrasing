@@ -23,11 +23,11 @@ module InlineHelper
   def phrasing_polymorphic_url(object, attribute = nil)
     basic_url = "#{root_url}phrasing/update_phrase"
     if object.class == CopycatTranslation
-      polymorphic_url(object)
+      query_parameters = "?id=#{object.id}"
     else
       query_parameters = "?class=#{object.class.to_s.downcase}&id=#{object.id}&attribute=#{attribute}"
-      basic_url + query_parameters
     end
+    basic_url + query_parameters
   end
 
   def inline(object, field_name, options = {})
@@ -46,8 +46,8 @@ module InlineHelper
       "class" => "inline-editable inline-editable-#{options[:as]}",
       #"id" => "username",  #"#{object.class.name}_#{object.id}_field_name",
       "data-type" => options[:as],
-      "data-resource" => object.class.name.underscore,
-      "data-name" => field_name,
+      # "data-resource" => object.class.name.underscore,
+      "data-name" => "new_value",
       "data-url" => options[:url],
       "data-original-title" => "Enter #{field_name.to_s.humanize}"
     }
