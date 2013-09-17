@@ -30,16 +30,32 @@ It is stacked upon two other gems, Copycat and Bootstrap-editable-rails, immense
 //= require_tree .
 	```
 
-	On production you can include `bootstrap-editable.min` instead of `bootstrap-editable`
-
 5. Add to your layout file ( most of the time its your application.html):
 
 	<tt>= stylesheet_link_tag "phrasing" if current_user</tt>
 	
-6. If you haven't done it yet, require <tt>bootstrap</tt> in your layout file:
+6. If you haven't done it yet, require <tt>bootstrap</tt> in your css/scss layout file:
 
 	<tt>//= require bootstrap</tt>
 
 7. Start with adding your phrases simply by writting in your view file:
 
 	<tt>phrase('my-first-phrase')</tt>
+
+  or if you want to update your models attributes, you can use the `model_phrase` helper:
+
+  <tt>model_phrase(@post, :title)</tt>
+
+  Where @post is a object with a title attribute.
+
+8. Whitelist your attributes! (this is only if you are using tbe model_phrase helper).
+
+  In the generated <tt>config/initializers/copycat.rb</tt> file you can whitelist your model attributes like this:
+
+  Phrasing.white_list = ["Project.description", "Project.name"]
+
+  or you can whitelist all of them (not recommended) with:
+
+  Phrasing.allow_update_on_all_models_and_attributes = true
+
+  Note: CopycatTranslations.value is always whitelisted.

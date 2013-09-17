@@ -26,6 +26,9 @@ end
 
 
 module Phrasing
+  
+  mattr_accessor :allow_update_on_all_models_and_attributes
+
   WHITELIST = "CopycatTranslation.value"
   
   def self.whitelist
@@ -41,7 +44,9 @@ module Phrasing
   end
 
   def self.check_if_whitelisted!(klass,attribute)
-    raise StandardError if self.whitelist.exclude? "#{klass}.#{attribute}"
+    unless self.allow_update_on_all_models_and_attributes == true
+      raise StandardError if self.whitelist.exclude? "#{klass}.#{attribute}"
+    end
   end
 
 end
