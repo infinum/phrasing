@@ -1,3 +1,3 @@
 module Phrasing
-  class NotWhitelistedAttributeError < StandardError; end
+  class BlacklistedAttributeError < StandardError; end
 end

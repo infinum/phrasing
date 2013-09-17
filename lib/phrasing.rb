@@ -46,7 +46,7 @@ module Phrasing
 
   def self.check_if_whitelisted!(klass,attribute)
     unless self.allow_update_on_all_models_and_attributes == true
-      raise NotWhitelistedAttributeError if self.whitelist.exclude? "#{klass}.#{attribute}"
+      raise BlacklistedAttributeError if self.whitelist.exclude? "#{klass}.#{attribute}"
     end
   end
 
