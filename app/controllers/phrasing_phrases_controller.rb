@@ -5,7 +5,7 @@ class PhrasingPhrasesController < ActionController::Base
   layout 'phrasing'
 
   def index
-    params[:locale] = I18n.default_locale unless params.has_key?(:locale)
+    params[:locale] ||= I18n.default_locale
     query = PhrasingPhrase
     query = query.where(locale: params[:locale]) unless params[:locale].blank?
 
@@ -20,7 +20,7 @@ class PhrasingPhrasesController < ActionController::Base
     else
       @phrasing_phrases = []
     end
-    @locale_names = PhrasingPhrase.find(:all, select: 'distinct locale').map(&:locale)
+    @locale_names = PhrasingPhrase.uniq.pluck(:locale)
   end
 
   def edit
@@ -34,7 +34,7 @@ class PhrasingPhrasesController < ActionController::Base
 
     respond_to do |format|
       format.html do
-        redirect_to phrasing_phrases_path, :notice => "#{@phrasing_phrase.key} updated!"    
+        redirect_to phrasing_phrases_path, notice: "#{@phrasing_phrase.key} updated!"    
       end
 
       format.js do
@@ -50,26 +50,22 @@ class PhrasingPhrasesController < ActionController::Base
     app_name = Rails.application.class.to_s.split("::").first
     app_env = Rails.env
     filename = "phrasing_phrases_#{app_name}_#{app_env}_#{Time.now.strftime("%Y_%m_%d_%H_%M_%S")}.yml"
-    send_data PhrasingPhrase.export_yaml, :filename => filename
+    send_data PhrasingPhrase.export_yaml, filename: filename
   end
 
   def upload
-    begin
       PhrasingPhrase.import_yaml(params["file"].tempfile)
+      redirect_to phrasing_phrases_path, notice: "YAML file uploaded successfully!"
     rescue Exception => e
       logger.info "\n#{e.class}\n#{e.message}"
       flash[:notice] = "There was an error processing your upload!"
-      render :action => 'import_export', :status => 400
-    else
-      redirect_to phrasing_phrases_path, :notice => "YAML file uploaded successfully!"
-    end
+      render action: 'import_export', status: 400
   end
 
   def destroy
     @phrasing_phrase = PhrasingPhrase.find(params[:id])
-    notice = "#{@phrasing_phrase.key} deleted!"
     @phrasing_phrase.destroy
-    redirect_to phrasing_phrases_path, :notice => notice
+    redirect_to phrasing_phrases_path, notice: "#{@phrasing_phrase.key} deleted!"
   end
 
   def help
@@ -77,7 +73,7 @@ class PhrasingPhrasesController < ActionController::Base
 
   def sync
     if Phrasing.staging_server_endpoint.nil?
-      redirect_to :back, alert: 'You didn\'t set your source server'
+      redirect_to :back, alert: "You didn't set your source server"
     else
       yaml = read_remote_yaml(Phrasing.staging_server_endpoint)
 
