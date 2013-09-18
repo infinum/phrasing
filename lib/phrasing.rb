@@ -1,6 +1,6 @@
+require 'phrasing'
 require "phrasing/implementation"
 require "phrasing/simple"
-require 'phrasing'
 require 'phrasing/phrasable_error_handler'
 require 'bootstrap-editable-rails'
 

@@ -16,9 +16,7 @@ module InlineHelper
   end
 
   def inline(object, field_name, options = {})
-    if current_user.blank?
-      return object.send(field_name).to_s.html_safe
-    end
+    return object.send(field_name).to_s.html_safe if current_user.blank?
 
     options[:as] ||= "textarea"
       
