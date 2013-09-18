@@ -20,7 +20,7 @@ module InlineHelper
       return object.send(field_name).to_s.html_safe
     end
 
-    options[:as] = "textarea" if options[:as].blank?
+    options[:as] ||= "textarea"
       
     options[:url] ||= phrasing_polymorphic_url(object, field_name)
 
