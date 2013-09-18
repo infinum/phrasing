@@ -1,7 +1,7 @@
 # Phrasing!
 
 A inline editing gem, a small CMS substitute for editing live websites. 
-It is stacked upon two other gems, Copycat and Bootstrap-editable-rails, immensely using their codes, so thank you to the authors and all the contributors! 
+It is stacked upon two other gems, Phrasing and Bootstrap-editable-rails, immensely using their codes, so thank you to the authors and all the contributors! 
 
 ## Requirements
 
@@ -13,9 +13,9 @@ It is stacked upon two other gems, Copycat and Bootstrap-editable-rails, immense
 
 1. <tt> gem install phrasing </tt>
 
-2. <tt> rake copycat:install </tt>
+2. <tt> rake phrasing:install </tt>
 
-	This will create a migration file and a config file. The config file will be placed in the <tt>config/initializers/copycat.rb</tt> and you will be able to change your HTTP basic auth username and password for editing the live content. 
+	This will create a migration file and a config file. The config file will be placed in the <tt>config/initializers/phrasing.rb</tt> and you will be able to change your HTTP basic auth username and password for editing the live content. 
 
 3. <tt> rake db:migrate </tt>
 
@@ -50,7 +50,7 @@ It is stacked upon two other gems, Copycat and Bootstrap-editable-rails, immense
 
 8. Whitelist your attributes! (this is only if you are using tbe model_phrase helper).
 
-  In the generated <tt>config/initializers/copycat.rb</tt> file you can whitelist your model attributes like this:
+  In the generated <tt>config/initializers/phrasing.rb</tt> file you can whitelist your model attributes like this:
 
   Phrasing.white_list = ["Project.description", "Project.name"]
 
@@ -58,4 +58,4 @@ It is stacked upon two other gems, Copycat and Bootstrap-editable-rails, immense
 
   Phrasing.allow_update_on_all_models_and_attributes = true
 
-  Note: CopycatTranslations.value is always whitelisted.
+  Note: PhrasingPhrases.value is always whitelisted.

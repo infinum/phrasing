@@ -1,7 +1,7 @@
-require "copycat/engine"
-require "copycat/implementation"
-require "copycat/routes"
-require "copycat/simple"
+# require "phrasing/engine"
+require "phrasing/implementation"
+# require "phrasing/routes"
+require "phrasing/simple"
 
 module Copycat
   mattr_accessor :username
@@ -10,7 +10,7 @@ module Copycat
   mattr_accessor :everything_is_html_safe
   mattr_accessor :staging_server_endpoint
 
-  @@route = 'copycat_translations'
+  @@route = 'phrasing_phrases'
   @@everything_is_html_safe = false
 
   def self.setup

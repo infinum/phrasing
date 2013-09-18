@@ -1,6 +1,6 @@
-class CreateCopycatTranslations < ActiveRecord::Migration
+class CreatePhrasingPhrases < ActiveRecord::Migration
   def change
-    create_table :copycat_translations do |t|    
+    create_table :phrasing_phrases do |t|    
       t.string :locale
       t.string :key
       t.text :value

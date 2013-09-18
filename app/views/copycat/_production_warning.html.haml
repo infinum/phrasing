@@ -1,4 +1,0 @@
-.alert
-  %h1 You're in production!
-  - unless Copycat.staging_server_endpoint.nil?
-    %p You should do your changes in #{link_to("staging", Copycat.staging_server_endpoint.gsub("/download", ""))} and then #{link_to("sync them",sync_copycat_translations_path)}.

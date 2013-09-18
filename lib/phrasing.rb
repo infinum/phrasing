@@ -1,8 +1,8 @@
-# require "copycat/engine"
-require "copycat/implementation"
-require "copycat/routes"
-require "copycat/simple"
-require 'copycat'
+# require "phrasing/engine"
+# require "phrasing/routes"
+require "phrasing/implementation"
+require "phrasing/simple"
+require 'phrasing'
 require 'phrasing/phrasable_error_handler'
 require 'phrasing/blacklisted_attribute_error'
 require 'bootstrap-editable-rails'
@@ -11,7 +11,7 @@ module Phrasing
   module Rails
     class Engine < ::Rails::Engine
       initializer :assets, :group => :all do
-        ::Rails.application.config.assets.precompile += %w(copycat_engine.css)
+        ::Rails.application.config.assets.precompile += %w(phrasing_engine.css)
       end
       initializer "phrasing" do
         ActiveSupport.on_load(:action_controller) do
@@ -35,14 +35,14 @@ module Phrasing
   mattr_accessor :everything_is_html_safe
   mattr_accessor :staging_server_endpoint
 
-  @@route = 'copycat_translations'
+  @@route = 'phrasing_phrases'
   @@everything_is_html_safe = false
 
   def self.setup
     yield self
   end
 
-  WHITELIST = "CopycatTranslation.value"
+  WHITELIST = "PhrasingPhrase.value"
   
   def self.whitelist
     if defined? @@whitelist

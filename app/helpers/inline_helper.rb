@@ -1,9 +1,9 @@
 module InlineHelper
   def phrase(key, options = {})
     if current_user
-      @object = CopycatTranslation.where(key: key).first
+      @object = PhrasingPhrase.where(key: key).first
       if @object.blank?
-        @object = CopycatTranslation.create_phrase(key)
+        @object = PhrasingPhrase.create_phrase(key)
       end
       inline(@object, :value)
     else

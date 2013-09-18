@@ -1,0 +1,7 @@
+.edit
+  %h2= @phrasing_phrase.key
+  = button_to "Delete this item", phrasing_phrase_path(@phrasing_phrase), :method => :delete, :onclick => "return confirm('Are you sure?');"
+  = form_for @phrasing_phrase, :url => { :action => "update" } do |f|
+    = f.text_area :value, :rows => 12
+    = f.submit "Update"
+  = link_to "Cancel", phrasing_phrases_path
