@@ -31,31 +31,33 @@ It is stacked upon two other gems, Phrasing and Bootstrap-editable-rails, immens
 	```
 
 5. Add to your layout file ( most of the time its your application.html):
+```ruby
+   = stylesheet_link_tag "phrasing" if current_user
+```
 
-	<tt>= stylesheet_link_tag "phrasing" if current_user</tt>
-	
 6. If you haven't done it yet, require <tt>bootstrap</tt> in your css/scss layout file:
-
-	<tt>//= require bootstrap</tt>
+```sass
+   //= require bootstrap
+```
 
 7. Start with adding your phrases simply by writting in your view file:
-
-	<tt>phrase('my-first-phrase')</tt>
-
+```ruby
+	phrase('my-first-phrase')
+```
   or if you want to update your models attributes, you can use the `model_phrase` helper:
-
-  <tt>model_phrase(@post, :title)</tt>
-
+```ruby
+  	model_phrase(@post, :title)
+```
   Where @post is a object with a title attribute.
 
 8. Whitelist your attributes! (this is only if you are using tbe model_phrase helper).
 
   In the generated <tt>config/initializers/phrasing.rb</tt> file you can whitelist your model attributes like this:
-
+```ruby
   Phrasing.white_list = ["Project.description", "Project.name"]
-
+```
   or you can whitelist all of them (not recommended) with:
-
+```ruby
   Phrasing.allow_update_on_all_models_and_attributes = true
-
-  Note: PhrasingPhrases.value is always whitelisted.
+```
+  Note: <tt>PhrasingPhrases.value</tt> is always whitelisted.
