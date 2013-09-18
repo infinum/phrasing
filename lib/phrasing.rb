@@ -1,10 +1,7 @@
-# require "phrasing/engine"
-# require "phrasing/routes"
 require "phrasing/implementation"
 require "phrasing/simple"
 require 'phrasing'
 require 'phrasing/phrasable_error_handler'
-require 'phrasing/blacklisted_attribute_error'
 require 'bootstrap-editable-rails'
 
 module Phrasing
@@ -60,4 +57,20 @@ module Phrasing
     allow_update_on_all_models_and_attributes == true or whitelist.include? "#{klass}.#{attribute}"
   end
 
+end
+
+module ActionView
+  module Helpers
+    module TranslationHelper
+      private
+
+      def new_html_safe_translation_key?(key)
+        Phrasing.everything_is_html_safe || old_html_safe_translation_key?(key)
+      end
+
+      alias_method :old_html_safe_translation_key?, :html_safe_translation_key?
+      alias_method :html_safe_translation_key?, :new_html_safe_translation_key?
+
+    end
+  end
 end

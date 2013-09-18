@@ -5,6 +5,7 @@ namespace :phrasing do
     Rake::Task["phrasing:install_initializer"].invoke
   end
 
+  desc "Create the initializer file"
   task :install_initializer do
     require 'digest'
     username = (Digest::SHA2.new << rand.to_s).to_s[0..6]
