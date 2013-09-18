@@ -1,6 +1,6 @@
 class CopycatTranslationsController < ActionController::Base
 
-  http_basic_authenticate_with :name => Copycat.username, :password => Copycat.password
+  http_basic_authenticate_with name: Phrasing.username, password: Phrasing.password
 
   layout 'copycat'
 
