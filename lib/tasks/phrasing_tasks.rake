@@ -7,9 +7,9 @@ namespace :phrasing do
 
   desc "Create the initializer file"
   task :install_initializer do
-    require 'digest'
-    username = (Digest::SHA2.new << rand.to_s).to_s[0..6]
-    password = (Digest::SHA2.new << rand.to_s).to_s[0..6]
+    require 'securerandom'
+    username = SecureRandom.hex[0..6]
+    password = SecureRandom.hex[0..6]
     filepath = Rails.root.join *%w(config initializers phrasing.rb)
     File.open(filepath, 'w') do |f|
       f << <<-CONFIG
