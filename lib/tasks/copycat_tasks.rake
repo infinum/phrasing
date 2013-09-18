@@ -16,6 +16,9 @@ Phrasing.setup do |config|
   config.username = '#{username}'
   config.password = '#{password}'
 end
+
+# Phrasing.whitelist = ["Post.title", "Post.description"]
+# Phrasing.allow_update_on_all_models_and_attributes = true;
 CONFIG
     end
     puts <<-INFO

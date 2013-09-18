@@ -29,6 +29,18 @@ end
 module Phrasing
   
   mattr_accessor :allow_update_on_all_models_and_attributes
+  mattr_accessor :username
+  mattr_accessor :password
+  mattr_accessor :route
+  mattr_accessor :everything_is_html_safe
+  mattr_accessor :staging_server_endpoint
+
+  @@route = 'copycat_translations'
+  @@everything_is_html_safe = false
+
+  def self.setup
+    yield self
+  end
 
   WHITELIST = "CopycatTranslation.value"
   
@@ -45,7 +57,7 @@ module Phrasing
   end
 
   def self.is_whitelisted?(klass,attribute)
-    self.allow_update_on_all_models_and_attributes == true or self.whitelist.include? "#{klass}.#{attribute}"
+    allow_update_on_all_models_and_attributes == true or whitelist.include? "#{klass}.#{attribute}"
   end
 
 end
