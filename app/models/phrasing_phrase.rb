@@ -10,11 +10,11 @@ class PhrasingPhrase < ActiveRecord::Base
   before_create :check_ambiguity
 
   def self.create_phrase(key)
-			phrasing_phrase = PhrasingPhrase.new
-			phrasing_phrase.key = key
-			phrasing_phrase.value = key.to_s.humanize
-			phrasing_phrase.locale = I18n.locale
-			phrasing_phrase.save!
+    phrasing_phrase = PhrasingPhrase.new
+    phrasing_phrase.key = key
+    phrasing_phrase.value = key.to_s.humanize
+    phrasing_phrase.locale = I18n.locale
+    phrasing_phrase.save!
   end
 
   def check_ambiguity
