@@ -60,4 +60,4 @@ It is stacked upon two other gems, Phrasing and Bootstrap-editable-rails, immens
 ```ruby
   Phrasing.allow_update_on_all_models_and_attributes = true
 ```
-  Note: <tt>PhrasingPhrases.value</tt> is always whitelisted.
+  Note: <tt>PhrasingPhrase.value</tt> is always whitelisted.
