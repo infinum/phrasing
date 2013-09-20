@@ -7,17 +7,22 @@ class PhrasingPhrase < ActiveRecord::Base
 
   validates_presence_of :key, :locale
 
+	before_save :check_ambiguity
+
   def self.create_phrase(key)
-      check_ambiguity(key)
-      create!(key: key, value: key.to_s.humanize, locale: I18n.locale)
+			phrasing_phrase = PhrasingPhrase.new
+			phrasing_phrase.key = key
+			phrasing_phrase.value = key.to_s.humanize
+			phrasing_phrase.locale = I18n.locale
+			phrasing_phrase.save!
   end
 
-  def self.check_ambiguity(key)
-    check_ambiguity_on_ancestors(key)
-    check_ambiguity_on_successors(key)
+  def check_ambiguity
+    check_ambiguity_on_ancestors
+    check_ambiguity_on_successors
   end
 
-  def self.check_ambiguity_on_ancestors(key)
+  def check_ambiguity_on_ancestors
     stripped_key = key
     while stripped_key.include?('.')
       stripped_key = stripped_key.split('.')[0..-2].join('.')
@@ -27,7 +32,7 @@ class PhrasingPhrase < ActiveRecord::Base
     end
   end
 
-  def self.check_ambiguity_on_successors(key)
+  def check_ambiguity_on_successors
     key_successor = "#{key}."
     if PhrasingPhrase.where(PhrasingPhrase.arel_table[:key].matches("%#{key_successor}%")).count > 0
       raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists one or multiple keys beginning with '#{key_successor}', unable to call a new key '#{key}'"
