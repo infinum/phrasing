@@ -4,8 +4,8 @@ class CreatePhrasingPhrases < ActiveRecord::Migration
       t.string :locale
       t.string :key
       t.text :value
-      t.index [:locale, :key], :unique => true
       t.timestamps
     end
+    add_index :phrasing_phrases, [:locale, :key], :unique => true
   end
 end
