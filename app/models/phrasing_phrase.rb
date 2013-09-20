@@ -7,7 +7,7 @@ class PhrasingPhrase < ActiveRecord::Base
 
   validates_presence_of :key, :locale
 
-	before_save :check_ambiguity
+  before_create :check_ambiguity
 
   def self.create_phrase(key)
 			phrasing_phrase = PhrasingPhrase.new
