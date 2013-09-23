@@ -9,6 +9,7 @@ module Phrasing
     class Engine < ::Rails::Engine
       initializer :assets, :group => :all do
         ::Rails.application.config.assets.precompile += %w(phrasing_engine.css)
+        ::Rails.application.config.assets.precompile += %w(phrasing_engine.scss.css)
       end
       initializer "phrasing" do
         ActiveSupport.on_load(:action_controller) do
