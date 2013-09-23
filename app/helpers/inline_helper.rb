@@ -5,7 +5,7 @@ module InlineHelper
       if @object.blank?
         @object = PhrasingPhrase.create_phrase(key)
       end
-      inline(@object, :value)
+      inline(@object, :value, options)
     else
       t(key)
     end
