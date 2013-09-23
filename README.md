@@ -29,6 +29,7 @@ It is stacked upon two other gems, Phrasing and Bootstrap-editable-rails, immens
 //= require bootstrap-editable-rails
 //= require_tree .
 	```
+  If using bootstrap 3 require <tt>bootstrap-editable-3</tt> instead of <tt>bootstrap-editable</tt>
 
 5. Add to your layout file ( most of the time its your application.html):
 ```ruby
