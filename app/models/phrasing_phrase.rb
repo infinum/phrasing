@@ -15,6 +15,7 @@ class PhrasingPhrase < ActiveRecord::Base
     phrasing_phrase.value = key.to_s.humanize
     phrasing_phrase.locale = I18n.locale
     phrasing_phrase.save!
+    phrasing_phrase
   end
 
   def check_ambiguity
