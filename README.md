@@ -22,12 +22,12 @@ This will create a migration file and a config file. The config file will be pla
 
 4. Include the javascript files (most often its your application.js file). It should look something like this:
 
-	//= require jquery
-	//= require jquery_ujs
-	//= require bootstrap
-	//= require bootstrap-editable
-	//= require bootstrap-editable-rails
-	//= require_tree .
+    //= require jquery
+    //= require jquery_ujs
+    //= require bootstrap
+    //= require bootstrap-editable
+    //= require bootstrap-editable-rails
+    //= require_tree .
 
 If using bootstrap 3 require <tt>bootstrap-editable-3</tt> instead of <tt>bootstrap-editable</tt>
 
