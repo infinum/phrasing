@@ -1,15 +1,16 @@
 # Phrasing!
 
-A inline editing gem, a small CMS substitute for editing live websites. 
-It is stacked upon two other gems, Phrasing and Bootstrap-editable-rails, immensely using their codes, so thank you to the authors and all the contributors! 
+![Phrasing](http://www.miataturbo.net/attachments/miata-parts-sale-trade-5/74257-lots-leftovers-near-boston-archer-phrasing2-300x225-jpg?dateline=1366600534)
+
+Phrasing is a gem for live editing phrases (copy) on websites.
 
 ## Requirements
 
 1. Phrasing expects that your view helpers have a <tt>current_user</tt> method defined.
-	
+
 2. Must install the bootstrap gem.
 
-## How to use phrasing?
+## Installation
 
 1. <tt> gem install phrasing </tt>
 
@@ -41,6 +42,9 @@ It is stacked upon two other gems, Phrasing and Bootstrap-editable-rails, immens
    //= require bootstrap
 ```
 
+
+## How to use phrasing?
+
 7. Start with adding your phrases simply by writting in your view file:
 ```ruby
 	phrase('my-first-phrase')
@@ -51,14 +55,28 @@ It is stacked upon two other gems, Phrasing and Bootstrap-editable-rails, immens
 ```
   Where @post is a object with a title attribute.
 
-8. Whitelist your attributes! (this is only if you are using tbe model_phrase helper).
+## Security
 
-  In the generated <tt>config/initializers/phrasing.rb</tt> file you can whitelist your model attributes like this:
+Since Phrasing can be used to update any attribute in any table (using the model_phrase method), special care must be taken into consideration from a security standpoint.
+
+By default, Phrasing doesn't allow updating of any attribute apart from <<t>PhrasingPhrase.value</tt>. To be able to work with other attributes, you need to whitelist them.
+
+In the <tt>config/initializers/phrasing.rb</tt> file you can whitelist your model attributes like this:
+
 ```ruby
   Phrasing.white_list = ["Project.description", "Project.name"]
 ```
-  or you can whitelist all of them (not recommended) with:
+
+or you can whitelist all of them (not recommended) with:
+
 ```ruby
   Phrasing.allow_update_on_all_models_and_attributes = true
 ```
   Note: <tt>PhrasingPhrase.value</tt> is always whitelisted.
+
+
+## Authors
+
+Copyright (c) 2013, Infinum
+
+Phrasing relies heavily (or is built) on two other gems: Copycat and Bootstrap-editable-rails. So thank you to the authors and all the contributors! 
