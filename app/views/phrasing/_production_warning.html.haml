@@ -1,0 +1,4 @@
+.alert
+  %h1 You're in production!
+  - unless Phrasing.staging_server_endpoint.nil?
+    %p You should do your changes in #{link_to("staging", Phrasing.staging_server_endpoint.gsub("/download", ""))} and then #{link_to("sync them",sync_phrasing_phrases_path)}.
