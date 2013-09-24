@@ -1,0 +1,17 @@
+%div
+  %div
+    %p Phrasing is a Ruby on Rails engine that allows you to edit live website copy.
+  %div
+    %h2 How to use
+    %p Search for the copy text you want to edit. If Phrasing is currently controlling that content, it will appear when you search. If not, ask a developer to add it to Phrasing. You can filter by locale to control what copy is displayed in different languages.
+    %p Once copy appears, click the left hand side links to edit. Values with keys ending in "_html" will be parsed as literal html, so you can insert tags. All other values are parsed as plain text.
+  %div
+    %h2 Exporting and Importing
+    %p Phrasing text is data--not code. By default, it is stored in your server's database, and not the codebase that powers your website. Therefore, you may have to download/upload Phrasing data to transfer your copy edits between servers, or to safeguard them between database wipes. Phrasing exports (and is able to re-import) all of its data in a plaintext format called "YAML."
+    %h4 Exporting
+    %p You can get a YAML file of all your copy by clicking "Download" on the Import/Export page.
+    %h4 Importing
+    %p You can upload copy to Phrasing by uploading a properly formatted YAML file on the Import/Export page. Uploading copy won't delete any entries from Phrasing, but it may update them or create new ones. Use this feature to mass-update your copy from between servers -- e.g., make changes to copy on a test server, and then when you're satisfied, download the YAML file and upload it to your production site. Downloading your copy as YAML and then immediately re-uploading it will leave your copy unchanged.
+    %h4 Commiting copy to code
+    %p
+      If your copy has reached a stable state and you don't need to update it live anymore, you can download your copy as YAML and include it as part of the Ruby on Rails application underneath your main website. You can then remove Phrasing from the application entirely, and the website will still run exactly as before--it interfaces with Ruby on Rails's built-in translation mechanisms in a very unobtrusive way.

@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %title Phrasing
+    = stylesheet_link_tag "phrasing_engine", :media => "all"
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+  %body
+    #page
+      = render 'phrasing/production_warning' if Rails.env.production?
+      = render 'phrasing/menu'
+      = render 'phrasing/messages'
+      = yield
