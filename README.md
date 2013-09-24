@@ -12,39 +12,55 @@ Phrasing is a gem for live editing phrases (copy) on websites.
 
 ## Installation
 
-1. <tt> gem install phrasing </tt>
+Include the gem in your Gemfile
 
-2. <tt> rake phrasing:install </tt>
+```ruby
+gem "phrasing"
+```
+
+Run the install script:
+
+```ruby
+rake phrasing:install
+```
 
 This will create a migration file and a config file. The config file will be placed in the <tt>config/initializers/phrasing.rb</tt> and you will be able to change your HTTP basic auth username and password for editing the live content. 
 
-3. <tt> rake db:migrate </tt>
+Migrate your database
+```ruby
+rake db:migrate
+```
 
-4. Include the javascript files (most often its your application.js file). It should look something like this:
+## Setup
 
-    //= require jquery
-    //= require jquery_ujs
-    //= require bootstrap
-    //= require bootstrap-editable
-    //= require bootstrap-editable-rails
-    //= require_tree .
+Include the required javascript files (most often its your application.js file). It should look something like this:
 
-If using bootstrap 3 require <tt>bootstrap-editable-3</tt> instead of <tt>bootstrap-editable</tt>
+```javascript
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap
+//= require bootstrap-editable
+//= require bootstrap-editable-rails
+//= require_tree .
+```
 
-5. Add to your layout file ( most of the time its your application.html):
+If youre running Bootstrap 3, please require <tt>bootstrap-editable-3</tt> instead of <tt>bootstrap-editable</tt>
 
-   = stylesheet_link_tag "phrasing" if current_user
+Add the stylesheet to your layout file ( most of the time its your application.html):
 
+```haml
+= stylesheet_link_tag "phrasing" if current_user
+```
 
-6. If you haven't done it yet, require <tt>bootstrap</tt> in your css/scss layout file:
+Require the <tt>bootstrap</tt> stylesheet in your css/scss layout file:
 
-   //= require bootstrap
-
+```css
+//= require bootstrap
+```
 
 ## How to use phrasing?
 
 Start with adding your phrases simply by writting in your view file:
-
 
 	= phrase('my-first-phrase')
 
@@ -62,13 +78,15 @@ By default, Phrasing doesn't allow updating of any attribute apart from <<t>Phra
 
 In the <tt>config/initializers/phrasing.rb</tt> file you can whitelist your model attributes like this:
 
-
-	Phrasing.white_list = ["Project.description", "Project.name"]
-
+```ruby
+Phrasing.white_list = ["Project.description", "Project.name"]
+```
 
 or you can whitelist all of them (not recommended) with:
 
-	Phrasing.allow_update_on_all_models_and_attributes = true
+```ruby
+Phrasing.allow_update_on_all_models_and_attributes = true
+```
 
 ## Authors
 
