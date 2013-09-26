@@ -1,6 +1,6 @@
 module InlineHelper
   def phrase(key, options = {})
-    if current_user
+    if can_edit_phrases?
       @object = PhrasingPhrase.where(key: key).first
       if @object.blank?
         @object = PhrasingPhrase.create_phrase(key)
@@ -17,7 +17,7 @@ module InlineHelper
   end
 
   def inline(object, field_name, options = {})
-    return object.send(field_name).to_s.html_safe if current_user.blank?
+    return object.send(field_name).to_s.html_safe unless can_edit_phrases?
 
     options[:as] ||= "textarea"
       

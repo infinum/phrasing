@@ -16,6 +16,7 @@ namespace :phrasing do
 Phrasing.setup do |config|
   config.username = '#{username}'
   config.password = '#{password}'
+  config.route = 'phrasing'
 end
 
 # List all the model attributes you wish to edit with Phrasing, example:

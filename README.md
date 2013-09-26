@@ -6,7 +6,18 @@ Phrasing is a gem for live editing phrases (copy) on websites.
 
 ## Requirements
 
-1. Phrasing expects that your view helpers have a <tt>current_user</tt> method defined.
+1. Phrasing expects that you implement a <tt>can_edit_phrases?</tt> view helper method.
+
+  e.g:
+
+```ruby
+class ApplicationHelper
+
+  def can_edit_phrases?
+    current_user.is_admin?
+  end
+end
+```
 
 2. Must install the bootstrap gem.
 
