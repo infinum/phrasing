@@ -1,7 +1,5 @@
 class PhrasingPhrasesController < ActionController::Base
 
-  # http_basic_authenticate_with name: Phrasing.username, password: Phrasing.password
-
   layout 'phrasing'
 
   def index

@@ -37,7 +37,7 @@ Run the install script:
 rake phrasing:install
 ```
 
-This will create a migration file and a config file. The config file will be placed in the <tt>config/initializers/phrasing.rb</tt> and you will be able to change your HTTP basic auth username and password for editing the live content. 
+This will create a migration file and a config file where you can edit the name of the route to see all the phrases.
 
 Migrate your database
 ```ruby
