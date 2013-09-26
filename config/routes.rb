@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get 'sync'
       get 'download'
       post 'upload'
+      put 'remote_update_phrase'
     end
   end
-  put 'phrasing/update_phrase/', to: 'phrasing#update_phrase'
 end

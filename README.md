@@ -6,7 +6,20 @@ Phrasing is a gem for live editing phrases (copy) on websites.
 
 ## Requirements
 
-1. Phrasing expects that your view helpers have a <tt>current_user</tt> method defined.
+1. Phrasing expects that you implement a <tt>can_edit_phrases?</tt> method that will be viewable both in the controller and the views.
+
+  Example:
+
+```ruby
+class ApplicationController < ActionController::Base
+
+  def can_edit_phrases?
+    current_user.is_admin?
+  end
+  
+  helper_method :can_edit_phrases?
+end
+```
 
 2. Must install the bootstrap gem.
 
@@ -24,7 +37,7 @@ Run the install script:
 rake phrasing:install
 ```
 
-This will create a migration file and a config file. The config file will be placed in the <tt>config/initializers/phrasing.rb</tt> and you will be able to change your HTTP basic auth username and password for editing the live content. 
+This will create a migration file and a config file where you can edit the name of the route to see all the phrases.
 
 Migrate your database
 ```ruby
@@ -33,29 +46,22 @@ rake db:migrate
 
 ## Setup
 
-Include the required javascript files (most often its your application.js file). It should look something like this:
+Include the required **javascript** file (most often in your application.js file):
 
 ```javascript
-//= require jquery
-//= require jquery_ujs
-//= require bootstrap
-//= require bootstrap-editable
-//= require bootstrap-editable-rails
-//= require_tree .
+//= require bootstrap-editable-2
 ```
 
-If youre running Bootstrap 3, please require <tt>bootstrap-editable-3</tt> instead of <tt>bootstrap-editable</tt>
+Or if you are using Bootstrap 3:
 
-Add the stylesheet to your layout file ( most of the time its your application.html):
-
-```haml
-= stylesheet_link_tag "phrasing" if current_user
+```javascript
+//= require bootstrap-editable-3
 ```
 
-Require the <tt>bootstrap</tt> stylesheet in your css/scss layout file:
+Include the required **stylesheet** file (most often in your application.css file):
 
 ```css
-//= require bootstrap
+//= require phrasing
 ```
 
 ## How to use phrasing?

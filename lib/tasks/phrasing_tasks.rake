@@ -7,15 +7,11 @@ namespace :phrasing do
 
   desc "Create the initializer file"
   task :install_initializer do
-    require 'securerandom'
-    username = SecureRandom.hex[0..6]
-    password = SecureRandom.hex[0..6]
     filepath = Rails.root.join *%w(config initializers phrasing.rb)
     File.open(filepath, 'w') do |f|
       f << <<-CONFIG
 Phrasing.setup do |config|
-  config.username = '#{username}'
-  config.password = '#{password}'
+  config.route = 'phrasing'
 end
 
 # List all the model attributes you wish to edit with Phrasing, example:
@@ -25,9 +21,7 @@ Phrasing.whitelist = []
 CONFIG
     end
     puts <<-INFO
-Phrasing initializer created with
-  username: #{username}
-  password: #{password}
+You can change the default route in the phrasing initializer created in the config/intiializers folder.
 Now run 'rake db:migrate'.
     INFO
   end

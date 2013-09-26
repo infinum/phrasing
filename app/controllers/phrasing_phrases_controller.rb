@@ -1,7 +1,5 @@
 class PhrasingPhrasesController < ActionController::Base
 
-  http_basic_authenticate_with name: Phrasing.username, password: Phrasing.password
-
   layout 'phrasing'
 
   def index
@@ -9,17 +7,14 @@ class PhrasingPhrasesController < ActionController::Base
     query = PhrasingPhrase
     query = query.where(locale: params[:locale]) unless params[:locale].blank?
 
-    if params.has_key?(:search)
-      if params[:search].blank?
-        @phrasing_phrases = query.all
-      else
+    if params[:search] and !params[:search].blank?
         key_like = PhrasingPhrase.arel_table[:key].matches("%#{params[:search]}%")
         value_like = PhrasingPhrase.arel_table[:value].matches("%#{params[:search]}%")
         @phrasing_phrases = query.where(key_like.or(value_like))
-      end
     else
-      @phrasing_phrases = []
+      @phrasing_phrases = query.all
     end
+    
     @locale_names = PhrasingPhrase.uniq.pluck(:locale)
   end
 
@@ -87,6 +82,23 @@ class PhrasingPhrasesController < ActionController::Base
     end
   end
 
+  def remote_update_phrase
+    klass, attribute = params[:class], params[:attribute]
+    
+    if Phrasing.is_whitelisted?(klass, attribute)
+      class_object = klass.classify.constantize
+      @object = class_object.where(id: params[:id]).first
+      @object.send("#{attribute}=",params[:new_value])
+      @object.save!
+      render :json => @object
+    else
+      render status: 403, text: "#{klass}.#{attribute} not whitelisted."
+    end    
+
+    rescue ActiveRecord::RecordInvalid => e
+      render status: 403, text: e
+  end
+
   protected
 
   def read_remote_yaml(url)
@@ -101,4 +113,6 @@ class PhrasingPhrasesController < ActionController::Base
     end
     output
   end
+
+
 end
