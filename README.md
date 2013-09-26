@@ -8,7 +8,7 @@ Phrasing is a gem for live editing phrases (copy) on websites.
 
 1. Phrasing expects that you implement a <tt>can_edit_phrases?</tt> method that will be viewable both in the controller and the views.
 
-  e.g:
+  Example:
 
 ```ruby
 class ApplicationController < ActionController::Base
