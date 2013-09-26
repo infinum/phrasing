@@ -46,10 +46,10 @@ Include the required javascript files (most often its your application.js file).
 
 If youre running Bootstrap 3, please require <tt>bootstrap-editable-3</tt> instead of <tt>bootstrap-editable</tt>
 
-Add the stylesheet to your layout file ( most of the time its your application.html):
+Include the required stylesheet file (most often its your application.css file). It should look something like this:
 
 ```haml
-= stylesheet_link_tag "phrasing" if current_user
+//= require phrasing
 ```
 
 Require the <tt>bootstrap</tt> stylesheet in your css/scss layout file:

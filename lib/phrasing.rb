@@ -8,8 +8,7 @@ module Phrasing
   module Rails
     class Engine < ::Rails::Engine
       initializer :assets, :group => :all do
-        ::Rails.application.config.assets.precompile += %w(phrasing_engine.css)
-        ::Rails.application.config.assets.precompile += %w(phrasing.css)
+        ::Rails.application.config.assets.precompile += %w(phrasing_engine.css phrasing.css)
       end
       initializer "phrasing" do
         ActiveSupport.on_load(:action_controller) do
@@ -33,7 +32,7 @@ module Phrasing
   mattr_accessor :everything_is_html_safe
   mattr_accessor :staging_server_endpoint
 
-  @@route = 'phrasing_phrases'
+  @@route = 'phrasing'
   @@everything_is_html_safe = false
 
   def self.setup

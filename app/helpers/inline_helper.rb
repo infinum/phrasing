@@ -12,7 +12,8 @@ module InlineHelper
   end
 
   def phrasing_polymorphic_url(object, attribute = nil)
-    "#{root_url}phrasing/update_phrase?class=#{object.class.to_s}&id=#{object.id}&attribute=#{attribute}"
+    controller_route = Phrasing.route
+    "#{root_url}#{controller_route}/remote_update_phrase?class=#{object.class.to_s}&id=#{object.id}&attribute=#{attribute}"
   end
 
   def inline(object, field_name, options = {})

@@ -84,6 +84,23 @@ class PhrasingPhrasesController < ActionController::Base
     end
   end
 
+  def remote_update_phrase
+    klass, attribute = params[:class], params[:attribute]
+    
+    if Phrasing.is_whitelisted?(klass, attribute)
+      class_object = klass.classify.constantize
+      @object = class_object.where(id: params[:id]).first
+      @object.send("#{attribute}=",params[:new_value])
+      @object.save!
+      render :json => @object
+    else
+      render status: 403, text: "#{klass}.#{attribute} not whitelisted."
+    end    
+
+    rescue ActiveRecord::RecordInvalid => e
+      render status: 403, text: e
+  end
+
   protected
 
   def read_remote_yaml(url)
@@ -98,4 +115,6 @@ class PhrasingPhrasesController < ActionController::Base
     end
     output
   end
+
+
 end
