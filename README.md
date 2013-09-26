@@ -44,29 +44,22 @@ rake db:migrate
 
 ## Setup
 
-Include the required javascript files (most often its your application.js file). It should look something like this:
+Include the required javascript file (most often its your application.js file):
 
 ```javascript
-//= require jquery
-//= require jquery_ujs
-//= require bootstrap
-//= require bootstrap-editable
-//= require bootstrap-editable-rails
-//= require_tree .
+//= require bootstrap-editable-2
 ```
 
-If youre running Bootstrap 3, please require <tt>bootstrap-editable-3</tt> instead of <tt>bootstrap-editable</tt>
+Or if you are using Bootstrap 3:
 
-Include the required stylesheet file (most often its your application.css file). It should look something like this:
+```javascript
+//= require bootstrap-editable-3
+```
+
+Include the required stylesheet file (most often its your application.css file):
 
 ```haml
 //= require phrasing
-```
-
-Require the <tt>bootstrap</tt> stylesheet in your css/scss layout file:
-
-```css
-//= require bootstrap
 ```
 
 ## How to use phrasing?
