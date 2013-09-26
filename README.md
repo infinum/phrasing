@@ -6,16 +6,18 @@ Phrasing is a gem for live editing phrases (copy) on websites.
 
 ## Requirements
 
-1. Phrasing expects that you implement a <tt>can_edit_phrases?</tt> view helper method.
+1. Phrasing expects that you implement a <tt>can_edit_phrases?</tt> method that will be viewable both in the controller and the views.
 
   e.g:
 
 ```ruby
-class ApplicationHelper
+class ApplicationController < ActionController::Base
 
   def can_edit_phrases?
     current_user.is_admin?
   end
+  
+  helper_method :can_edit_phrases?
 end
 ```
 
@@ -44,7 +46,7 @@ rake db:migrate
 
 ## Setup
 
-Include the required javascript file (most often its your application.js file):
+Include the required **javascript** file (most often in your application.js file):
 
 ```javascript
 //= require bootstrap-editable-2
@@ -56,9 +58,9 @@ Or if you are using Bootstrap 3:
 //= require bootstrap-editable-3
 ```
 
-Include the required stylesheet file (most often its your application.css file):
+Include the required **stylesheet** file (most often in your application.css file):
 
-```haml
+```css
 //= require phrasing
 ```
 
