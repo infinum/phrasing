@@ -32,9 +32,12 @@ CONFIG
     File.open(filepath, 'w') do |f|
       f << <<-MODULE 
 module PhrasingHelper
-  # You must implement the can_edit_phrases? method. Restart the server on every change to the method.
+  # You must implement the can_edit_phrases? method.
   # Example:
-  # current_user.is_admin?
+  #
+  # def can_edit_phrases?
+  #  current_user.is_admin?
+  # end
 
   def can_edit_phrases?
     raise NotImplementedError.new("You must implement the can_edit_phrases? method")
