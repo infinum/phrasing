@@ -31,10 +31,10 @@ rake db:migrate
 
 ## Setup
 
-The rake task will also generate a phrasable.rb file in your <tt>app/controllers/concerns</tt> folder where you will need to implement your <tt>can_edit_phrases?</tt> method. Example:
+The rake task will also generate a PhrasingHelper.rb file in your <tt>app/helpers</tt> folder where you will need to implement your <tt>can_edit_phrases?</tt> method. Example:
 
 ```ruby
-module Phrasable
+module PhrasingHelper
 
   def can_edit_phrases?
     current_user.is_admin?

@@ -2,6 +2,10 @@ class PhrasingPhrasesController < ActionController::Base
 
   layout 'phrasing'
 
+  include PhrasingHelper
+
+  before_filter :authorize_editor
+
   def index
     params[:locale] ||= I18n.default_locale
     query = PhrasingPhrase
@@ -101,18 +105,22 @@ class PhrasingPhrasesController < ActionController::Base
 
   protected
 
-  def read_remote_yaml(url)
-    output = nil
-    begin
-      open(url, http_basic_authentication: [Phrasing.username, Phrasing.password]) do |remote|
-        output = remote.read()
+    def read_remote_yaml(url)
+      output = nil
+      begin
+        open(url, http_basic_authentication: [Phrasing.username, Phrasing.password]) do |remote|
+          output = remote.read()
+        end
+      rescue Exception => e
+        logger.fatal e
+        flash[:alert] = "Syncing failed: #{e}"
       end
-    rescue Exception => e
-      logger.fatal e
-      flash[:alert] = "Syncing failed: #{e}"
+      output
     end
-    output
-  end
 
+
+    def authorize_editor
+      redirect_to root_path unless can_edit_phrases?
+    end
 
 end

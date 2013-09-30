@@ -13,8 +13,8 @@ module Phrasing
       initializer "phrasing" do
         ActiveSupport.on_load(:action_controller) do
           # ActionController::Base.send(:include, PhrasableErrorHandler)
-          ActionController::Base.send(:include, Phrasable)
-          ActionController::Base.send(:helper_method, :can_edit_phrases?)
+          # ActionController::Base.send(:include, Phrasable)
+          # ActionController::Base.send(:helper_method, :can_edit_phrases?)
         end
         ::ActiveSupport.on_load(:action_view) do
           ::ActionView::Base.send :include, Bootstrap::Editable::Rails::ViewHelper
@@ -28,8 +28,6 @@ end
 module Phrasing
   
   mattr_accessor :allow_update_on_all_models_and_attributes
-  mattr_accessor :username
-  mattr_accessor :password
   mattr_accessor :route
   mattr_accessor :everything_is_html_safe
   mattr_accessor :staging_server_endpoint

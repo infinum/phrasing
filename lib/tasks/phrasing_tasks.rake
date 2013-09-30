@@ -21,23 +21,17 @@ Phrasing.whitelist = []
 # Phrasing.allow_update_on_all_models_and_attributes = true;
 CONFIG
     end
-    puts "You can change the default route and whitelist editable attributes in the phrasing initializer created in the config/intiializers folder."
+    greenify("You can change the default route and whitelist editable attributes in the phrasing initializer created in the config/intiializers folder.")
   end
 
 
-  desc "Create the Phrasable module file"
+  desc "Create the PhrasingHelper file"
   task :phrasable_creator do
-    filepath = Rails.root.join *%w(app controllers concerns phrasable.rb)
-
-    dir = File.dirname(filepath)
-    
-    unless File.directory?(dir)
-      FileUtils.mkdir_p(dir)
-    end
+    filepath = Rails.root.join *%w(app helpers phrasing_helper.rb)
 
     File.open(filepath, 'w') do |f|
       f << <<-MODULE 
-module Phrasable
+module PhrasingHelper
   # You must implement the can_edit_phrases? method. Restart the server on every change to the method.
   # Example:
   # current_user.is_admin?
@@ -48,7 +42,7 @@ module Phrasable
 end
       MODULE
     end
-    greenify("A Phrasable module has been created in your app/controllers/concerns folder.")
+    greenify("A PhrasingHelper has been created in your app/helper folder. Please implement the can_edit_phrases? method.")
     greenify("Now run 'rake db:migrate'.")
   end
 
