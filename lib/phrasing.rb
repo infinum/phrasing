@@ -13,6 +13,8 @@ module Phrasing
       initializer "phrasing" do
         ActiveSupport.on_load(:action_controller) do
           # ActionController::Base.send(:include, PhrasableErrorHandler)
+          ActionController::Base.send(:include, Phrasable)
+          ActionController::Base.send(:helper_method, :can_edit_phrases?)
         end
         ::ActiveSupport.on_load(:action_view) do
           ::ActionView::Base.send :include, Bootstrap::Editable::Rails::ViewHelper

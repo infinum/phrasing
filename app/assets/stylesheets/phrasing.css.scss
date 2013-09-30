@@ -1,77 +1,79 @@
-.inline-editable-container{
-  position: relative;
+body{
+  .inline-editable-container{
+    position: relative;
 
-  &:hover{
-    background-color: #FFFADE;
-    cursor: pointer;
+    &:hover{
+      background-color: #FFFADE;
+      cursor: pointer;
+
+      .inline-edit-link{
+        display: block;
+        color: white;
+        background-color: #333;
+      }
+    }  
+
+    .inline-editable{
+      border-bottom: 2px dotted #CCC;
+    }
 
     .inline-edit-link{
-      display: block;
+      border: 1px solid gray;
+      display: none;
+      font-size: 13px;
+      font-weight: bold;
+      background-color: black;
       color: white;
-      background-color: #333;
-    }
-  }  
+      border-radius: 3px;
+      padding: 2px 10px 2px 10px;
+      line-height: 20px;
+      position: absolute;
+      right: -47px;
+      bottom: 0;
+    }  
 
-  .inline-editable{
-    border-bottom: 2px dotted #CCC;
-  }
-
-  .inline-edit-link{
-    border: 1px solid gray;
-    display: none;
-    font-size: 13px;
-    font-weight: bold;
-    background-color: black;
-    color: white;
-    border-radius: 3px;
-    padding: 2px 10px 2px 10px;
-    line-height: 20px;
-    position: absolute;
-    right: -47px;
-    bottom: 0;
-  }  
-
-  .popover.editable-container{
-    // max-height:230px;
-    max-width:none;
-    text-align:center;
-    .popover-title{
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background-color: #f7f7f7;
-      color:black;
-      text-shadow:none;
-    }
-    .popover-content{
-      form.form-inline.editableform{
-        .control-group{
-          .editable-input{
-            textarea{
-              width: 300px;
-              height:120px;
-              max-width:300px;
-              max-height:120px;
+    .popover.editable-container{
+      // max-height:230px;
+      max-width:none;
+      text-align:center;
+      h3.popover-title{
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background-color: #f7f7f7;
+        color:black;
+        text-shadow:none;
+        line-height:18px;
+        padding:8px 14px;
+      }
+      .popover-content{
+        form.form-inline.editableform{
+          .control-group{
+            .editable-input{
+              textarea.input-large{
+                width: 300px;
+                height:120px;
+                max-width:300px;
+                max-height:120px;
+                background-color:#FFF !important;
+              }
             }
-          }
-          .editable-buttons{
-            display: block;
-            margin-top:10px;
-            line-height:20px;
-            .btn.editable-cancel{
-              margin-left:3px;
+            .editable-buttons{
+              display: block;
+              margin-top:10px;
+              line-height:20px;
+              .btn.editable-cancel{
+                margin-left:3px;
+              }
             }
-          }
-          .editable-error-block{
-            margin-top:20px;
-            font-size:14px;
-            font-weight:normal;
-            line-height:20px;
-            text-shadow:none;
+            .editable-error-block{
+              margin-top:20px;
+              font-size:14px;
+              font-weight:normal;
+              line-height:20px;
+              text-shadow:none;
+            }
           }
         }
       }
     }
   }
-
-
-
 }
