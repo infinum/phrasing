@@ -1,5 +1,5 @@
 module InlineHelper
-  def phrase(key, options = {})
+  def phrase(key, options = {}, *args)
     if can_edit_phrases?
       @object = PhrasingPhrase.where(key: key).first
       if @object.blank?
@@ -7,7 +7,7 @@ module InlineHelper
       end
       inline(@object, :value, options)
     else
-      t(key)
+      t(key, *args)
     end
   end
 
