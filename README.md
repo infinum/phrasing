@@ -4,10 +4,6 @@
 
 Phrasing is a gem for live editing phrases (copy) on websites.
 
-## Requirements
-
-1. Must have bootstrap included in your project.
-
 ## Installation
 
 Include the gem in your Gemfile
@@ -42,17 +38,16 @@ module PhrasingHelper
   
 end
 ```
+Include the phrasing **html** initializer at the top of your body
+
+```haml
+  = render 'phrasing/initializer'
+```
 
 Include the required **javascript** file (most often in your application.js file):
 
 ```javascript
-//= require bootstrap-editable-2
-```
-
-Or if you are using Bootstrap 3:
-
-```javascript
-//= require bootstrap-editable-3
+//= require phrasing
 ```
 
 Include the required **stylesheet** file (most often in your application.css file):
@@ -69,7 +64,7 @@ Start with adding your phrases simply by writting in your view file:
 
 Apart from editing phrases (basically, Rails translations) you can also inline edit your models attributes, just use the `model_phrase` method:
 
-  	= model_phrase(@post, :title)
+  = model_phrase(@post, :title)
 
 Where @post is a object with a title attribute.
 
@@ -82,7 +77,7 @@ By default, Phrasing doesn't allow updating of any attribute apart from <<t>Phra
 In the <tt>config/initializers/phrasing.rb</tt> file you can whitelist your model attributes like this:
 
 ```ruby
-Phrasing.white_list = ["Project.description", "Project.name"]
+Phrasing.white_list = ["Post.title", "Post.body"]
 ```
 
 or you can whitelist all of them (not recommended) with:
@@ -95,4 +90,4 @@ Phrasing.allow_update_on_all_models_and_attributes = true
 
 Copyright (c) 2013, Infinum
 
-Phrasing relies heavily (or is built) on two other gems: Copycat and Bootstrap-editable-rails. So thank you to the authors and all the contributors! 
+Phrasing relies heavily (or is built) on two other libraries: the Copycat gem and the ZenPen library. So thank you to the authors and all the contributors! 
