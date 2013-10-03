@@ -317,20 +317,8 @@ var editor = (function() {
 		window.getSelection().addRange( lastSelection );
 	}
 
-	function getWordCount() {
-		
-		var text = get_text( contentField );
-
-		if ( text === "" ) {
-			return 0
-		} else {
-			return text.split(/\s+/).length;
-		}
-	}
-
 	return {
-		init: init,
-		getWordCount: getWordCount
+		init: init
 	}
 
 })();
