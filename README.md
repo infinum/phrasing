@@ -41,7 +41,7 @@ end
 Include the phrasing **html** initializer at the top of your body
 
 ```haml
-  = render 'phrasing/initializer'
+= render 'phrasing/initializer'
 ```
 
 Include the required **javascript** file (most often in your application.js file):
@@ -64,9 +64,9 @@ Start with adding your phrases simply by writting in your view file:
 
 Apart from editing phrases (basically, Rails translations) you can also inline edit your models attributes, just use the `model_phrase` method:
 
-  = model_phrase(@post, :title)
+  	= model_phrase(@post, :title)
 
-Where @post is a object with a title attribute.
+Where <tt>@post</tt> is a object with a <tt>title</tt> attribute.
 
 ## Security
 
