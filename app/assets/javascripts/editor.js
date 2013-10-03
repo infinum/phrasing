@@ -63,10 +63,6 @@ var editor = (function() {
 
 	function bindElements() {
 
-		// headerField = document.querySelector( '.header' );
-		// headerField.onblur = function(){
-		// 	console.log("izasao iz fielda")
-		// }
 		contentField = document.querySelector( '.content' );
 		textOptions = document.querySelector( '.text-options' );
 
@@ -106,7 +102,6 @@ var editor = (function() {
 				return;				
 			}
 		}
-
 
 		// Check selections exist
 		if ( selection.isCollapsed === true && lastType === false ) {
@@ -204,10 +199,10 @@ var editor = (function() {
 	}
 
 	function isContentEditable(element){
-		//if any of its parents has the class of 'content-editable' go hooray
+		//if any of its parents has the class of 'phrasable' go hooray
 		while ( element.parentNode ) {
 			if (element.className !== undefined){
-				if (element.className.indexOf("content-editable")>=0){
+				if (element.className.indexOf("phrasable")>=0){
 					return true;
 				}
 			}

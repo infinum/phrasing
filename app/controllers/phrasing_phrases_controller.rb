@@ -87,7 +87,7 @@ class PhrasingPhrasesController < ActionController::Base
   end
 
   def remote_update_phrase
-    klass, attribute = params[:class], params[:attribute]
+    klass, attribute = params[:klass], params[:attribute]
     
     if Phrasing.is_whitelisted?(klass, attribute)
       class_object = klass.classify.constantize
