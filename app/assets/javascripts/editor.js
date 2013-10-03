@@ -74,8 +74,8 @@ var editor = (function() {
 		italicButton = textOptions.querySelector( '.italic' );
 		italicButton.onclick = onItalicClick;
 
-		quoteButton = textOptions.querySelector( '.quote' );
-		quoteButton.onclick = onQuoteClick;
+		// quoteButton = textOptions.querySelector( '.quote' );
+		// quoteButton.onclick = onQuoteClick;
 
 		urlButton = textOptions.querySelector( '.url' );
 		urlButton.onmousedown = onUrlClick;
@@ -154,11 +154,11 @@ var editor = (function() {
 			italicButton.className = "italic"
 		}
 
-		if ( hasNode( currentNodeList, 'BLOCKQUOTE') ) {
-			quoteButton.className = "quote active"
-		} else {
-			quoteButton.className = "quote"
-		}
+		// if ( hasNode( currentNodeList, 'BLOCKQUOTE') ) {
+		// 	quoteButton.className = "quote active"
+		// } else {
+		// 	quoteButton.className = "quote"
+		// }
 
 		if ( hasNode( currentNodeList, 'A') ) {
 			urlButton.className = "url useicons active"
@@ -224,17 +224,17 @@ var editor = (function() {
 		document.execCommand( 'italic', false );
 	}
 
-	function onQuoteClick() {
+	// function onQuoteClick() {
 
-		var nodeNames = findNodes( window.getSelection().focusNode );
+	// 	var nodeNames = findNodes( window.getSelection().focusNode );
 
-		if ( hasNode( nodeNames, 'BLOCKQUOTE' ) ) {
-			document.execCommand( 'formatBlock', false, 'p' );
-			document.execCommand( 'outdent' );
-		} else {
-			document.execCommand( 'formatBlock', false, 'blockquote' );
-		}
-	}
+	// 	if ( hasNode( nodeNames, 'BLOCKQUOTE' ) ) {
+	// 		document.execCommand( 'formatBlock', false, 'p' );
+	// 		document.execCommand( 'outdent' );
+	// 	} else {
+	// 		document.execCommand( 'formatBlock', false, 'blockquote' );
+	// 	}
+	// }
 
 	function onUrlClick() {
 

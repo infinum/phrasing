@@ -134,11 +134,11 @@ a:hover {
 	background-color: rgba(0,0,0,0.9);
 	position: absolute;
 	border-radius: 5px;
-	margin-left: -63px;
+	margin-left: -48px;
 	margin-top: -46px;
 	z-index: 1000;
 	padding: 5px 4px 5px 5px;
-	width: 125px;
+	width: 96px;
 	height: 40px;
 
 	-moz-box-sizing: border-box;

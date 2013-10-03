@@ -1,10 +1,13 @@
 //= require head
 $(document).ready(function(){
+
+/// INITIALIZE THE BUBBLE
   head.js( "/assets/editor.js",
         function(){
             editor.init();
           });
 
+/// AJAX PUT REQUEST
   var phrasables = document.querySelectorAll( '.phrasable' );
   
   for(var i = 0; i < phrasables.length; i++){
