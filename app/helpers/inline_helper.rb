@@ -14,10 +14,18 @@ module InlineHelper
   def inline(record, field_name, options={})
     return record.send(field_name).to_s.html_safe unless can_edit_phrases?
 
-    content_tag(:span, { class: 'phrasable', contenteditable: true, "data-klass" => record.class.to_s, "data-attribute" => field_name, "data-id" => record.id }) do 
+    klass = 'phrasable'
+    klass += ' phrasable_on' if editing_phrases?
+    klass += ' inverse' if options[:inverse]
+
+    content_tag(:span, { class: klass, contenteditable: true, spellcheck: "false", "data-klass" => record.class.to_s, "data-attribute" => field_name, "data-id" => record.id }) do 
       (record.send(field_name) || record.try(:key) || "#{field_name}-#{record.id}").to_s.html_safe
     end
 
+  end
+
+  def editing_phrases?
+    !session['editing_phrases']
   end
 
   alias_method :model_phrase, :inline

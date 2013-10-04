@@ -36,6 +36,8 @@ $(document).ready(function(){
   }
 
 
-
+$('#edit-mode-onoffswitch').on('click', function(){
+  alert("dadada");
+});
 
 });
