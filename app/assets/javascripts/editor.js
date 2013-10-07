@@ -112,8 +112,6 @@ var editor = (function() {
 		if ( selection.isCollapsed === false ) {
 
 			currentNodeList = findNodes( selection.focusNode );
-			// console.log(currentNodeList)
-			// console.log(selection.focusNode.nodeName)
 			// Find if highlighting is in the editable area
 			if (isContentEditable(selection.focusNode) == true) {
 				updateBubbleStates();
@@ -202,7 +200,7 @@ var editor = (function() {
 		//if any of its parents has the class of 'phrasable' go hooray
 		while ( element.parentNode ) {
 			if (element.className !== undefined){
-				if (element.className.indexOf("phrasable")>=0){
+				if (element.className.indexOf("phrasable_on")>=0){
 					return true;
 				}
 			}

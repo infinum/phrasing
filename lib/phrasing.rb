@@ -14,9 +14,6 @@ module Phrasing
         ActiveSupport.on_load(:action_controller) do
           # ActionController::Base.send(:include, PhrasableErrorHandler)
         end
-        ::ActiveSupport.on_load(:action_view) do
-          ::ActionView::Base.send :include, Bootstrap::Editable::Rails::ViewHelper
-        end
       end
     end
   end

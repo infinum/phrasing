@@ -8,10 +8,9 @@
 	overflow: hidden;
 }*/
 
-.phrasable{
+.phrasable_on{
 	border-bottom: 1px dashed black;
-
-/*	background-color: #F0F0F0;*/
+	
 	&:focus{
 		outline: none;
 	}
@@ -20,14 +19,15 @@
 		background-color: #fffadc;
 		cursor: pointer;
 	}
-}
 
-.phrasable.inverse{
+	&.inverse{
 		border-bottom: 1px dashed white;
 
 		&:hover{
 			background-color: #333333;
 		}
+	}
+
 }
 
 /*blockquote {

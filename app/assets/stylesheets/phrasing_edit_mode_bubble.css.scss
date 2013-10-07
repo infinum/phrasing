@@ -1,13 +1,12 @@
 #phrasing-edit-mode-bubble{
-  background-color: black;
+  background: rgba(00,00,00, .7);
   color:white;
   border: 1px solid grey;
   position: fixed;
   width:105px;
-  height:90px;
+  height:190px;
   bottom:10px;
   right:10px;
-
 
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -17,10 +16,8 @@
     padding-left:20px;
     padding-top:10px;
   }
-}
 
 // On/Off Switch
-#phrasing-edit-mode-bubble{
   .onoffswitch {
     padding-left:15px;
     position: relative; 
@@ -73,4 +70,13 @@
   .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
       right: 0px; 
   }
+
+// Spinner
+#phrasing-spinner{
+  margin-top: 30px;
+  
+}
+
+
+
 }
