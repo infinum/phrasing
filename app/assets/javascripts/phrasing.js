@@ -37,7 +37,7 @@ $(document).ready(function(){
   var timer = {}
 
   $('.phrasable').on('DOMNodeInserted DOMNodeRemoved DOMCharacterDataModified', function(e){
-    
+    $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "red").text("Currently editing..")
     if (phrasable_trigger_binded_events_flag == 1){
       var record = this;
   
@@ -65,6 +65,7 @@ $(document).ready(function(){
         phrasable_trigger_binded_events_flag = 0;
         $('span.phrasable[data-url="'+ url+'"]').html(new_value)
         phrasable_trigger_binded_events_flag = 1;
+        $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "green").text("Everything saved.")
       }})
   }
 

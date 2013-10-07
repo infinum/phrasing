@@ -1,10 +1,10 @@
 #phrasing-edit-mode-bubble{
-  background: rgba(00,00,00, .7);
+  background: rgba(00,00,00, 1);
   color:white;
-  border: 1px solid grey;
+  border: 2px solid black;
   position: fixed;
   width:105px;
-  height:190px;
+  height:155px;
   bottom:10px;
   right:10px;
 
@@ -13,8 +13,10 @@
   border-radius: 20px;
 
   p#edit-mode-headline{
-    padding-left:20px;
+    text-align: center;
     padding-top:10px;
+    color:white;
+    font-weight: bold;
   }
 
 // On/Off Switch
@@ -73,8 +75,24 @@
 
 // Spinner
 #phrasing-spinner{
-  margin-top: 30px;
-  
+  margin-top: 10px;
+  background-color: black;
+  text-align: center;
+  font-weight: bold;
+  height:40px;
+  p{
+    color:white;
+  }
+}
+
+#view-all-phrases{
+  margin-top:10px;
+  background-color: black;
+  text-align: center;
+  font-weight: bold;
+  a:hover{
+    text-decoration: none;
+  }
 }
 
 
