@@ -44,10 +44,13 @@ $(document).ready(function(){
 
       var record = this;
 
+      // console.log(timer)
+      
       clearTimeout(timer[$(record).data("url")]);
 
       timer[$(record).data("url")] = setTimeout(function(){
         savePhraseViaAjax(record);
+        delete timer[$(record).data("url")] 
       },2500)
     }
 

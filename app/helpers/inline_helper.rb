@@ -29,8 +29,14 @@ module InlineHelper
   private
 
     def edit_mode_on?
-      cookies['editing_mode'] == "true"
+      if cookies["editing_mode"].nil?
+        cookies['editing_mode'] = "true"
+        true
+      else  
+        cookies['editing_mode'] == "true"
+      end
     end
+
 
     def phrasing_polymorphic_url(record, attribute)
       resource = Phrasing.route
