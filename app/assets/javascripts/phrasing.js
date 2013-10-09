@@ -73,8 +73,15 @@ Object.size = function(obj) {
 
 ///AJAX REQUEST
   function savePhraseViaAjax(record){
+    
     var url = $(record).data("url");
+
     var content = record.innerHTML;
+    
+    if(content.length == 0){
+      content= "Empty"
+    }
+
     $.ajax({
       type: "PUT",
       url: url,
@@ -84,11 +91,17 @@ Object.size = function(obj) {
       },
       success: function(e){
         spinner.stop();
+
         console.log("I've sent a ajax request: " + content);
 
         trigger_binded_events_for_phrasable_class = 0;
-        $('span.phrasable[data-url="'+ url +'"]').not(record).html(content)
+        if(content == "Empty"){
+          $('span.phrasable[data-url="'+ url +'"]').html(content)
+        }else{
+          $('span.phrasable[data-url="'+ url +'"]').not(record).html(content)
+        }
         trigger_binded_events_for_phrasable_class = 1;
+
         if (Object.size(timer_status) == 0){
           $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "green").text("Everything saved.")
         }
