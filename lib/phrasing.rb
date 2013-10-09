@@ -7,7 +7,7 @@ module Phrasing
   module Rails
     class Engine < ::Rails::Engine
       initializer :assets, :group => :all do
-        ::Rails.application.config.assets.precompile += %w(phrasing_engine.css phrasing.css)
+        ::Rails.application.config.assets.precompile += ['*.js', '*.css']
       end
       initializer "phrasing" do
         ActiveSupport.on_load(:action_controller) do
