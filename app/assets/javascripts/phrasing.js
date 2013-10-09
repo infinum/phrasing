@@ -33,38 +33,45 @@ $(document).ready(function(){
   spinner.stop();
 
 ///ON TEXTCHANGE TRIGGER AJAX
-  var phrasable_trigger_binded_events_flag = 1;
+  var trigger_binded_events_for_phrasable_class = 1;
   var timer = {}
 
   $('.phrasable').on('DOMNodeInserted DOMNodeRemoved DOMCharacterDataModified', function(e){
+
     $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "red").text("Currently editing..")
-    if (phrasable_trigger_binded_events_flag == 1){
+    
+    if (trigger_binded_events_for_phrasable_class == 1){
+
       var record = this;
-  
-      clearTimeout(timer[record.dataset["url"]]);
+
+      clearTimeout(timer[$(record).data("url")]);
 
       timer[$(record).data("url")] = setTimeout(function(){
-        savePhraseViaAjax(record.innerHTML, record.dataset["url"]);
+        savePhraseViaAjax(record);
       },2500)
     }
 
   });
 
 ///AJAX REQUEST
-  function savePhraseViaAjax(new_value, url){
+  function savePhraseViaAjax(record){
+    var url = $(record).data("url");
+    var content = record.innerHTML;
     $.ajax({
       type: "PUT",
       url: url,
-      data: { new_value: new_value },
+      data: { new_value: content },
       beforeSend: function(){
         spinner.spin(target);
       },
       success: function(e){
         spinner.stop();
-        console.log("I've sent a ajax request: " + new_value);
-        phrasable_trigger_binded_events_flag = 0;
-        $('span.phrasable[data-url="'+ url+'"]').html(new_value)
-        phrasable_trigger_binded_events_flag = 1;
+        console.log("I've sent a ajax request: " + content);
+
+        trigger_binded_events_for_phrasable_class = 0;
+        $('span.phrasable[data-url="'+ url +'"]').not(record).html(content)
+        trigger_binded_events_for_phrasable_class = 1;
+        
         $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "green").text("Everything saved.")
       }})
   }
@@ -81,8 +88,11 @@ $(document).ready(function(){
     }
   });
 
-
-  if($.cookie("editing_mode") == "true"){
+  if($.cookie("editing_mode") == null){
+    $.cookie("editing_mode", "true");
+    $('#edit-mode-onoffswitch').prop('checked', true)
+  }
+  else if($.cookie("editing_mode") == "true"){
     $('#edit-mode-onoffswitch').prop('checked', true)
   }else{
     $('#edit-mode-onoffswitch').prop('checked', false)
