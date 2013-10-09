@@ -32,9 +32,22 @@ $(document).ready(function(){
   var spinner = new Spinner(opts).spin(target);
   spinner.stop();
 
+// Hash size function
+
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+
+
+
 ///ON TEXTCHANGE TRIGGER AJAX
   var trigger_binded_events_for_phrasable_class = 1;
   var timer = {}
+  var timer_status = {}
 
   $('.phrasable').on('DOMNodeInserted DOMNodeRemoved DOMCharacterDataModified', function(e){
 
@@ -47,11 +60,13 @@ $(document).ready(function(){
       // console.log(timer)
       
       clearTimeout(timer[$(record).data("url")]);
-
+      timer_status[$(record).data("url")] = 0;
+      
       timer[$(record).data("url")] = setTimeout(function(){
         savePhraseViaAjax(record);
-        delete timer[$(record).data("url")] 
+        delete timer_status[$(record).data("url")]
       },2500)
+      timer_status[$(record).data("url")] = 1;
     }
 
   });
@@ -74,8 +89,9 @@ $(document).ready(function(){
         trigger_binded_events_for_phrasable_class = 0;
         $('span.phrasable[data-url="'+ url +'"]').not(record).html(content)
         trigger_binded_events_for_phrasable_class = 1;
-        
-        $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "green").text("Everything saved.")
+        if (Object.size(timer_status) == 0){
+          $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "green").text("Everything saved.")
+        }
       }})
   }
 
