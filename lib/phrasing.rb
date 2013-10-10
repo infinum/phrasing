@@ -8,8 +8,7 @@ module Phrasing
     class Engine < ::Rails::Engine
       initializer :assets, :group => :all do
         ::Rails.application.config.assets.paths << ::Rails.root.join('app', 'assets', 'fonts')
-        ::Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
-        ::Rails.application.config.assets.precompile += ['editor.js', 'phrasing_engine.css']
+        ::Rails.application.config.assets.precompile += ['editor.js', 'phrasing_engine.css', 'icomoon.dev.svg', 'icomoon.svg', 'icomoon.eot', 'icomoon.ttf', 'icomoon.woff']
       end
       initializer "phrasing" do
         ActiveSupport.on_load(:action_controller) do
