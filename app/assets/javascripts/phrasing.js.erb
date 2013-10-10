@@ -3,7 +3,7 @@
 $(document).ready(function(){
 
 /// INITIALIZE THE BUBBLE
-  head.js( "/assets/editor.js",
+  head.js( "<%= asset_path 'editor.js' %>",
         function(){
             editor.init();
           });
