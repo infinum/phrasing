@@ -8,18 +8,19 @@ var editor = (function() {
 
 
 	function init() {
+		if ($('#zenpenbubble').length){
+			lastRange = 0;
+			bindElements();
 
-		lastRange = 0;
-		bindElements();
+			// Set cursor position
+			var range = document.createRange();
+			var selection = window.getSelection();
+			// range.setStart(headerField, 1);
+			selection.removeAllRanges();
+			selection.addRange(range);
 
-		// Set cursor position
-		var range = document.createRange();
-		var selection = window.getSelection();
-		// range.setStart(headerField, 1);
-		selection.removeAllRanges();
-		selection.addRange(range);
-
-		createEventBindings();
+			createEventBindings();
+		}
 	}
 
 	function createEventBindings( on ) {
