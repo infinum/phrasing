@@ -1,20 +1,21 @@
-.text-options#zenpenbubble
-  .options
-    %span.no-overflow
-      %span.lengthen.ui-inputs 
-        %button.url.useicons &#xe005;
-        %input.url-input{placeholder: "Type or Paste URL here", type: "text"}/
-        %button.bold b
-        %button.italic i
+- if can_edit_phrases?
+  .text-options#zenpenbubble
+    .options
+      %span.no-overflow
+        %span.lengthen.ui-inputs 
+          %button.url.useicons &#xe005;
+          %input.url-input{placeholder: "Type or Paste URL here", type: "text"}/
+          %button.bold b
+          %button.italic i
 
-#phrasing-edit-mode-bubble
-  %p#edit-mode-headline Edit mode:
-  .onoffswitch
-    %input#edit-mode-onoffswitch.onoffswitch-checkbox{checked: "checked", name: "onoffswitch", type: "checkbox"}/
-    %label.onoffswitch-label{for: "edit-mode-onoffswitch"}
-      .onoffswitch-inner
-      .onoffswitch-switch
-  #phrasing-spinner
-    %p No changes made.
-  #view-all-phrases
-    %p= link_to "All phrases", phrasing_phrases_path
+  #phrasing-edit-mode-bubble
+    %p#edit-mode-headline Edit mode:
+    .onoffswitch
+      %input#edit-mode-onoffswitch.onoffswitch-checkbox{checked: "checked", name: "onoffswitch", type: "checkbox"}/
+      %label.onoffswitch-label{for: "edit-mode-onoffswitch"}
+        .onoffswitch-inner
+        .onoffswitch-switch
+    #phrasing-spinner
+      %p No changes made.
+    #view-all-phrases
+      %p= link_to "All phrases", phrasing_phrases_path
