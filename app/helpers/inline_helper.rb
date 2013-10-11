@@ -5,7 +5,7 @@ module InlineHelper
       @record = PhrasingPhrase.where(key: key).first || PhrasingPhrase.create_phrase(key)
       inline(@record, :value, options)
     else
-      t(key, *args)
+      t(key, *args).html_safe
     end
   end
 
