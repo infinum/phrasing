@@ -14,9 +14,9 @@ class PhrasingPhrasesController < ActionController::Base
     if params[:search] and !params[:search].blank?
         key_like = PhrasingPhrase.arel_table[:key].matches("%#{params[:search]}%")
         value_like = PhrasingPhrase.arel_table[:value].matches("%#{params[:search]}%")
-        @phrasing_phrases = query.where(key_like.or(value_like))
+        @phrasing_phrases = query.where(key_like.or(value_like)).order(:key)
     else
-      @phrasing_phrases = query.all
+      @phrasing_phrases = query.order(:key)
     end
     
     @locale_names = PhrasingPhrase.uniq.pluck(:locale)

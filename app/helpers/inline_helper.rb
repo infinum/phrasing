@@ -1,6 +1,7 @@
 module InlineHelper
 
   def phrase(key, options = {}, *args)
+    key = key.to_s
     if can_edit_phrases?
       @record = PhrasingPhrase.where(key: key).first || PhrasingPhrase.create_phrase(key)
       inline(@record, :value, options)
