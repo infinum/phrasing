@@ -18,28 +18,6 @@ class PhrasingPhrase < ActiveRecord::Base
     phrasing_phrase
   end
 
-  def check_ambiguity
-    check_ambiguity_on_ancestors
-    check_ambiguity_on_successors
-  end
-
-  def check_ambiguity_on_ancestors
-    stripped_key = key
-    while stripped_key.include?('.')
-      stripped_key = stripped_key.split('.')[0..-2].join('.')
-      if PhrasingPhrase.where(key: stripped_key).count > 0
-          raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists a '#{stripped_key}' key, unable to call a new key '#{key}'"
-      end
-    end
-  end
-
-  def check_ambiguity_on_successors
-    key_successor = "#{key}."
-    if PhrasingPhrase.where(PhrasingPhrase.arel_table[:key].matches("%#{key_successor}%")).count > 0
-      raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists one or multiple keys beginning with '#{key_successor}', unable to call a new key '#{key}'"
-    end
-  end
-
   module Serialize
 
     def import_yaml(yaml)
@@ -90,5 +68,30 @@ class PhrasingPhrase < ActiveRecord::Base
   end
 
   extend Serialize
+
+
+  private
+
+    def check_ambiguity
+      check_ambiguity_on_ancestors
+      check_ambiguity_on_successors
+    end
+
+    def check_ambiguity_on_ancestors
+      stripped_key = key
+      while stripped_key.include?('.')
+        stripped_key = stripped_key.split('.')[0..-2].join('.')
+        if PhrasingPhrase.where(key: stripped_key).count > 0
+            raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists a '#{stripped_key}' key, unable to call a new key '#{key}'"
+        end
+      end
+    end
+
+    def check_ambiguity_on_successors
+      key_successor = "#{key}."
+      if PhrasingPhrase.where(PhrasingPhrase.arel_table[:key].matches("%#{key_successor}%")).count > 0
+        raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists one or multiple keys beginning with '#{key_successor}', unable to call a new key '#{key}'"
+      end
+    end
 
 end
