@@ -108,7 +108,7 @@ Object.size = function(obj) {
       }})
   }
 
-/// EDIT MODE SWITCH MODE BUTTON
+// EDIT MODE SWITCH MODE BUTTON
   $('#edit-mode-onoffswitch').on('change', function(){
     if(this.checked){
         $('.phrasable').addClass("phrasable_on").attr("contenteditable", "true");
@@ -130,7 +130,18 @@ Object.size = function(obj) {
     $('#edit-mode-onoffswitch').prop('checked', false)
   }
 
+// Information icon for the edit mode bubble
 
+  $('#phrasing-info-icon-container, #phrasing-info-container').on('click',function(){
+    if($('#phrasing-info-container').is(':visible')){
+      $('#phrasing-edit-mode-bubble').animate({height: 180}, 200, function(){
+        $('#phrasing-info-container').hide()
+      })
+    }else{
+      $('#phrasing-info-container').show();
+      $('#phrasing-edit-mode-bubble').animate({height: 255}, 200)
+    }
+  }); 
 
 
 
