@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = "contact@infinum.co"
   s.homepage    = "http://github.com/infinum/phrasing"
   s.description = "Phrasing!"
-  s.authors     = ['Tomislav Car']
+  s.authors     = ['Tomislav Car', 'Damir Svrtan']
 
   s.files = `git ls-files`.split("\n")  
   s.require_paths = ["lib"]
