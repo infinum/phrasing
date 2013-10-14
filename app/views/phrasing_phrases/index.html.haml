@@ -14,4 +14,7 @@
         %td.key
           = link_to "#{t.key}", edit_phrasing_phrase_path(t)
         %td.value
-          = t.value.html_safe
+          - if t.value
+            = t.value.html_safe
+          - else
+            = t.value
