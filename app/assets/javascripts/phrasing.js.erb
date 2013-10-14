@@ -1,6 +1,6 @@
 //= require head
 //= require spin
-$(document).ready(function(){
+var phrasing_setup = function(){
 
 /// INITIALIZE THE BUBBLE
   head.js( "<%= asset_path 'editor.js' %>",
@@ -142,10 +142,7 @@ Object.size = function(obj) {
       $('#phrasing-edit-mode-bubble').animate({height: 255}, 200)
     }
   }); 
+};
 
-
-
-
-
-
-});
+$(document).ready(phrasing_setup)
+$(document).on('page:load', phrasing_setup)
