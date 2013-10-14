@@ -90,4 +90,4 @@ Phrasing.allow_update_on_all_models_and_attributes = true
 
 Copyright (c) 2013, Infinum
 
-Phrasing relies heavily (or is built) on two other libraries: the Copycat gem and the ZenPen library. So thank you to the authors and all the contributors! 
+Phrasing relies heavily (or is built) on two other libraries: the [Copycat gem](https://github.com/Zorros/copycat) and the [ZenPen library](https://github.com/tholman/zenpen/tree/master/). So thank you to the authors and all the contributors! 
