@@ -89,7 +89,7 @@ class PhrasingPhrase < ActiveRecord::Base
 
     def check_ambiguity_on_successors
       key_successor = "#{key}."
-      if PhrasingPhrase.where(PhrasingPhrase.arel_table[:key].matches("%#{key_successor}%")).count > 0
+      if PhrasingPhrase.where(PhrasingPhrase.arel_table[:key].matches("#{key_successor}%")).count > 0
         raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists one or multiple keys beginning with '#{key_successor}', unable to call a new key '#{key}'"
       end
     end
