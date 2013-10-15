@@ -1,7 +1,6 @@
 require 'phrasing'
 require "phrasing/implementation"
 require "phrasing/simple"
-require 'phrasing/phrasable_error_handler'
 
 module Phrasing
   module Rails
@@ -10,11 +9,6 @@ module Phrasing
         ::Rails.application.config.assets.paths << ::Rails.root.join('app', 'assets', 'fonts')
         ::Rails.application.config.assets.paths << ::Rails.root.join('app', 'assets', 'images')
         ::Rails.application.config.assets.precompile += ['editor.js', 'phrasing_engine.css', 'icomoon.dev.svg', 'icomoon.svg', 'icomoon.eot', 'icomoon.ttf', 'icomoon.woff', 'phrasing_information_icon.png']
-      end
-      initializer "phrasing" do
-        ActiveSupport.on_load(:action_controller) do
-          # ActionController::Base.send(:include, PhrasableErrorHandler)
-        end
       end
     end
   end

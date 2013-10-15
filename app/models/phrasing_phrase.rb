@@ -1,5 +1,4 @@
 class PhrasingPhrase < ActiveRecord::Base
-  require 'phrasing/ambiguous_phrases_error'
 
   unless ENV['PHRASING_DEBUG']
     self.logger = Logger.new('/dev/null')
@@ -7,7 +6,9 @@ class PhrasingPhrase < ActiveRecord::Base
 
   validates_presence_of :key, :locale
 
-  before_create :check_ambiguity
+  # These validation methods are used so the YAML file can be exported/imported properly.
+  validate :check_ambiguity, on: :create, :unless => Proc.new { |phrase| phrase.key.nil? }
+  validate :key_muts_not_end_with_a_dot, on: :create, :unless => Proc.new { |phrase| phrase.key.nil? }
 
   def self.create_phrase(key)
     phrasing_phrase = PhrasingPhrase.new
@@ -69,7 +70,6 @@ class PhrasingPhrase < ActiveRecord::Base
 
   extend Serialize
 
-
   private
 
     def check_ambiguity
@@ -82,7 +82,7 @@ class PhrasingPhrase < ActiveRecord::Base
       while stripped_key.include?('.')
         stripped_key = stripped_key.split('.')[0..-2].join('.')
         if PhrasingPhrase.where(key: stripped_key).count > 0
-            raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists a '#{stripped_key}' key, unable to call a new key '#{key}'"
+            errors.add(:key, "can't be named '#{key}', there already exists a key named '#{stripped_key}'. Ambiguous calling!")
         end
       end
     end
@@ -90,8 +90,12 @@ class PhrasingPhrase < ActiveRecord::Base
     def check_ambiguity_on_successors
       key_successor = "#{key}."
       if PhrasingPhrase.where(PhrasingPhrase.arel_table[:key].matches("#{key_successor}%")).count > 0
-        raise Phrasing::AmbiguousPhrasesError, "Ambiguous calling! There exists one or multiple keys beginning with '#{key_successor}', unable to call a new key '#{key}'"
+        errors.add(:key, "can't be named '#{key}', there already exists one or multiple keys beginning with '#{key_successor}'. Ambiguous calling!")
       end
+    end
+
+    def key_muts_not_end_with_a_dot
+      errors.add(:key, "mustn't end with a dot") if key[-1] == "."
     end
 
 end
