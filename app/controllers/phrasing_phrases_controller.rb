@@ -96,7 +96,7 @@ class PhrasingPhrasesController < ActionController::Base
       @object.save!
       render :json => @object
     else
-      render status: 403, text: "#{klass}.#{attribute} not whitelisted."
+      render status: 403, text: "Attribute not whitelisted!"
     end    
 
     rescue ActiveRecord::RecordInvalid => e

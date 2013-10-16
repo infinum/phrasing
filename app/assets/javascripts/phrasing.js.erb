@@ -34,13 +34,13 @@ var phrasing_setup = function(){
 
 // Hash size function
 
-Object.size = function(obj) {
-    var size = 0, key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
-    }
-    return size;
-};
+  Object.size = function(obj) {
+      var size = 0, key;
+      for (key in obj) {
+          if (obj.hasOwnProperty(key)) size++;
+      }
+      return size;
+  };
 
 
 
@@ -92,7 +92,7 @@ Object.size = function(obj) {
       success: function(e){
         spinner.stop();
 
-        console.log("I've sent a ajax request: " + content);
+        // console.log("I've sent a ajax request: " + content);
 
         trigger_binded_events_for_phrasable_class = 0;
         if(content == "Empty"){
@@ -105,7 +105,18 @@ Object.size = function(obj) {
         if (Object.size(timer_status) == 0){
           $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "green").text("Everything saved.")
         }
-      }})
+      },
+      error: function(e){
+        spinner.stop();
+        var warningMessages = [e.responseText, "Unable to save!"];
+        var intervalIndex = 0;
+        $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "red").text(warningMessages[1])
+        setInterval(function(){
+          var text = warningMessages[intervalIndex++ % warningMessages.length]
+          $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "red").text(text)
+        },2000);
+      }
+    })
   }
 
 // EDIT MODE SWITCH MODE BUTTON
