@@ -8,6 +8,8 @@
   bottom:10px;
   right:10px;
   z-index: 1000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:14px;
 
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -91,8 +93,11 @@
     // background-color: black;
     text-align: center;
     font-weight: bold;
-    a:hover{
-      text-decoration: none;
+    a{
+      color: #0088cc;
+      &:hover{
+        text-decoration: none;
+      }
     }
   }
 
@@ -112,6 +117,7 @@
       font-size:12px;
       line-height:14px;
     }
+    color: #8c8c8c;
   }
 
 }
