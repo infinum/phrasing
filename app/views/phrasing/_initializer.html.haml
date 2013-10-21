@@ -18,7 +18,7 @@
     #phrasing-spinner
       %p No changes made.
     #view-all-phrases
-      %p= link_to "All phrases", phrasing_phrases_path
+      %p= link_to "All phrases", phrasing_phrases_path, data: { no_turbolink: true }
     #phrasing-info-icon-container
       = image_tag "phrasing_information_icon.png", class: "phrasing-info-icon"
     #phrasing-info-container
