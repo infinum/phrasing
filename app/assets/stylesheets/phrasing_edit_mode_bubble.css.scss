@@ -118,6 +118,9 @@
       line-height:14px;
     }
     color: #8c8c8c;
+    &.phrasing-info-visible{
+      display:block;
+    }
   }
 
 }
