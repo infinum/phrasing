@@ -1,12 +1,16 @@
 module InlineHelper
+# Normalna fraza
+# phrase("headline", url: www.infinum.co/yabadaba, inverse: true, interpolation: {min: 15, max: 20})
+# Fraza za neki data model
+# phrase(@record, :title, inverse: true, class: phrase-record-title)
 
-  def phrase(key, options = {}, *args)
-    key = key.to_s
-    if can_edit_phrases?
-      @record = PhrasingPhrase.where(key: key).first || PhrasingPhrase.create_phrase(key)
-      inline(@record, :value, options)
+  def phrase(*args)
+    if args[0].class == String or args[0].class == Symbol
+      key, options = args[0].to_s, args[1]
+      phrasing_phrase(key,options)
     else
-      t(key, *args).html_safe
+      record, field_name, options = args[0], args[1], args[2]
+      inline(record, field_name, options || {})
     end
   end
 
@@ -22,12 +26,21 @@ module InlineHelper
     content_tag(:span, { class: klass, contenteditable: edit_mode_on?, spellcheck: false,   "data-url" => url}) do 
       (record.send(field_name) || record.try(:key) || "#{field_name}-#{record.id}").to_s.html_safe
     end
-
   end
 
   alias_method :model_phrase, :inline
 
   private
+  
+    def phrasing_phrase(key, options = {})
+      key = key.to_s
+      if can_edit_phrases?
+        @record = PhrasingPhrase.where(key: key).first || PhrasingPhrase.create_phrase(key)
+        inline(@record, :value, options || {})
+      else
+        options.try(:[], :interpolation) ? t(key, options[:interpolation]).html_safe : t(key).html_safe
+      end
+    end
 
     def edit_mode_on?
       if cookies["editing_mode"].nil?
@@ -37,7 +50,6 @@ module InlineHelper
         cookies['editing_mode'] == "true"
       end
     end
-
 
     def phrasing_polymorphic_url(record, attribute)
       resource = Phrasing.route
