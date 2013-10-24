@@ -142,7 +142,7 @@ var phrasing_setup = function(){
   }
 
 // Information icon for the edit mode bubble
-  $('#phrasing-info-icon-container, #phrasing-info-container').off().on('click',function(){
+  $('#phrasing-info-icon-container, #phrasing-info-container').on('click',function(){
     if($('#phrasing-info-container').is(':visible')){
       $('#phrasing-edit-mode-bubble').animate({height: 180}, 200, function(){
         $('#phrasing-info-container').hide()
