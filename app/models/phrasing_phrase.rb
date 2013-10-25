@@ -5,16 +5,22 @@ class PhrasingPhrase < ActiveRecord::Base
   end
 
   validates_presence_of :key, :locale
-
+  # validates_uniqueness_of :key, uniqueness: {scope: :locale}
+  validate :uniqueness_of_key_on_locale_scope, on: :create
   # These validation methods are used so the YAML file can be exported/imported properly.
   validate :check_ambiguity, on: :create, :unless => Proc.new { |phrase| phrase.key.nil? }
-  validate :key_muts_not_end_with_a_dot, on: :create, :unless => Proc.new { |phrase| phrase.key.nil? }
+  validate :key_must_not_end_with_a_dot, on: :create, :unless => Proc.new { |phrase| phrase.key.nil? }
+
+
+  def uniqueness_of_key_on_locale_scope
+    errors.add(:key, "Duplicate entry #{key} for locale #{locale}") unless PhrasingPhrase.where(key: key).where(locale: locale).empty?
+  end
 
   def self.create_phrase(key)
     phrasing_phrase = PhrasingPhrase.new
+    phrasing_phrase.locale = I18n.locale
     phrasing_phrase.key = key.to_s
     phrasing_phrase.value = key.to_s.humanize
-    phrasing_phrase.locale = I18n.locale
     phrasing_phrase.save!
     phrasing_phrase
   end
@@ -94,7 +100,7 @@ class PhrasingPhrase < ActiveRecord::Base
       end
     end
 
-    def key_muts_not_end_with_a_dot
+    def key_must_not_end_with_a_dot
       errors.add(:key, "mustn't end with a dot") if key[-1] == "."
     end
 

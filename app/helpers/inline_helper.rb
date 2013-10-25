@@ -1,7 +1,8 @@
 module InlineHelper
-# Normalna fraza
+# Normal phrase
 # phrase("headline", url: www.infinum.co/yabadaba, inverse: true, interpolation: {min: 15, max: 20})
-# Fraza za neki data model
+
+# A phrase for a data model
 # phrase(@record, :title, inverse: true, class: phrase-record-title)
 
   def phrase(*args)
