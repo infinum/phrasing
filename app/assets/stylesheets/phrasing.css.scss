@@ -11,6 +11,11 @@
 .phrasable_on{
 	border-bottom: 1px dashed black;
 	
+	a{
+  	pointer-events: none;
+   	cursor: default;
+	}
+	
 	&:focus{
 		outline: none;
 	}

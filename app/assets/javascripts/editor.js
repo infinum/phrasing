@@ -190,7 +190,7 @@ var editor = (function() {
 			element = element.parentNode;
 
 			if ( element.nodeName === 'A' ) {
-				nodeNames.url = element.href;
+				nodeNames.url = element.getAttribute("href");
 			}
 		}
 
@@ -293,15 +293,7 @@ var editor = (function() {
 
 		// Unlink any current links
 		document.execCommand( 'unlink', false );
-
 		if (url !== "") {
-		
-			// Insert HTTP if it doesn't exist.
-			if ( !url.match("^(http|https)://") ) {
-
-				url = "http://" + url;	
-			} 
-
 			document.execCommand( 'createLink', false, url );
 		}
 	}
