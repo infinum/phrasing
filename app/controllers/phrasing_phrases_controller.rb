@@ -53,8 +53,8 @@ class PhrasingPhrasesController < ActionController::Base
   end
 
   def upload
-      PhrasingPhrase.import_yaml(params["file"].tempfile)
-      redirect_to phrasing_phrases_path, notice: "YAML file uploaded successfully!"
+      number_of_changes = PhrasingPhrase.import_yaml(params["file"].tempfile)
+      redirect_to phrasing_phrases_path, notice: "YAML file uploaded successfully! Number of phrases changed: #{number_of_changes}."
     rescue Exception => e
       logger.info "\n#{e.class}\n#{e.message}"
       flash[:alert] = "There was an error processing your upload! ##{e.message}"
