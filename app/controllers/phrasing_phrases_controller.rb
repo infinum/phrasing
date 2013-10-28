@@ -16,7 +16,7 @@ class PhrasingPhrasesController < ActionController::Base
         value_like = PhrasingPhrase.arel_table[:value].matches("%#{params[:search]}%")
         @phrasing_phrases = query.where(key_like.or(value_like)).order(:key)
     else
-      @phrasing_phrases = query.order(:key)
+      @phrasing_phrases = query.where("value is not null").order(:key) + query.where("value is null").order(:key)
     end
     
     @locale_names = PhrasingPhrase.uniq.pluck(:locale)
