@@ -86,6 +86,17 @@ or you can whitelist all of them (not recommended) with:
 Phrasing.allow_update_on_all_models_and_attributes = true
 ```
 
+## Turbolinks
+
+If you're experiencing problems with Rails apps using Turbolinks, include the [jQuery-turbolinks](https://github.com/kossnocorp/jquery.turbolinks) gem in your application and simply require it in the following order:
+
+```javascript
+//= require jquery
+//= require jquery.turbolinks
+//= require phrasing
+//= require turbolinks
+```
+
 ## Authors
 
 Copyright (c) 2013, Infinum
