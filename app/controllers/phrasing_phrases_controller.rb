@@ -57,7 +57,13 @@ class PhrasingPhrasesController < ActionController::Base
       redirect_to phrasing_phrases_path, notice: "YAML file uploaded successfully! Number of phrases changed: #{number_of_changes}."
     rescue Exception => e
       logger.info "\n#{e.class}\n#{e.message}"
-      flash[:alert] = "There was an error processing your upload! ##{e.message}"
+      message = if params[:file].nil?
+        "Please choose a file."
+      else
+        "Please upload a valid YAML file."
+      end
+
+      flash[:alert] = "There was an error processing your upload! #{message}"
       render action: 'import_export', status: 400
   end
 
