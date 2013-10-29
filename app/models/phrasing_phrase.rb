@@ -4,9 +4,9 @@ class PhrasingPhrase < ActiveRecord::Base
 
   validate :uniqueness_of_key_on_locale_scope, on: :create
 
-  has_many :phrasing_phrase_versions, dependent: :destroy
+  has_many :versions, dependent: :destroy, class_name: "PhrasingPhraseVersion"
 
-  after_save :version_it
+  after_update :version_it
 
   def self.create_phrase(key)
     phrasing_phrase = PhrasingPhrase.new
