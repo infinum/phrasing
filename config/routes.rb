@@ -9,5 +9,5 @@ Rails.application.routes.draw do
       put 'remote_update_phrase'
     end
   end
-  resources :phrasing_phrase_versions, only: [:delete]
+  resources :phrasing_phrase_versions, :as => 'phrasing_phrase_versions', :controller => 'phrasing_phrase_versions', only: [:destroy]
 end

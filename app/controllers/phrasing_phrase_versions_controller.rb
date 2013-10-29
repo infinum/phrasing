@@ -1,9 +1,9 @@
 class PhrasingPhraseVersionsController < ActionController::Base
 
-  def delete
-    @phrasing_phrase_version = PhrasingPhraseVersions.find(params[:id])
+  def destroy
+    @phrasing_phrase_version = PhrasingPhraseVersion.find(params[:id])
     @phrasing_phrase_version.destroy
-    redirect_to @phrasing_phrase_version.phrasing_phrase
+    redirect_to edit_phrasing_phrase_path(@phrasing_phrase_version.phrasing_phrase.id)
   end
 
 end
