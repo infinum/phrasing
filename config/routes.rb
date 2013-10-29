@@ -9,4 +9,12 @@ Rails.application.routes.draw do
       put 'remote_update_phrase'
     end
   end
+
+  resources :phrasing_phrase_versions, only: [:delete] do
+    member do
+      post "revert"
+    end
+  end
+
+
 end
