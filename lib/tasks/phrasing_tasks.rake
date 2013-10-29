@@ -3,7 +3,7 @@ namespace :phrasing do
   task :install do
     Rake::Task["phrasing_rails_engine:install:migrations"].invoke
     Rake::Task["phrasing:install_initializer"].invoke
-    Rake::Task["phrasing:phrasable_creator"].invoke
+    Rake::Task["phrasing:install_phrasing_helper"].invoke
   end
 
   desc "Create the initializer file"
@@ -26,7 +26,7 @@ CONFIG
 
 
   desc "Create the PhrasingHelper file"
-  task :phrasable_creator do
+  task :install_phrasing_helper do
     filepath = Rails.root.join *%w(app helpers phrasing_helper.rb)
 
     File.open(filepath, 'w') do |f|
@@ -45,8 +45,8 @@ module PhrasingHelper
 end
       MODULE
     end
-    greenify("A PhrasingHelper has been created in your app/helper folder. Please implement the can_edit_phrases? method.")
-    greenify("Now run 'rake db:migrate'.")
+    greenify "A PhrasingHelper has been created in your app/helper folder. Please implement the can_edit_phrases? method." 
+    greenify "Now run 'rake db:migrate'." 
   end
 
 

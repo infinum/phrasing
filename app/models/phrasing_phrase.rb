@@ -1,17 +1,12 @@
 class PhrasingPhrase < ActiveRecord::Base
 
-  unless ENV['PHRASING_DEBUG']
-    self.logger = Logger.new('/dev/null')
-  end
-
   validates_presence_of :key, :locale
-  # validates_uniqueness_of :key, uniqueness: {scope: :locale}
+
   validate :uniqueness_of_key_on_locale_scope, on: :create
 
+  has_many :phrasing_phrase_versions, dependent: :destroy
 
-  def uniqueness_of_key_on_locale_scope
-    errors.add(:key, "Duplicate entry #{key} for locale #{locale}") unless PhrasingPhrase.where(key: key).where(locale: locale).empty?
-  end
+  after_save :version_it
 
   def self.create_phrase(key)
     phrasing_phrase = PhrasingPhrase.new
@@ -53,4 +48,13 @@ class PhrasingPhrase < ActiveRecord::Base
 
   extend Serialize
 
+  private
+
+    def uniqueness_of_key_on_locale_scope
+      errors.add(:key, "Duplicate entry #{key} for locale #{locale}") unless PhrasingPhrase.where(key: key).where(locale: locale).empty?
+    end
+
+    def version_it
+      PhrasingPhraseVersion.create(phrasing_phrase_id: id,value: value)
+    end
 end
