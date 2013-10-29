@@ -3,7 +3,7 @@
     - locale_options = options_for_select([nil] + @locale_names.map{|l| [l,l]}, params[:locale])
     = select_tag 'locale', locale_options
     = text_field_tag :search, params[:search], :placeholder => 'Search for keys or values', :size => 40
-    = submit_tag 'Search'
+    = submit_tag 'Search', class: "btn btn-success"
 - if @phrasing_phrases.any?
   %table
     %tr
