@@ -55,6 +55,6 @@ class PhrasingPhrase < ActiveRecord::Base
     end
 
     def version_it
-      PhrasingPhraseVersion.create(phrasing_phrase_id: id,value: value)
+      PhrasingPhraseVersion.create(phrasing_phrase_id: id,value: value) unless value.nil?
     end
 end

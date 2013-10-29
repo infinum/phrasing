@@ -9,8 +9,11 @@ namespace :phrasing do
   desc "Create the initializer file"
   task :install_initializer do
     filepath = Rails.root.join *%w(config initializers phrasing.rb)
-    File.open(filepath, 'w') do |f|
-      f << <<-CONFIG
+    if File.exists?(filepath)
+      alert "Phrasing config file already exists."
+    else
+      File.open(filepath, 'w') do |f|
+        f << <<-CONFIG
 Phrasing.setup do |config|
   config.route = 'phrasing'
 end
@@ -20,17 +23,20 @@ end
 Phrasing.whitelist = []
 # Phrasing.allow_update_on_all_models_and_attributes = true;
 CONFIG
+      end
+      notice("You can change the default route and whitelist editable attributes in the phrasing initializer created in the config/intiializers folder.")
     end
-    greenify("You can change the default route and whitelist editable attributes in the phrasing initializer created in the config/intiializers folder.")
   end
 
 
   desc "Create the PhrasingHelper file"
   task :install_phrasing_helper do
     filepath = Rails.root.join *%w(app helpers phrasing_helper.rb)
-
-    File.open(filepath, 'w') do |f|
-      f << <<-MODULE 
+    if File.exists?(filepath)
+      alert "A phrasing helper already exists."
+    else    
+      File.open(filepath, 'w') do |f|
+        f << <<-MODULE 
 module PhrasingHelper
   # You must implement the can_edit_phrases? method.
   # Example:
@@ -44,14 +50,19 @@ module PhrasingHelper
   end
 end
       MODULE
-    end
-    greenify "A PhrasingHelper has been created in your app/helper folder. Please implement the can_edit_phrases? method." 
-    greenify "Now run 'rake db:migrate'." 
+      end
+      notice "A PhrasingHelper has been created in your app/helper folder. Please implement the can_edit_phrases? method." 
+      notice "Now run 'rake db:migrate'."
+    end 
   end
 
 
 end
 
-def greenify(text)
+def notice(text)
   puts "\033[#{32}m#{text}\033[0m"
+end
+
+def alert(text)
+  puts "\033[#{31}m#{text}\033[0m"
 end
