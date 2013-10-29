@@ -1,7 +1,20 @@
 .edit
   %h2= @phrasing_phrase.key
-  = button_to "Delete this item", phrasing_phrase_path(@phrasing_phrase), :method => :delete, :onclick => "return confirm('Are you sure?');"
+  = link_to "Delete Phrase", phrasing_phrase_path(@phrasing_phrase), class: "btn btn-danger delete-phrase", :method => :delete, :onclick => "return confirm('Are you sure?');"
   = form_for @phrasing_phrase, :url => { :action => "update" } do |f|
     = f.text_area :value, :rows => 12
-    = f.submit "Update"
-  = link_to "Cancel", phrasing_phrases_path
+    = f.submit "Update", class: "btn btn-success submit-edit-phrase"
+  %br
+  - unless @phrasing_phrase.versions.empty?
+    %table.phrase-versions
+      %tr
+        %th Value
+        %th Created_at
+        %th
+        %th
+      - @phrasing_phrase.versions.reverse.each do |version|
+        %tr
+          %td.phrasing-version-value= version.value.html_safe
+          %td.phrasing-version-created_at= version.created_at.strftime("%d-%m-%Y %H:%M:%S")
+          %td= link_to "Revert", "#", class: "btn btn-success"
+          %td= link_to "Delete", "#", class: "btn btn-danger"
