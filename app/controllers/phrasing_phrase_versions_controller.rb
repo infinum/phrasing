@@ -6,8 +6,4 @@ class PhrasingPhraseVersionsController < ActionController::Base
     redirect_to @phrasing_phrase_version.phrasing_phrase
   end
 
-  def revert
-    @phrasing_phrase_version = PhrasingPhraseVersions.find(params[:id])
-  end
-
 end
