@@ -12,7 +12,7 @@ module Phrasing
       value = super(locale, key, scope, options)
       if value.is_a?(String) || value.nil?
         phrasing_phrase = PhrasingPhrase.new
-        phrasing_phrase.locale = locale.to_s, 
+        phrasing_phrase.locale = locale.to_s
         phrasing_phrase.key = scoped_key
         phrasing_phrase.value = value
         phrasing_phrase.save
