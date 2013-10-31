@@ -6,6 +6,9 @@
     = f.submit "Update", class: "btn btn-success submit-edit-phrase"
   %br
   - unless @phrasing_phrase.versions.empty?
+    %br
+    %h2 Previous Versions
+    %br
     %table.phrase-versions
       %tr
         %th Value
