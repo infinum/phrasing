@@ -24,7 +24,7 @@ Phrasing.whitelist = []
 # Phrasing.allow_update_on_all_models_and_attributes = true;
 CONFIG
       end
-      notice("You can change the default route and whitelist editable attributes in the phrasing initializer created in the config/intiializers folder.")
+      notice("created") + " config/intiializers/phrasing.rb"
     end
   end
 
@@ -51,7 +51,7 @@ module PhrasingHelper
 end
       MODULE
       end
-      notice "A PhrasingHelper has been created in your app/helper folder. Please implement the can_edit_phrases? method." 
+      notice("created")+ " app/helpers/phrasing_helper.rb" 
       notice "Now run 'rake db:migrate'."
     end 
   end
