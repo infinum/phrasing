@@ -24,7 +24,8 @@ Phrasing.whitelist = []
 # Phrasing.allow_update_on_all_models_and_attributes = true;
 CONFIG
       end
-      notice("created") + " config/intiializers/phrasing.rb"
+      notice("created")
+      puts " config/intiializers/phrasing.rb"
     end
   end
 
@@ -51,7 +52,8 @@ module PhrasingHelper
 end
       MODULE
       end
-      notice("created")+ " app/helpers/phrasing_helper.rb" 
+      notice("created")
+      puts " app/helpers/phrasing_helper.rb" 
       notice "Now run 'rake db:migrate'."
     end 
   end
