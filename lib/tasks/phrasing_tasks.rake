@@ -54,7 +54,7 @@ end
       end
       notice("created")
       puts " app/helpers/phrasing_helper.rb" 
-      notice "Now run 'rake db:migrate'."
+      notice "Now run 'rake db:migrate'.\n"
     end 
   end
 
