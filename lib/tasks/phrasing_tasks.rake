@@ -62,9 +62,9 @@ end
 end
 
 def notice(text)
-  puts "\033[#{32}m#{text}\033[0m"
+  print "\033[#{32}m#{text}\033[0m"
 end
 
 def alert(text)
-  puts "\033[#{31}m#{text}\033[0m"
+  print "\033[#{31}m#{text}\033[0m"
 end
