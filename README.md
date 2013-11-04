@@ -62,11 +62,11 @@ Start with adding your phrases simply by writting in your view file:
 
 	= phrase('my-first-phrase')
 
-Apart from editing phrases (basically, Rails translations) you can also inline edit your models attributes, just use the `model_phrase` method:
+Apart from editing phrases (basically, Rails translations) you can also inline edit your models attributes, just use the same `phrase` method, with the first attribute being the record and the second one the records attribute:
 
-  	= model_phrase(@post, :title)
+  	= phrase(@post, :title)
 
-Where <tt>@post</tt> is a object with a <tt>title</tt> attribute.
+In the above example, <tt>@post</tt> is the record with a <tt>title</tt> attribute.
 
 ## Security
 
@@ -99,6 +99,16 @@ If you're experiencing problems with Rails apps using Turbolinks, include the [j
 //= require jquery.turbolinks
 //= require phrasing
 //= require turbolinks
+```
+
+## Phrasing Appearance
+
+The `phrase` view helper can take the `options` hash as the last parameter. Features:
+```ruby
+url: custom_url # point Phrasing to other actions in other controllers
+inverse: true # change the hovered background and underline colors to better fit darker backgrounds
+class: custom_class # add custom CSS classes to your phrases to change the appearance of phrases in your application 
+interpolation: { %min: 10 } # add variables to your translations just like w/ I18n
 ```
 
 ## Authors
