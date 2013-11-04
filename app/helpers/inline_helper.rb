@@ -21,6 +21,7 @@ module InlineHelper
     klass = 'phrasable'
     klass += ' phrasable_on' if edit_mode_on?
     klass += ' inverse' if options[:inverse]
+    klass += options[:class] if options[:class]
 
     url = phrasing_polymorphic_url(record, field_name)
 
