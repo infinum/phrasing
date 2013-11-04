@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/infinum/phrasing"
   s.description = "Phrasing!"
   s.authors     = ['Tomislav Car', 'Damir Svrtan']
+  s.license     = "MIT"
 
   s.files = `git ls-files`.split("\n")  
   s.require_paths = ["lib"]
