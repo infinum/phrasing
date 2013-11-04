@@ -101,13 +101,16 @@ If you're experiencing problems with Rails apps using Turbolinks, include the [j
 //= require turbolinks
 ```
 
-## Phrase View Helper Additional Info
+## Phrasing Appearance
 
 The `phrase` view helper can take the `options` hash as the last parameter. Features:
+```ruby
+url: custom_url # point Phrasing to other actions in other controllers
+inverse: true # change the hovered background and underline colors to better fit darker backgrounds
+class: custom_class # add custom CSS classes to your phrases to change the appearance of phrases in your application 
+interpolation: { %min: 10 } # add variables to your translations just like w/ I18n
+```
 
-	url: custom_url # Give the view helper the extra url parameter to point at a custom url, not only at the Phrasing Engine
-	inverse: true # The inverse option is used to change the hovered background and underline colors to better fit darker backgrounds
-	class: custom_class #Add custom CSS classes to your phrases and change the appearance of phrases in your application 
 ## Authors
 
 Copyright (c) 2013, Infinum
