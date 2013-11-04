@@ -86,6 +86,10 @@ or you can whitelist all of them (not recommended) with:
 Phrasing.allow_update_on_all_models_and_attributes = true
 ```
 
+## Upgrading from version 2.x to 3.x
+
+In versions 3.0.0 and above we have added the Phrasing Versioning System which requires an additional table, so if you are upgrading to a 3.x release, run <tt> rake phrasing:install </tt> to get the additional migration file, <tt> rake db:migrate </tt> and thats it.
+
 ## Turbolinks
 
 If you're experiencing problems with Rails apps using Turbolinks, include the [jQuery-turbolinks](https://github.com/kossnocorp/jquery.turbolinks) gem in your application and simply require it in the following order:
