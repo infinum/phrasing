@@ -10,7 +10,7 @@ namespace :phrasing do
   task :install_initializer do
     filepath = Rails.root.join *%w(config initializers phrasing.rb)
     if File.exists?(filepath)
-      alert "Phrasing config file already exists."
+      alert "Phrasing config file already exists.\n"
     else
       File.open(filepath, 'w') do |f|
         f << <<-CONFIG
@@ -34,7 +34,7 @@ CONFIG
   task :install_phrasing_helper do
     filepath = Rails.root.join *%w(app helpers phrasing_helper.rb)
     if File.exists?(filepath)
-      alert "A phrasing helper already exists."
+      alert "A phrasing helper already exists.\n"
     else    
       File.open(filepath, 'w') do |f|
         f << <<-MODULE 
