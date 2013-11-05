@@ -34,7 +34,7 @@ CONFIG
   task :install_phrasing_helper do
     filepath = Rails.root.join *%w(app helpers phrasing_helper.rb)
     if File.exists?(filepath)
-      alert "A phrasing helper already exists.\n"
+      alert "Phrasing helper file already exists.\n"
     else    
       File.open(filepath, 'w') do |f|
         f << <<-MODULE 
