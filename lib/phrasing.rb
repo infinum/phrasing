@@ -1,6 +1,8 @@
 require 'phrasing'
 require "phrasing/implementation"
 require "phrasing/simple"
+require 'jquery-rails'
+require 'jquery-cookie-rails'
 
 module Phrasing
   module Rails
