@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", [">= 3.1.0"]
   s.add_dependency "railties", ">= 3.1"
   s.add_dependency "haml-rails"
-  s.add_dependency "jquery-rails"
-  s.add_dependency "jquery-cookie-rails"
+  s.add_runtime_dependency "jquery-rails"
+  s.add_runtime_dependency "jquery-cookie-rails"
 end
