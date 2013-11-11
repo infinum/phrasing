@@ -2,6 +2,8 @@ class PhrasingPhrasesController < ActionController::Base
 
   layout 'phrasing'
 
+  protect_from_forgery
+
   include PhrasingHelper
 
   before_filter :authorize_editor
