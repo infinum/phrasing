@@ -1,12 +1,13 @@
 PATH
   remote: .
   specs:
-    phrasing (3.0.0)
+    phrasing (3.0.2)
       haml-rails
       jquery-cookie-rails
       jquery-rails
       rails (>= 3.1.0)
       railties (>= 3.1)
+      sass
 
 GEM
   remote: https://rubygems.org/
@@ -108,6 +109,7 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     rubyzip (0.9.9)
+    sass (3.2.12)
     selenium-webdriver (2.35.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
