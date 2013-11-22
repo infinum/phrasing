@@ -3,6 +3,7 @@ require "phrasing/implementation"
 require "phrasing/simple"
 require 'jquery-rails'
 require 'jquery-cookie-rails'
+require 'haml-rails'
 
 module Phrasing
   module Rails
