@@ -72,7 +72,7 @@ In the above example, <tt>@post</tt> is the record with a <tt>title</tt> attribu
 
 Since Phrasing can be used to update any attribute in any table (using the model_phrase method), special care must be taken into consideration from a security standpoint.
 
-By default, Phrasing doesn't allow updating of any attribute apart from <<t>PhrasingPhrase.value</tt>. To be able to work with other attributes, you need to whitelist them.
+By default, Phrasing doesn't allow updating of any attribute apart from <tt>PhrasingPhrase.value</tt>. To be able to work with other attributes, you need to whitelist them.
 
 In the <tt>config/initializers/phrasing.rb</tt> file you can whitelist your model attributes like this:
 
