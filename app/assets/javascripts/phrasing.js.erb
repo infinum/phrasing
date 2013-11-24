@@ -10,7 +10,13 @@ var phrasing_setup = function(){
   head.js( "<%= asset_path 'editor.js' %>",
         function(){
             editor.init();
-          });
+        });
+
+// Making sure to send csrf token from layout file.
+   $(document).ajaxSend(function(e, xhr, options) {
+      var token = $("meta[name='csrf-token']").attr("content");
+        xhr.setRequestHeader("X-CSRF-Token", token);
+   });
 
 // SPINNER
   var opts = {
