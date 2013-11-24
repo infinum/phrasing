@@ -10,7 +10,7 @@ class PhrasingPhrase < ActiveRecord::Base
 
   def self.create_phrase(key)
     phrasing_phrase = PhrasingPhrase.new
-    phrasing_phrase.locale = I18n.locale
+    phrasing_phrase.locale = I18n.locale.to_s
     phrasing_phrase.key = key.to_s
     phrasing_phrase.value = key.to_s
     phrasing_phrase.save!
