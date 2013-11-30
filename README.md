@@ -53,7 +53,7 @@ Include the required **javascript** file (most often in your application.js file
 Include the required **stylesheet** file (most often in your application.css file):
 
 ```css
-//= require phrasing
+*= require phrasing
 ```
 
 ## How to use phrasing?
