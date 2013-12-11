@@ -1,4 +1,10 @@
 #phrasing-edit-mode-bubble{
+  *, *:after, *:before{
+    webkit-box-sizing:content-box;
+    box-sizing:content-box;
+  }
+  webkit-box-sizing:content-box;
+  box-sizing:content-box;
   background: rgba(00,00,00, .7);
   color:white;
   border: 2px solid black;
@@ -20,7 +26,6 @@
     padding-top:10px;
     color:white;
     font-weight: bold;
-    margin: 0 0 10px;
   }
 
 // On/Off Switch
@@ -91,11 +96,9 @@
 
   #view-all-phrases{
     margin-top:10px;
+    // background-color: black;
     text-align: center;
     font-weight: bold;
-    p{
-      margin:0px 0px 10px 0px;
-    }
     a{
       color: #0088cc;
       &:hover{
@@ -119,7 +122,6 @@
     p{
       font-size:12px;
       line-height:14px;
-      margin: 5px 0 10px 0;
     }
     color: #8c8c8c;
     &.phrasing-info-visible{
