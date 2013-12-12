@@ -12,13 +12,17 @@ Include the gem in your Gemfile
 gem "phrasing"
 ```
 
-Run the install script:
+Bundle the Gemfile
+
+```ruby
+bundle install
+```
+
+Run the install script which will create a migration file and a config file.
 
 ```ruby
 rake phrasing:install
 ```
-
-This will create a migration file and a config file where you can edit the name of the route to see all the phrases.
 
 Migrate your database
 ```ruby
@@ -27,7 +31,9 @@ rake db:migrate
 
 ## Setup
 
-The rake task will also generate a PhrasingHelper.rb file in your <tt>app/helpers</tt> folder where you will need to implement your <tt>can_edit_phrases?</tt> method. Example:
+The rake task will also generate <tt>phrasing_helper.rb</tt> in your <tt>app/helpers</tt> folder. Here you will need to implement the <tt>can_edit_phrases?</tt> method. Use this to hook-up your existing user authentication system to work with Phrasing.
+
+For example:
 
 ```ruby
 module PhrasingHelper
@@ -38,19 +44,19 @@ module PhrasingHelper
   
 end
 ```
-Include the phrasing **html** initializer at the top of your body
+Include the phrasing **html** initializer at the top of your application layout file.
 
 ```haml
 = render 'phrasing/initializer'
 ```
 
-Include the required **javascript** file (most often in your application.js file):
+Include the required **javascript** file:
 
 ```javascript
 //= require phrasing
 ```
 
-Include the required **stylesheet** file (most often in your application.css file):
+Include the required **stylesheet** file:
 
 ```css
 *= require phrasing
@@ -58,11 +64,11 @@ Include the required **stylesheet** file (most often in your application.css fil
 
 ## How to use phrasing?
 
-Start with adding your phrases simply by writting in your view file:
+You can start adding new phrases by simply adding them in your view file:
 
 	= phrase('my-first-phrase')
 
-Apart from editing phrases (basically, Rails translations) you can also inline edit your models attributes, just use the same `phrase` method, with the first attribute being the record and the second one the records attribute:
+Aside from editing phrases (basically, Rails translations) you can also edit model attributes inline. Use the same `phrase` method, with the first attribute being the record in question, and the second one the attribute you wish to make editable:
 
   	= phrase(@post, :title)
 
@@ -88,7 +94,7 @@ Phrasing.allow_update_on_all_models_and_attributes = true
 
 ## Upgrading from version 2.x to 3.x
 
-In versions 3.0.0 and above we have added the Phrasing Versioning System which requires an additional table, so if you are upgrading to a 3.x release, run <tt>rake phrasing:install</tt> to get the additional migration file, <tt>rake db:migrate</tt> and thats it.
+In versions 3.0.0 and above we have added the Phrasing Versioning System which requires an additional table, so if you are upgrading to a 3.x release, run <tt>rake phrasing:install</tt> to get the additional migration file, then run <tt>rake db:migrate</tt>.
 
 ## Turbolinks
 
