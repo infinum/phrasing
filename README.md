@@ -111,8 +111,15 @@ class: custom_class # add custom CSS classes to your phrases to change the appea
 interpolation: { %min: 10 } # add variables to your translations just like w/ I18n
 ```
 
-## Authors
+## Credits
 
-Copyright (c) 2013, Infinum
+Phrasing is maintained and sponsored by
+[Infinum](http://www.infinum.co).
 
-Phrasing relies heavily (or is built) on two other libraries: the [Copycat gem](https://github.com/Zorros/copycat) and the [ZenPen library](https://github.com/tholman/zenpen/tree/master/). So thank you to the authors and all the contributors! 
+![Infinum](http://www.infinum.co/system/logo.png)
+
+Phrasing leverages parts of [Copycat](https://github.com/Zorros/copycat) and [ZenPen](https://github.com/tholman/zenpen/tree/master/).
+
+## License
+
+Phrasing is Copyright © 2013 Infinum. It is free software, and may be redistributed under the terms specified in the LICENSE file.
