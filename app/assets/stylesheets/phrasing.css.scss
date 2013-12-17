@@ -115,7 +115,10 @@ span.no-overflow {
 	-ms-transition: opacity 250ms, margin 250ms;
 	-o-transition: opacity 250ms, margin 250ms;
 	transition: opacity 250ms, margin 250ms;
-
+	*, *:before, *:after{
+		box-sizing: content-box;
+		-webkit-box-sizing: content-box;
+	}
 	position: absolute;
 	left: -999px;
 	top: -999px;
@@ -180,6 +183,9 @@ span.no-overflow {
 
 	.italic {
 		font-style: italic;
+	}
+	.bold, .italic{
+		line-height:normal;
 	}
 
 	button {
