@@ -32,7 +32,7 @@ module Phrasing
 
   def self.log=(log_value)
     @@log = log_value
-    supress_log if log_value == false
+    suppress_log if log_value == false
   end
 
   def self.setup
@@ -59,7 +59,7 @@ module Phrasing
 
   private
 
-    def self.supress_log
+    def self.suppress_log
       logger_class = defined?(ActiveSupport::Logger) ? ActiveSupport::Logger::SimpleFormatter : Logger::SimpleFormatter
 
       logger_class.class_eval do
