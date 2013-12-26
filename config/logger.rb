@@ -1,6 +1,6 @@
-if Phrasing.log == true
+if Phrasing.log == false
   logger_class = defined?(ActiveSupport::Logger) ? ActiveSupport::Logger::SimpleFormatter : Logger::SimpleFormatter
-  
+
   logger_class.class_eval do
         alias_method :old_call, :call
         def call(severity, timestamp, progname, msg)
