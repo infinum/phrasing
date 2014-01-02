@@ -16,7 +16,6 @@ namespace :phrasing do
         f << <<-CONFIG
 Phrasing.setup do |config|
   config.route = 'phrasing'
-  config.log = false
 end
 
 # List all the model attributes you wish to edit with Phrasing, example:
