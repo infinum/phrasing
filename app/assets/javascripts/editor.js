@@ -90,7 +90,7 @@ var editor = (function() {
 
 		var selection = window.getSelection();
 
-		if (event.target.className === "url-input" || event.target.classList.contains( "url")) {
+		if (event.target.className === "url-input" || (typeof event.target.classList !== 'undefined' && event.target.classList.contains("url"))) {
 			currentNodeList = findNodes( selection.focusNode );
 			updateBubbleStates();
 			return;
