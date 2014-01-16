@@ -9,17 +9,25 @@
           %button.italic i
 
   #phrasing-edit-mode-bubble
-    %p#edit-mode-headline Edit mode:
-    .onoffswitch
-      %input#edit-mode-onoffswitch.onoffswitch-checkbox{checked: "checked", name: "onoffswitch", type: "checkbox"}/
-      %label.onoffswitch-label{for: "edit-mode-onoffswitch"}
-        .onoffswitch-inner
-        .onoffswitch-switch
-    #phrasing-spinner
-      %p No changes made.
-    #view-all-phrases
-      %p= link_to "All phrases", phrasing_phrases_path, data: { no_turbolink: true }
-    #phrasing-info-icon-container
-      = image_tag "phrasing_information_icon.png", class: "phrasing-info-icon"
-    #phrasing-info-container
-      %p Your content will be saved automatically 3 seconds after you stop typing.
+    
+    #phrasing-edit-mode
+      #phrasing-edit-mode-headline
+        Edit
+      #phrasing-onoffswitch
+        .onoffswitch
+          %input#edit-mode-onoffswitch.onoffswitch-checkbox{checked: "checked", name: "onoffswitch", type: "checkbox"}/
+          %label.onoffswitch-label{for: "edit-mode-onoffswitch"}
+            .onoffswitch-inner
+            .onoffswitch-switch
+    
+    #phrasing-saved-status
+      #phrasing-saved-status-headline
+        %p Saved
+      #phrasing-saved-status-indicator
+        #phrasing-saved-status-indicator-circle
+
+    #phrasing-edit-all-phrases
+      #phrasing-edit-all-phrases-headline
+        %p Edit all
+      #phrasing-edit-all-phrases-icon-container
+        = link_to image_tag("phrasing_icon_edit_all.png", class: 'phrasing-edit-all-phrases-icon'), phrasing_phrases_path, data: { no_turbolink: true }

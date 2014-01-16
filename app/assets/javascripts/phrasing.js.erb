@@ -18,32 +18,7 @@ var phrasing_setup = function(){
         xhr.setRequestHeader("X-CSRF-Token", token);
    });
 
-// SPINNER
-  var opts = {
-    lines: 9, // The number of lines to draw
-    length: 0, // The length of each line
-    width: 7, // The line thickness
-    radius: 12, // The radius of the inner circle
-    corners: 1, // Corner roundness (0..1)
-    rotate: 0, // The rotation offset
-    direction: 1, // 1: clockwise, -1: counterclockwise
-    color: '#FFF', // #rgb or #rrggbb or array of colors
-    speed: 1.9, // Rounds per second
-    trail: 58, // Afterglow percentage
-    shadow: false, // Whether to render a shadow
-    hwaccel: false, // Whether to use hardware acceleration
-    className: 'spinner', // The CSS class to assign to the spinner
-    zIndex: 2e9, // The z-index (defaults to 2000000000)
-    top: 'auto', // Top position relative to parent in px
-    left: 'auto' // Left position relative to parent in px
-  };
-
-  var target = document.getElementById('phrasing-spinner');
-  var spinner = new Spinner(opts).spin(target);
-  spinner.stop();
-
 // Hash size function
-
   Object.size = function(obj) {
       var size = 0, key;
       for (key in obj) {
@@ -52,8 +27,6 @@ var phrasing_setup = function(){
       return size;
   };
 
-
-
 ///ON TEXTCHANGE TRIGGER AJAX
   var trigger_binded_events_for_phrasable_class = 1;
   var timer = {}
@@ -61,7 +34,8 @@ var phrasing_setup = function(){
 
   $('.phrasable').on('DOMNodeInserted DOMNodeRemoved DOMCharacterDataModified', function(e){
 
-    $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "red").text("Currently editing..")
+    $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Saving")
+    $('#phrasing-saved-status-indicator-circle').css('background-color', 'orange')
     
     if (trigger_binded_events_for_phrasable_class == 1){
 
@@ -96,14 +70,7 @@ var phrasing_setup = function(){
       type: "PUT",
       url: url,
       data: { new_value: content },
-      beforeSend: function(){
-        spinner.spin(target);
-      },
       success: function(e){
-        spinner.stop();
-
-        // console.log("I've sent a ajax request: " + content);
-
         trigger_binded_events_for_phrasable_class = 0;
         if(content == "Empty"){
           $('span.phrasable[data-url="'+ url +'"]').html(content)
@@ -113,20 +80,15 @@ var phrasing_setup = function(){
         trigger_binded_events_for_phrasable_class = 1;
 
         if (Object.size(timer_status) == 0){
-          $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "green").text("Everything saved.")
+          $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Saved")
+          $('#phrasing-saved-status-indicator-circle').css('background-color', 'green')
         }
       },
       error: function(e){
-        spinner.stop();
-        var warningMessages = [e.responseText, "Unable to save!"];
-        var intervalIndex = 0;
-        $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "red").text(warningMessages[1])
-        setInterval(function(){
-          var text = warningMessages[intervalIndex++ % warningMessages.length]
-          $('#phrasing-edit-mode-bubble #phrasing-spinner p').css("color", "red").text(text)
-        },2000);
+        $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Error")
+        $('#phrasing-saved-status-indicator-circle').css('background-color', 'red')
       }
-    })
+    });
   }
 
 // EDIT MODE SWITCH MODE BUTTON
@@ -151,17 +113,6 @@ var phrasing_setup = function(){
     $('#edit-mode-onoffswitch').prop('checked', false)
   }
 
-// Information icon for the edit mode bubble
-  $('#phrasing-info-icon-container, #phrasing-info-container').on('click',function(){
-    if($('#phrasing-info-container').is(':visible')){
-      $('#phrasing-edit-mode-bubble').animate({height: 180}, 200, function(){
-        $('#phrasing-info-container').hide()
-      })
-    }else{
-      $('#phrasing-info-container').show();
-      $('#phrasing-edit-mode-bubble').animate({height: 255}, 200)
-    }
-  }); 
 };
 
 $(document).ready(phrasing_setup)
