@@ -16,10 +16,13 @@
   z-index: 9999;
   font-family: Arial, Helvetica, sans-serif;
   font-size:14px;
-
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+
+  p{
+    line-height:20px;
+  }
   ::selection{ color: grey;  background: white; } 
 
   #phrasing-edit-mode, #phrasing-saved-status, #phrasing-edit-all-phrases{
@@ -103,7 +106,7 @@
     float:left;
   }
   #phrasing-saved-status-indicator-circle{
-    background-color:#56AE45;
+    background-color:green;
     width:20px;
     height:20px;
     -webkit-border-radius: 10px;
