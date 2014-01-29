@@ -1,2 +1,4 @@
 *.gem
 .ruby-version
+spec/dummy/log/test.log
+tmp

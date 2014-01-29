@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    phrasing (3.2.0)
+    phrasing (3.2.1)
       haml-rails
       jquery-cookie-rails
       jquery-rails
