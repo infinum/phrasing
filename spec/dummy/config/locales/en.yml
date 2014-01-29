@@ -5,3 +5,4 @@ en:
   site:
     index:
       header: "The Header"
+      footer: "The Footer"

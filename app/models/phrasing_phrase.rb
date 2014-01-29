@@ -8,13 +8,22 @@ class PhrasingPhrase < ActiveRecord::Base
 
   after_update :version_it
 
-  def self.create_phrase(key)
-    phrasing_phrase = PhrasingPhrase.new
-    phrasing_phrase.locale = I18n.locale.to_s
-    phrasing_phrase.key = key.to_s
-    phrasing_phrase.value = key.to_s
-    phrasing_phrase.save!
-    phrasing_phrase
+  def self.search_i18n_and_create_phrase key
+    begin
+      value = I18n.t key, raise: true
+      PhrasingPhrase.where(key: key, locale: I18n.locale).first
+    rescue I18n::MissingTranslationData
+      create_phrase(key)
+    end
+  end
+
+  def self.create_phrase key, value = nil
+      phrasing_phrase = PhrasingPhrase.new
+      phrasing_phrase.locale = I18n.locale.to_s
+      phrasing_phrase.key = key.to_s
+      phrasing_phrase.value = value || key.to_s
+      phrasing_phrase.save
+      phrasing_phrase
   end
 
   module Serialize

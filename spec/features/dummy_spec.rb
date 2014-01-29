@@ -1,13 +1,18 @@
 #encoding: utf-8
-
+require 'pry-debugger'
 require 'spec_helper'
 
-feature "use #t" do
+feature "use #phrase" do
 
   it "should see the header phrase" do
-    FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: 'The Header')
     visit root_path
     page.should have_content 'The Header'
+  end
+
+  it "should see the header phrase modified if created before visiting" do
+    FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: 'The Header1')
+    visit root_path
+    page.should have_content 'The Header1'
   end
 
   it "creates a phrasing_phrase if the yaml has an entry" do
@@ -67,11 +72,20 @@ end
 
 feature "yaml" do
 
-  it "on first visit values should be same as keys" do
-    visit root_path
-    PhrasingPhrase.find_by_key('site.index.intro').value.should == 'site.index.intro'
-    PhrasingPhrase.find_by_key('site.index.header').value.should == 'site.index.header'
-    PhrasingPhrase.count.should == 2
-  end
+  describe 'on first visit value should be' do
+    
+    it "same as keys" do
+      visit root_path
+      PhrasingPhrase.find_by_key('site.index.intro').value.should == 'site.index.intro'
+      PhrasingPhrase.count.should == 3
+    end
 
+    it "same as translations in the yaml file" do
+      visit root_path
+      PhrasingPhrase.find_by_key('site.index.header').value.should == 'The Header'
+      PhrasingPhrase.find_by_key('site.index.footer').value.should == 'The Footer'
+      PhrasingPhrase.count.should == 3
+    end
+
+  end
 end
