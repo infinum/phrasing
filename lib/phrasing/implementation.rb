@@ -11,6 +11,7 @@ module Phrasing
 
       value = super(locale, key, scope, options)
       if value
+        #creation in background no matter if developer user the I18n#t or phrase helper
         PhrasingPhrase.create_phrase(scoped_key, value)
       end
       value
