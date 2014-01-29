@@ -29,6 +29,12 @@
     height:32px;
     margin-top:10px;
   }
+  #phrasing-edit-mode-headline, #phrasing-edit-all-phrases-headline, #phrasing-saved-status-headline{
+    p{
+      display: inline;
+    }
+  }
+
   #phrasing-edit-mode-headline{
     height:30px;
     width:45px;
