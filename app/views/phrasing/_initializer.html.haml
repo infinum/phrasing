@@ -8,8 +8,11 @@
           %button.bold b
           %button.italic i
 
+
+
+
+
   #phrasing-edit-mode-bubble
-    
     #phrasing-edit-mode
       #phrasing-edit-mode-headline
         %p Edit
@@ -19,15 +22,13 @@
           %label.onoffswitch-label{for: "edit-mode-onoffswitch"}
             .onoffswitch-inner
             .onoffswitch-switch
-    
     #phrasing-saved-status
       #phrasing-saved-status-headline
         %p Saved
       #phrasing-saved-status-indicator
         #phrasing-saved-status-indicator-circle
-
     #phrasing-edit-all-phrases
       #phrasing-edit-all-phrases-headline
         %p Edit all
       #phrasing-edit-all-phrases-icon-container
-        = link_to image_tag("phrasing_icon_edit_all.png", class: 'phrasing-edit-all-phrases-icon'), phrasing_phrases_path, data: { no_turbolink: true }
+        = link_to image_tag("phrasing_icon_edit_all.png", class: 'phrasing-edit-all-phrases-icon'), phrasing_phrases_path, data: { no_turbolink: true }, class: "phrasing-edit-all-phrases-link"
