@@ -1,32 +1,27 @@
-//= require head
+//= require editor
 //= require jquery
 //= require jquery_ujs
 //= require jquery.cookie
 
 var phrasing_setup = function(){
 
-/// INITIALIZE THE BUBBLE
-  head.js( "<%= asset_path 'editor.js' %>",
-        function(){
-            editor.init();
-        });
+  // Initialize the editing bubble
+  editor.init();
 
-// Making sure to send csrf token from layout file.
-   $(document).ajaxSend(function(e, xhr, options) {
-      var token = $("meta[name='csrf-token']").attr("content");
-        xhr.setRequestHeader("X-CSRF-Token", token);
-   });
+  // Making sure to send csrf token from layout file.
+  $(document).ajaxSend(function(e, xhr, options) {
+    var token = $("meta[name='csrf-token']").attr("content");
+    xhr.setRequestHeader("X-CSRF-Token", token);
+  });
 
-// Hash size function
-  Object.size = function(obj) {
-      var size = 0, key;
-      for (key in obj) {
-          if (obj.hasOwnProperty(key)) size++;
-      }
-      return size;
+  // Hash size function
+  Object.size = function(obj){
+    var size = 0, key;
+    for (key in obj) { if (obj.hasOwnProperty(key)) size++; }
+    return size;
   };
 
-///ON TEXTCHANGE TRIGGER AJAX
+  // Trigger AJAX on textchange
   var trigger_binded_events_for_phrasable_class = 1;
   var timer = {}
   var timer_status = {}
@@ -39,8 +34,6 @@ var phrasing_setup = function(){
     if (trigger_binded_events_for_phrasable_class == 1){
 
       var record = this;
-
-      // console.log(timer)
       
       clearTimeout(timer[$(record).data("url")]);
       timer_status[$(record).data("url")] = 0;
@@ -54,7 +47,7 @@ var phrasing_setup = function(){
 
   });
 
-///AJAX REQUEST
+  // AJAX Request
   function savePhraseViaAjax(record){
     
     var url = $(record).data("url");
@@ -90,15 +83,15 @@ var phrasing_setup = function(){
     });
   }
 
-// EDIT MODE SWITCH MODE BUTTON
+  // Edit Mode On/Off Button
   $('#edit-mode-onoffswitch').on('change', function(){
     if(this.checked){
-        $('.phrasable').addClass("phrasable_on").attr("contenteditable", "true");
-        $.cookie("editing_mode", "true");
+      $('.phrasable').addClass("phrasable_on").attr("contenteditable", "true");
+      $.cookie("editing_mode", "true");
     }
     else{
-        $('.phrasable').removeClass("phrasable_on").attr("contenteditable", "false");
-        $.cookie("editing_mode", "false");
+      $('.phrasable').removeClass("phrasable_on").attr("contenteditable", "false");
+      $.cookie("editing_mode", "false");
     }
   });
 
@@ -115,4 +108,3 @@ var phrasing_setup = function(){
 };
 
 $(document).ready(phrasing_setup)
-// $(document).on('page:load', phrasing_setup)
