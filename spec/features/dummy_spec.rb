@@ -42,6 +42,12 @@ feature "use #phrase" do
     page.should_not have_content '<strong>Strong header</strong>'
     page.should have_content 'Strong header'
   end
+
+  it 'allows to use scope like I18n' do
+    visit root_path
+    page.should have_content 'models.errors.test'
+    page.should have_content 'site.test'
+  end
 end
 
 feature "locales" do
@@ -77,14 +83,12 @@ feature "yaml" do
     it "same as keys" do
       visit root_path
       PhrasingPhrase.find_by_key('site.index.intro').value.should == 'site.index.intro'
-      PhrasingPhrase.count.should == 3
     end
 
     it "same as translations in the yaml file" do
       visit root_path
       PhrasingPhrase.find_by_key('site.index.header').value.should == 'The Header'
       PhrasingPhrase.find_by_key('site.index.footer').value.should == 'The Footer'
-      PhrasingPhrase.count.should == 3
     end
 
   end
