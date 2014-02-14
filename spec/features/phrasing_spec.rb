@@ -101,6 +101,14 @@ feature "phrasing index" do
     page.should have_content 'foe'
   end
 
+  it 'not null values first, global order by key' do
+    FactoryGirl.create(:phrasing_phrase, key: "foo1", value: nil)
+    FactoryGirl.create(:phrasing_phrase, key: "foo2", value: "beer")
+    FactoryGirl.create(:phrasing_phrase, key: "foo3", value: nil)
+    visit phrasing_phrases_path
+    page.body.should =~ /foo[\s\S]*foo2[\s\S]*foo1[\s\S]*foo3/
+  end
+
   context "more than one locale" do
 
     before do
