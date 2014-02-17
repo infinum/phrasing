@@ -11,14 +11,15 @@ class PhrasingPhrasesController < ActionController::Base
   def index
     params[:locale] ||= I18n.default_locale
     query = PhrasingPhrase
+    query = query.order("#{query.table_name}.key")
     query = query.where(locale: params[:locale]) unless params[:locale].blank?
-
+    
     if params[:search] and !params[:search].blank?
         key_like = PhrasingPhrase.arel_table[:key].matches("%#{params[:search]}%")
         value_like = PhrasingPhrase.arel_table[:value].matches("%#{params[:search]}%")
-        @phrasing_phrases = query.where(key_like.or(value_like)).order(:key)
+        @phrasing_phrases = query.where(key_like.or(value_like))
     else
-      @phrasing_phrases = query.where("value is not null").order(:key) + query.where("value is null").order(:key)
+      @phrasing_phrases = query.where("value is not null") + query.where("value is null")
     end
     
     @locale_names = PhrasingPhrase.uniq.pluck(:locale)

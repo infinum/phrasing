@@ -1,5 +1,9 @@
-<h2><%= phrase('site.index.header') %></h2>
+<h2 class="header"><%= phrase('site.index.header') %></h2>
 
 <div><%= phrase('site.index.intro') %></div>
 
 <div><%= t('site.index.footer') %></div>
+
+<div><%= phrase('test', scope: 'models.errors') %></div>
+
+<div><%= phrase 'test', scope: :site %></div>

@@ -1,7 +1,45 @@
 #encoding: utf-8
-
 require 'spec_helper'
+require 'pry-debugger'
 
+feature 'edit mode bubble' do
+
+  before do
+    visit root_path
+  end
+
+  it '(un)check edit mode checkbox' do
+    edit_mode_checkbox = find(:css, ".onoffswitch-checkbox")
+    edit_mode_checkbox.should be_checked
+    edit_mode_checkbox.set(false)
+    edit_mode_checkbox.should_not be_checked
+  end
+
+  it "phrases should have class 'phrasable_on' and contenteditable=true" do
+    page.find('.header').first('.phrasable').text.should == 'The Header'
+    page.find('.header').first('.phrasable')['class'].should == 'phrasable phrasable_on'
+    page.find('.header').first('.phrasable')['contenteditable'].should == 'true'
+  end
+
+  it 'should be able to visit phrasing index via edit_all icon' do
+    find(:css, ".phrasing-edit-all-phrases-link").click
+    current_path.should == phrasing_phrases_path
+  end
+
+  xit "phrases should have class shouldn't have class phrasable on when edit mode is off", js: true do
+    edit_mode_checkbox = find(:css, ".onoffswitch-checkbox")
+    edit_mode_checkbox.click
+    page.find('.header').first('.phrasable')['class'].should == 'phrasable'
+  end
+
+  xit 'edit phrases', js: true do
+    header_phrase = page.find('.header').first('.phrasable')
+    header_phrase['class'].should == 'phrasable phrasable_on'
+    header_phrase.text.should == 'The Header'
+    header_phrase.set "content"
+    header_phrase.text.should == 'content'
+  end
+end
 
 feature "phrasing index" do
 
@@ -61,6 +99,14 @@ feature "phrasing index" do
     click_button 'Search'
     page.should have_content 'foo'
     page.should have_content 'foe'
+  end
+
+  it 'not null values first, global order by key' do
+    FactoryGirl.create(:phrasing_phrase, key: "foo1", value: nil)
+    FactoryGirl.create(:phrasing_phrase, key: "foo2", value: "beer")
+    FactoryGirl.create(:phrasing_phrase, key: "foo3", value: nil)
+    visit phrasing_phrases_path
+    page.body.should =~ /foo[\s\S]*foo2[\s\S]*foo1[\s\S]*foo3/
   end
 
   context "more than one locale" do
@@ -174,6 +220,9 @@ feature "phrasing edit" do
     FactoryGirl.create(:phrasing_phrase, :key => "foo", :value => "bar")
     visit phrasing_phrases_path
   end
+  after do
+    PhrasingPhrase.delete_all
+  end
 
   scenario "visit edit form" do
     fill_in 'search', :with => 'foo'
@@ -203,6 +252,9 @@ end
 
 feature "downloading and uploading yaml files" do
   before do
+  end
+  after do
+    PhrasingPhrase.delete_all
   end
 
   it "round-trips the YAML" do
@@ -276,7 +328,9 @@ end
 feature "locales" do
   before do
   end
-
+  after do
+    PhrasingPhrase.delete_all
+  end
   it "imports yaml containing multiple locales" do
     file = Tempfile.new 'phrasing'
     file.write <<-YAML

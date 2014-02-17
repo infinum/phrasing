@@ -18,12 +18,12 @@ class PhrasingPhrase < ActiveRecord::Base
   end
 
   def self.create_phrase key, value = nil
-      phrasing_phrase = PhrasingPhrase.new
-      phrasing_phrase.locale = I18n.locale.to_s
-      phrasing_phrase.key = key.to_s
-      phrasing_phrase.value = value || key.to_s
-      phrasing_phrase.save
-      phrasing_phrase
+    phrasing_phrase = PhrasingPhrase.new
+    phrasing_phrase.locale = I18n.locale.to_s
+    phrasing_phrase.key = key.to_s
+    phrasing_phrase.value = value || key.to_s
+    phrasing_phrase.save
+    phrasing_phrase
   end
 
   module Serialize
