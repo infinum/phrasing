@@ -355,14 +355,47 @@ feature "locales" do
     assert b.value == 'mundo'
   end
 
+  it "imports yaml containing nested keys" do
+    file = Tempfile.new 'phrasing'
+    file.write <<-YAML
+      en:
+        site:
+          header:
+            title: 'Hello World'
+    YAML
+    file.close
+
+    visit import_export_phrasing_phrases_path
+    attach_file "file", file.path
+    click_button "Upload"
+    file.unlink
+
+    assert PhrasingPhrase.count == 1
+    a = PhrasingPhrase.where(locale: 'en').first
+    assert a.key == 'site.header.title'
+    assert a.value == 'Hello World'
+  end
+
   it "exports yaml containing multiple locales" do
     FactoryGirl.create(:phrasing_phrase, locale: 'en', key: 'hello', value: 'world')
     FactoryGirl.create(:phrasing_phrase, locale: 'es', key: 'hello', value: 'mundo')
 
     visit download_phrasing_phrases_path
     yaml = page.source
-    assert yaml =~ /en:\s*hello: world/
-    assert yaml =~ /es:\s*hello: mundo/
+
+    assert yaml =~ /:en:\n\s+:hello: world/
+    assert yaml =~ /:es:\n\s+:hello: mundo/
+  end
+
+  it "export valid yaml, compatible with I18n" do
+    FactoryGirl.create(:phrasing_phrase, locale: 'en', key: 'site.header.title', value: 'world')
+    FactoryGirl.create(:phrasing_phrase, locale: 'es', key: 'site.header.title', value: 'mundo')
+
+    visit download_phrasing_phrases_path
+    yaml = page.source
+
+    assert yaml =~ /:en:\n\s+:site:\n\s+:header:\n\s+:title: world\n/
+    assert yaml =~ /:es:\n\s+:site:\n\s+:header:\n\s+:title: mundo\n/
   end
 
 end

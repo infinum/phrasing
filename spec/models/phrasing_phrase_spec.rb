@@ -33,6 +33,17 @@ describe PhrasingPhrase do
     assert PhrasingPhrase.find_by_key("hello").value == "Hello world"
   end
 
+  it "imports YAML with nested keys" do
+    yaml = <<-YAML
+      en:
+        site:
+          header:
+            title: "Hello world"
+    YAML
+    PhrasingPhrase.import_yaml(StringIO.new(yaml))
+    assert PhrasingPhrase.find_by_key("site.header.title").value == "Hello world"
+  end
+
   it "exports and then imports complicated YAML" do
     key = "moby_dick"
     value = %|<p>Lorem ipsum</p><p class="highlight">∆'≈:</p>|
