@@ -6,12 +6,13 @@ module Phrasing
 
       scoped_key = I18n.normalize_keys(nil, key, scope, options[:separator]).join(".")
 
-      cct = PhrasingPhrase.where(locale: locale.to_s, key: scoped_key).first
-      return cct.value if cct
+      phrase = PhrasingPhrase.where(locale: locale.to_s, key: scoped_key).first
+      return phrase.value if phrase
 
       value = super(locale, key, scope, options)
-      if value
-        #creation in background no matter if developer user the I18n#t or phrase helper
+
+      if value and (value.is_a? String or value.is_a? Symbol)
+        # creation in background no matter if developer user the I18n#t or phrase helper
         PhrasingPhrase.create_phrase(scoped_key, value)
       end
       value
