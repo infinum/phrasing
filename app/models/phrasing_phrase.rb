@@ -9,6 +9,7 @@ class PhrasingPhrase < ActiveRecord::Base
   after_update :version_it
 
   def self.search_i18n_and_create_phrase key
+
     begin
       value = I18n.t key, raise: true
       PhrasingPhrase.where(key: key, locale: I18n.locale).first
@@ -32,8 +33,10 @@ class PhrasingPhrase < ActiveRecord::Base
       number_of_changes = 0
       hash = YAML.load(yaml)
       hash.each do |locale, data|
-        data.each do |key, value|
-          phrase = where(key: key, locale: locale).first || new(key: key, locale: locale)
+        flat_array = flatten_hash(data)
+        nested_hash = Hash[*flat_array]
+        nested_hash.each do |key, value|
+          phrase = where(key: key.to_s, locale: locale).first || new(key: key.to_s, locale: locale)
           if phrase.value != value
             phrase.value = value
             number_of_changes += 1
@@ -47,10 +50,28 @@ class PhrasingPhrase < ActiveRecord::Base
     def export_yaml
       hash = {}
       where("value is not null").each do |phrase|
-        hash[phrase.locale] ||= {}
-        hash[phrase.locale][phrase.key] = phrase.value
+        hash["#{phrase.locale}.#{phrase.key}"] = phrase.value
       end
+      hash = key_to_nested_hash(hash)
+
       hash.to_yaml
+    end
+
+    def flatten_hash(my_hash, parent=[])
+      my_hash.flat_map do |key, value|
+        case value
+          when Hash then flatten_hash( value, parent+[key] )
+          else [(parent+[key]).join('.'), value]
+        end
+      end
+    end
+
+    def key_to_nested_hash(hash)
+      hash.map do |main_key, main_value|
+        main_key.to_s.split(".").reverse.inject(main_value) do |value, key|
+          {key.to_sym => value}
+        end
+      end.inject(&:deep_merge)
     end
 
   end
@@ -66,5 +87,5 @@ class PhrasingPhrase < ActiveRecord::Base
     def version_it
       PhrasingPhraseVersion.create_version(id, value) if value_was != value
     end
-    
+
 end
