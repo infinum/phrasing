@@ -251,8 +251,6 @@ feature "phrasing update" do
 end
 
 feature "downloading and uploading yaml files" do
-  before do
-  end
   after do
     PhrasingPhrase.delete_all
   end
