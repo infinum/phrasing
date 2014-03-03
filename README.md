@@ -1,5 +1,7 @@
 # Phrasing!
 
+[![Build Status](https://travis-ci.org/infinum/phrasing.png)](https://travis-ci.org/infinum/phrasing)
+
 ![Phrasing](http://www.miataturbo.net/attachments/miata-parts-sale-trade-5/74257-lots-leftovers-near-boston-archer-phrasing2-300x225-jpg?dateline=1366600534)
 
 Phrasing is a gem for live editing phrases (copy) on websites.
