@@ -80,12 +80,12 @@ feature "yaml" do
 
   describe 'on first visit value should be' do
     
-    it "same as keys" do
+    it "same as keys if there is no translation available" do
       visit root_path
       PhrasingPhrase.find_by_key('site.index.intro').value.should == 'site.index.intro'
     end
 
-    it "same as translations in the yaml file" do
+    it "same as translations in the yaml file if there is a translation available" do
       visit root_path
       PhrasingPhrase.find_by_key('site.index.header').value.should == 'The Header'
       PhrasingPhrase.find_by_key('site.index.footer').value.should == 'The Footer'
