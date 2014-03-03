@@ -52,11 +52,11 @@ class PhrasingPhrasesController < ActionController::Base
     app_name = Rails.application.class.to_s.split("::").first
     app_env = Rails.env
     filename = "phrasing_phrases_#{app_name}_#{app_env}_#{Time.now.strftime("%Y_%m_%d_%H_%M_%S")}.yml"
-    send_data PhrasingPhrase.export_yaml, filename: filename
+    send_data Phrasing::Serializer.export_yaml, filename: filename
   end
 
   def upload
-      number_of_changes = PhrasingPhrase.import_yaml(params["file"].tempfile)
+      number_of_changes = Phrasing::Serializer.import_yaml(params["file"].tempfile)
       redirect_to phrasing_phrases_path, notice: "YAML file uploaded successfully! Number of phrases changed: #{number_of_changes}."
     rescue Exception => e
       logger.info "\n#{e.class}\n#{e.message}"
@@ -86,7 +86,7 @@ class PhrasingPhrasesController < ActionController::Base
       yaml = read_remote_yaml(Phrasing.staging_server_endpoint)
 
       if yaml
-        PhrasingPhrase.import_yaml(yaml)
+        Phrasing::Serializer.import_yaml(yaml)
         redirect_to :back, notice: "Translations synced from source server"
       else
         redirect_to :back

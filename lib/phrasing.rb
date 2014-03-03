@@ -1,6 +1,7 @@
 require 'phrasing'
 require "phrasing/implementation"
 require "phrasing/simple"
+require "phrasing/serializer"
 require 'jquery-rails'
 require 'jquery-cookie-rails'
 require 'haml-rails'
