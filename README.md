@@ -123,9 +123,9 @@ scope: 'homepage.footer' # add scopes just like you would w/ I18.n. If the first
 ## Credits
 
 Phrasing is maintained and sponsored by
-[Infinum](http://www.infinum.co).
+[Infinum] (http://www.infinum.co).
 
-![Infinum](http://www.infinum.co/system/logo.png)
+![Infinum](https://www.infinum.co/assets/logo_pic-2e19713f50692ed9b0805b199676c19a.png)
 
 Phrasing leverages parts of [Copycat](https://github.com/Zorros/copycat) and [ZenPen](https://github.com/tholman/zenpen/tree/master/).
 
