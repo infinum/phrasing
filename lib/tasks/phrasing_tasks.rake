@@ -41,7 +41,7 @@ namespace :phrasing do
       File.open(filepath, 'w') do |f|
         f << CONFIG_FILE
       end
-      notice "created", " config/intiializers/phrasing.rb"
+      notice "created", " config/initializers/phrasing.rb"
     end
   end
 
