@@ -1,8 +1,3 @@
-//= require editor
-//= require jquery
-//= require jquery_ujs
-//= require jquery.cookie
-
 var phrasing_setup = function(){
 
   // Initialize the editing bubble
@@ -30,14 +25,14 @@ var phrasing_setup = function(){
 
     $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Saving")
     $('#phrasing-saved-status-indicator-circle').css('background-color', 'orange')
-    
+
     if (trigger_binded_events_for_phrasable_class == 1){
 
       var record = this;
-      
+
       clearTimeout(timer[$(record).data("url")]);
       timer_status[$(record).data("url")] = 0;
-      
+
       timer[$(record).data("url")] = setTimeout(function(){
         savePhraseViaAjax(record);
         delete timer_status[$(record).data("url")]
@@ -49,11 +44,11 @@ var phrasing_setup = function(){
 
   // AJAX Request
   function savePhraseViaAjax(record){
-    
+
     var url = $(record).data("url");
 
     var content = record.innerHTML;
-    
+
     if(content.length == 0){
       content= "Empty"
     }
