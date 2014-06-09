@@ -1,6 +1,4 @@
 require 'phrasing'
-require "phrasing/implementation"
-require "phrasing/simple"
 require "phrasing/serializer"
 require 'jquery-rails'
 require 'jquery-cookie-rails'
@@ -20,11 +18,11 @@ end
 
 
 module Phrasing
-  
+
   mattr_accessor :allow_update_on_all_models_and_attributes
   mattr_accessor :route
   mattr_accessor :staging_server_endpoint
-  
+
   @@route = 'phrasing'
 
   def self.log
@@ -41,7 +39,7 @@ module Phrasing
   end
 
   WHITELIST = "PhrasingPhrase.value"
-  
+
   def self.whitelist
     if defined? @@whitelist
       @@whitelist + [WHITELIST]
