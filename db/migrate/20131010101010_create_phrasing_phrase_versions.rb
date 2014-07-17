@@ -5,5 +5,6 @@ class CreatePhrasingPhraseVersions < ActiveRecord::Migration
       t.text :value
       t.timestamps
     end
+    add_index :phrasing_phrase_versions, :phrasing_phrase_id
   end
 end
