@@ -1,5 +1,9 @@
 # Phrasing Change Log
 
+## 3.2.5 (June 17th, 2014)
+
+Added index for phrasing_phrase_id in versions table.
+
 ## 3.2.4 (May 8th, 2014)
 
 Changed InlineHelper#phrasing_polymorphic_url to use rails path helper.
@@ -20,7 +24,7 @@ Change in generated migration file:
 
 Change in PhrasingPhrasesController#index:
 
-Fix order clause so it runs on Rails 3.2 and MySQL 
+Fix order clause so it runs on Rails 3.2 and MySQL
 
 ## 3.2.1 (Jan 29th, 2014)
 
