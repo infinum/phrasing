@@ -22,6 +22,5 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-cookie-rails"
   s.add_dependency "sass"
-
-  s.add_development_dependency 'pry'
+  s.add_runtime_dependency 'pry'
 end
