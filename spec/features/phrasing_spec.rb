@@ -1,6 +1,5 @@
 #encoding: utf-8
 require 'spec_helper'
-require 'pry-debugger'
 
 feature 'edit mode bubble' do
 

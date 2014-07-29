@@ -1,5 +1,4 @@
 #encoding: utf-8
-require 'pry-debugger'
 require 'spec_helper'
 
 feature "use #phrase" do
@@ -79,7 +78,7 @@ end
 feature "yaml" do
 
   describe 'on first visit value should be' do
-    
+
     it "same as keys if there is no translation available" do
       visit root_path
       PhrasingPhrase.find_by_key('site.index.intro').value.should == 'site.index.intro'

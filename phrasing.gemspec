@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.authors     = ['Tomislav Car', 'Damir Svrtan']
   s.license     = "MIT"
 
-  s.files = `git ls-files`.split("\n")  
+  s.files = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
 
   s.add_dependency "rails", ">= 3.2.0"
@@ -23,6 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-cookie-rails"
   s.add_dependency "sass"
 
-  s.add_development_dependency 'pry-debugger'
+  s.add_development_dependency 'pry'
   s.add_development_dependency 'jasmine-rails'
 end

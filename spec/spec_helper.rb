@@ -3,6 +3,7 @@ require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'tempfile'
+require 'pry'
 
 Dir["#{File.dirname(__FILE__)}/factories/**/*.rb"].each { |f| require f }
 
