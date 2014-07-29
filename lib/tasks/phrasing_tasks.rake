@@ -9,7 +9,7 @@ Phrasing.whitelist = []
 # Phrasing.allow_update_on_all_models_and_attributes = true;
 CONFIG
 
-MODULE_FILE = <<-MODULE 
+MODULE_FILE = <<-MODULE
 module PhrasingHelper
   # You must implement the can_edit_phrases? method.
   # Example:
@@ -50,13 +50,13 @@ namespace :phrasing do
     filepath = Rails.root.join *%w(app helpers phrasing_helper.rb)
     if File.exists?(filepath)
       alert "Phrasing helper file already exists."
-    else    
+    else
       File.open(filepath, 'w') do |f|
         f << MODULE_FILE
       end
       notice "created", "app/helpers/phrasing_helper.rb"
       notice "Now run 'rake db:migrate'."
-    end 
+    end
   end
 end
 

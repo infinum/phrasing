@@ -3,8 +3,8 @@
   %p
     Upload a YAML (.yml) file following
     = succeed "." do
-      %a{:href => "http://guides.rubyonrails.org/i18n.html"} I18n conventions
-  = form_tag 'upload', :multipart => true, :'accept-charset' => 'UTF-8' do
+      %a{href: "http://guides.rubyonrails.org/i18n.html"} I18n conventions
+  = form_tag 'upload', multipart: true, :'accept-charset' => 'UTF-8' do
     = file_field_tag "file"
     = submit_tag "Upload"
 

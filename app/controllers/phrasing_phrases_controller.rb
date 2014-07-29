@@ -13,7 +13,7 @@ class PhrasingPhrasesController < ActionController::Base
     query = PhrasingPhrase
     query = query.order("#{query.table_name}.key")
     query = query.where(locale: params[:locale]) unless params[:locale].blank?
-    
+
     if params[:search] and !params[:search].blank?
         key_like = PhrasingPhrase.arel_table[:key].matches("%#{params[:search]}%")
         value_like = PhrasingPhrase.arel_table[:value].matches("%#{params[:search]}%")
@@ -21,7 +21,7 @@ class PhrasingPhrasesController < ActionController::Base
     else
       @phrasing_phrases = query.where("value is not null") + query.where("value is null")
     end
-    
+
     @locale_names = PhrasingPhrase.uniq.pluck(:locale)
   end
 
@@ -36,11 +36,11 @@ class PhrasingPhrasesController < ActionController::Base
 
     respond_to do |format|
       format.html do
-        redirect_to phrasing_phrases_path, notice: "#{@phrasing_phrase.key} updated!"    
+        redirect_to phrasing_phrases_path, notice: "#{@phrasing_phrase.key} updated!"
       end
 
       format.js do
-        render :json => @phrasing_phrase
+        render json: @phrasing_phrase
       end
     end
   end
@@ -97,16 +97,16 @@ class PhrasingPhrasesController < ActionController::Base
 
   def remote_update_phrase
     klass, attribute = params[:klass], params[:attribute]
-    
+
     if Phrasing.is_whitelisted?(klass, attribute)
       class_object = klass.classify.constantize
       @object = class_object.where(id: params[:id]).first
       @object.send("#{attribute}=",params[:new_value])
       @object.save!
-      render :json => @object
+      render json: @object
     else
       render status: 403, text: "Attribute not whitelisted!"
-    end    
+    end
 
     rescue ActiveRecord::RecordInvalid => e
       render status: 403, text: e
