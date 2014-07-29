@@ -24,5 +24,4 @@ Gem::Specification.new do |s|
   s.add_dependency "sass"
 
   s.add_development_dependency 'pry'
-  s.add_development_dependency 'jasmine-rails'
 end
