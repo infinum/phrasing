@@ -6,6 +6,8 @@
 
 Phrasing is a gem for live editing phrases (copy) on websites.
 
+**Notice:** If using Phrasing version 3, checkout the [old README](https://github.com/infinum/phrasing/blob/new-release-4/README-3.md).
+
 ## Installation
 
 Include the gem in your Gemfile
@@ -16,18 +18,18 @@ gem "phrasing"
 
 Bundle the Gemfile
 
-```ruby
+```shell
 bundle install
 ```
 
 Run the install script which will create a migration file and a config file.
 
-```ruby
+```shell
 rails generate phrasing
 ```
 
 Migrate your database
-```ruby
+```shell
 rake db:migrate
 ```
 
