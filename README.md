@@ -23,7 +23,7 @@ bundle install
 Run the install script which will create a migration file and a config file.
 
 ```ruby
-rake phrasing:install
+rails generate phrasing
 ```
 
 Migrate your database
@@ -43,7 +43,7 @@ module PhrasingHelper
   def can_edit_phrases?
     current_user.is_admin?
   end
-  
+
 end
 ```
 Include the phrasing **html** initializer at the top of your application layout file.
@@ -85,18 +85,14 @@ By default, Phrasing doesn't allow updating of any attribute apart from <tt>Phra
 In the <tt>config/initializers/phrasing.rb</tt> file you can whitelist your model attributes like this:
 
 ```ruby
-Phrasing.white_list = ["Post.title", "Post.body"]
+config.white_list = ["Post.title", "Post.body"]
 ```
 
 or you can whitelist all of them (not recommended) with:
 
 ```ruby
-Phrasing.allow_update_on_all_models_and_attributes = true
+config.allow_update_on_all_models_and_attributes = true
 ```
-
-## Upgrading from version 2.x to 3.x
-
-In versions 3.0.0 and above we have added the Phrasing Versioning System which requires an additional table, so if you are upgrading to a 3.x release, run <tt>rake phrasing:install</tt> to get the additional migration file, then run <tt>rake db:migrate</tt>.
 
 ## Turbolinks
 
@@ -115,7 +111,7 @@ The `phrase` view helper can take the `options` hash as the last parameter. Feat
 ```ruby
 url: custom_url # point Phrasing to other actions in other controllers
 inverse: true # change the hovered background and underline colors to better fit darker backgrounds
-class: custom_class # add custom CSS classes to your phrases to change the appearance of phrases in your application 
+class: custom_class # add custom CSS classes to your phrases to change the appearance of phrases in your application
 interpolation: { %min: 10 } # add variables to your translations just like w/ I18n
 scope: 'homepage.footer' # add scopes just like you would w/ I18.n. If the first argument is 'test', than the key would be 'homepage.footer.test'
 ```
