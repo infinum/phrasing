@@ -43,7 +43,7 @@ end
 feature "phrasing index" do
 
   before do
-    FactoryGirl.create(:phrasing_phrase, :key => "foo", :value => "bar")
+    FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar")
     visit phrasing_phrases_path
   end
 
@@ -59,42 +59,42 @@ feature "phrasing index" do
   end
 
   it "allows search by key" do
-    fill_in 'search', :with => 'foo'
+    fill_in 'search', with: 'foo'
     click_button 'Search'
     page.should have_content 'foo'
     page.should have_content 'bar'
   end
 
   it "allows search by key" do
-    fill_in 'search', :with => 'xfoo'
+    fill_in 'search', with: 'xfoo'
     click_button 'Search'
     page.should_not have_content 'foo'
     page.should_not have_content 'bar'
   end
 
   it "allows search by value" do
-    fill_in 'search', :with => 'bar'
+    fill_in 'search', with: 'bar'
     click_button 'Search'
     page.should have_content 'foo'
     page.should have_content 'bar'
   end
 
   it "allows search by value" do
-    fill_in 'search', :with => 'xbar'
+    fill_in 'search', with: 'xbar'
     click_button 'Search'
     page.should_not have_content 'foo'
     page.should_not have_content 'bar'
   end
 
   it "searches in the middles of strings" do
-    FactoryGirl.create(:phrasing_phrase, :key => "site.index.something")
-    fill_in 'search', :with => 'index'
+    FactoryGirl.create(:phrasing_phrase, key: "site.index.something")
+    fill_in 'search', with: 'index'
     click_button 'Search'
     page.should have_content 'site.index.something'
   end
 
   it "can show all" do
-    FactoryGirl.create(:phrasing_phrase, :key => "foe", :value => "beer")
+    FactoryGirl.create(:phrasing_phrase, key: "foe", value: "beer")
     click_button 'Search'
     page.should have_content 'foo'
     page.should have_content 'foe'
@@ -142,7 +142,7 @@ feature "phrasing index" do
     end
 
     it "blank locale, blank search" do
-      select '', :from => 'locale'
+      select '', from: 'locale'
       click_button 'Search'
       page.should have_content 'bar1'
       page.should have_content 'bar2'
@@ -150,13 +150,13 @@ feature "phrasing index" do
     end
 
     it "blank locale, present search" do
-      select '', :from => 'locale'
-      fill_in 'search', :with => 'foo'
+      select '', from: 'locale'
+      fill_in 'search', with: 'foo'
       click_button 'Search'
       page.should have_content 'bar1'
       page.should have_content 'bar2'
       page.should have_content 'bar3'
-      fill_in 'search', :with => 'fuu'
+      fill_in 'search', with: 'fuu'
       click_button 'Search'
       page.should_not have_content 'foo'
     end
@@ -168,17 +168,17 @@ feature "phrasing index" do
     end
 
     it "present locale, blank search" do
-      select 'en', :from => 'locale'
+      select 'en', from: 'locale'
       click_button 'Search'
       page.should have_content 'bar1'
       page.should_not have_content 'bar2'
       page.should_not have_content 'bar3'
-      select 'fa', :from => 'locale'
+      select 'fa', from: 'locale'
       click_button 'Search'
       page.should_not have_content 'bar1'
       page.should have_content 'bar2'
       page.should_not have_content 'bar3'
-      select 'it', :from => 'locale'
+      select 'it', from: 'locale'
       click_button 'Search'
       page.should_not have_content 'bar1'
       page.should_not have_content 'bar2'
@@ -186,26 +186,26 @@ feature "phrasing index" do
     end
 
     it "present locale, present search" do
-      select 'en', :from => 'locale'
-      fill_in 'search', :with => 'foo'
+      select 'en', from: 'locale'
+      fill_in 'search', with: 'foo'
       click_button 'Search'
       page.should have_content 'bar1'
       page.should_not have_content 'bar2'
       page.should_not have_content 'bar3'
-      select 'fa', :from => 'locale'
-      fill_in 'search', :with => 'foo'
+      select 'fa', from: 'locale'
+      fill_in 'search', with: 'foo'
       click_button 'Search'
       page.should_not have_content 'bar1'
       page.should have_content 'bar2'
       page.should_not have_content 'bar3'
-      select 'it', :from => 'locale'
-      fill_in 'search', :with => 'foo'
+      select 'it', from: 'locale'
+      fill_in 'search', with: 'foo'
       click_button 'Search'
       page.should_not have_content 'bar1'
       page.should_not have_content 'bar2'
       page.should have_content 'bar3'
-      select 'en', :from => 'locale'
-      fill_in 'search', :with => 'fuu'
+      select 'en', from: 'locale'
+      fill_in 'search', with: 'fuu'
       click_button 'Search'
       page.should_not have_content 'foo'
     end
@@ -216,7 +216,7 @@ end
 
 feature "phrasing edit" do
   before do
-    FactoryGirl.create(:phrasing_phrase, :key => "foo", :value => "bar")
+    FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar")
     visit phrasing_phrases_path
   end
   after do
@@ -224,24 +224,24 @@ feature "phrasing edit" do
   end
 
   scenario "visit edit form" do
-    fill_in 'search', :with => 'foo'
+    fill_in 'search', with: 'foo'
     click_button 'Search'
     click_link 'foo'
-    fill_in "phrasing_phrase[value]", :with => 'baz'
+    fill_in "phrasing_phrase[value]", with: 'baz'
   end
 end
 
 feature "phrasing update" do
   before do
-    FactoryGirl.create(:phrasing_phrase, :key => "foo", :value => "bar")
+    FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar")
     visit phrasing_phrases_path
-    fill_in 'search', :with => 'foo'
+    fill_in 'search', with: 'foo'
     click_button 'Search'
     click_link 'foo'
   end
 
   scenario "update" do
-    fill_in "phrasing_phrase[value]", :with => 'baz'
+    fill_in "phrasing_phrase[value]", with: 'baz'
     click_button "Update"
     current_path.should == phrasing_phrases_path
     PhrasingPhrase.find_by_key("foo").value.should == 'baz'
@@ -255,11 +255,11 @@ feature "downloading and uploading yaml files" do
   end
 
   it "round-trips the YAML" do
-    FactoryGirl.create(:phrasing_phrase, :key => "a.foo1", :value => "bar1")
-    FactoryGirl.create(:phrasing_phrase, :key => "a.foo2:", :value => "bar2")
-    FactoryGirl.create(:phrasing_phrase, :key => "a.b.foo3", :value => "bar3")
-    FactoryGirl.create(:phrasing_phrase, :key => "c.foo4", :value => "bar4")
-    FactoryGirl.create(:phrasing_phrase, :key => 2, :value => "bar5")
+    FactoryGirl.create(:phrasing_phrase, key: "a.foo1", value: "bar1")
+    FactoryGirl.create(:phrasing_phrase, key: "a.foo2:", value: "bar2")
+    FactoryGirl.create(:phrasing_phrase, key: "a.b.foo3", value: "bar3")
+    FactoryGirl.create(:phrasing_phrase, key: "c.foo4", value: "bar4")
+    FactoryGirl.create(:phrasing_phrase, key: 2, value: "bar5")
     assert PhrasingPhrase.count == 5
 
     visit import_export_phrasing_phrases_path
@@ -288,7 +288,7 @@ feature "downloading and uploading yaml files" do
 
   it "round-trips the yaml with complicated text" do
     value = "“hello world“ üokåa®fgsdf;::fs;kdf"
-    FactoryGirl.create(:phrasing_phrase, :key => "a.foo", :value => value)
+    FactoryGirl.create(:phrasing_phrase, key: "a.foo", value: value)
 
     visit import_export_phrasing_phrases_path
     click_link 'Download as YAML'
