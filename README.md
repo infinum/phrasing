@@ -54,9 +54,12 @@ Include the phrasing **html** initializer at the top of your application layout 
 = render 'phrasing/initializer'
 ```
 
-Include the required **javascript** file:
+To avoid duplication in JS files, we enforce you to add jquery files manually. jQuery, jQuery_ujs and jQuery.cookie are added as gem dependencies to the Phrasing gem, so you will only need to require them once in your layout file. Include the required **javascript** files:
 
 ```javascript
+//= require jquery
+//= require jquery_ujs
+//= require jquery.cookie
 //= require phrasing
 ```
 
