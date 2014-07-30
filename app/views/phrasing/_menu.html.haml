@@ -4,5 +4,5 @@
     %li= link_to "Phrases", phrasing_phrases_path
     %li= link_to "Import / Export", import_export_phrasing_phrases_path
     %li= link_to "Help", help_phrasing_phrases_path
-    - if root_path
+    - if respond_to? :root_path
       %li= link_to "Home page", root_path
