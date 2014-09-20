@@ -77,9 +77,9 @@ end
 
 feature "yaml" do
 
-  describe 'on first visit value should be' do
+  describe 'on first visit' do
 
-    it "same as keys if there is no translation available" do
+    it "value should be the same as keys if there is no translation available" do
       visit root_path
       PhrasingPhrase.find_by_key('site.index.intro').value.should == 'site.index.intro'
     end
@@ -87,8 +87,11 @@ feature "yaml" do
     it "same as translations in the yaml file if there is a translation available" do
       visit root_path
       PhrasingPhrase.find_by_key('site.index.header').value.should == 'The Header'
-      PhrasingPhrase.find_by_key('site.index.footer').value.should == 'The Footer'
     end
 
+    it "if using I18n.t(), there shouldn't be a new PhrasingPhrase record." do
+      visit root_path
+      PhrasingPhrase.find_by_key('site.index.footer').should be_nil
+    end
   end
 end
