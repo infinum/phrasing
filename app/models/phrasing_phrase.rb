@@ -33,7 +33,7 @@ class PhrasingPhrase < ActiveRecord::Base
     end
 
     def version_it
-      PhrasingPhraseVersion.create_version(id, value) if value_was != value
+      PhrasingPhraseVersion.create_version(id, value_was) if value_was != value
     end
-    
+
 end
