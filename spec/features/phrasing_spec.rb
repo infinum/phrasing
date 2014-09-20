@@ -219,8 +219,9 @@ feature "phrasing edit" do
     FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar")
     visit phrasing_phrases_path
   end
+
   after do
-    PhrasingPhrase.delete_all
+    PhrasingPhrase.destroy_all
   end
 
   scenario "visit edit form" do
@@ -240,6 +241,11 @@ feature "phrasing update" do
     click_link 'foo'
   end
 
+  scenario 'has delete and update buttons' do
+    page.should have_selector(:link_or_button, 'Delete Phrase')
+    page.should have_selector(:link_or_button, 'Update')
+  end
+
   scenario "update" do
     fill_in "phrasing_phrase[value]", with: 'baz'
     click_button "Update"
@@ -249,9 +255,47 @@ feature "phrasing update" do
   end
 end
 
+feature 'phrase versions' do
+  before do
+    phrase = FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar")
+    visit edit_phrasing_phrase_path(phrase)
+  end
+
+  def update_phrase
+    fill_in "phrasing_phrase[value]", with: 'baz'
+    click_button "Update"
+  end
+
+  it " shows phrases" do
+    page.should have_content 'foo'
+    page.should have_content 'bar'
+  end
+
+  it 'update a phrase and get first phrase versions' do
+    PhrasingPhraseVersion.count.should == 0
+    update_phrase
+    PhrasingPhraseVersion.count.should == 1
+    current_path.should == phrasing_phrases_path
+    PhrasingPhrase.find_by_key("foo").value.should == 'baz'
+    page.should have_content "foo updated!"
+  end
+
+  it 'view first phrase' do
+    PhrasingPhraseVersion.count.should == 0
+    update_phrase
+    PhrasingPhraseVersion.count.should == 1
+    click_link 'foo'
+    page.should have_selector(:link_or_button, 'Delete')
+    page.should have_selector(:link_or_button, 'Revert')
+    page.should have_content 'bar'
+    page.should have_content 'baz'
+  end
+
+end
+
 feature "downloading and uploading yaml files" do
   after do
-    PhrasingPhrase.delete_all
+    PhrasingPhrase.destroy_all
   end
 
   it "round-trips the YAML" do
@@ -326,7 +370,7 @@ feature "locales" do
   before do
   end
   after do
-    PhrasingPhrase.delete_all
+    PhrasingPhrase.destroy_all
   end
   it "imports yaml containing multiple locales" do
     file = Tempfile.new 'phrasing'
