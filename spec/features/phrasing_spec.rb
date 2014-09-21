@@ -9,34 +9,34 @@ feature 'edit mode bubble' do
 
   it '(un)check edit mode checkbox' do
     edit_mode_checkbox = find(:css, ".onoffswitch-checkbox")
-    edit_mode_checkbox.should be_checked
+    expect(edit_mode_checkbox).to be_checked
     edit_mode_checkbox.set(false)
-    edit_mode_checkbox.should_not be_checked
+    expect(edit_mode_checkbox).not_to be_checked
   end
 
   it "phrases should have class 'phrasable_on' and contenteditable=true" do
-    page.find('.header').first('.phrasable').text.should == 'The Header'
-    page.find('.header').first('.phrasable')['class'].should == 'phrasable phrasable_on'
-    page.find('.header').first('.phrasable')['contenteditable'].should == 'true'
+    expect(page.find('.header').first('.phrasable').text).to eq 'The Header'
+    expect(page.find('.header').first('.phrasable')['class']).to eq 'phrasable phrasable_on'
+    expect(page.find('.header').first('.phrasable')['contenteditable']).to eq 'true'
   end
 
   it 'should be able to visit phrasing index via edit_all icon' do
     find(:css, ".phrasing-edit-all-phrases-link").click
-    current_path.should == phrasing_phrases_path
+    expect(current_path).to eq phrasing_phrases_path
   end
 
   xit "phrases should have class shouldn't have class phrasable on when edit mode is off", js: true do
     edit_mode_checkbox = find(:css, ".onoffswitch-checkbox")
     edit_mode_checkbox.click
-    page.find('.header').first('.phrasable')['class'].should == 'phrasable'
+    expect(page.find('.header').first('.phrasable')['class']).to eq 'phrasable'
   end
 
   xit 'edit phrases', js: true do
     header_phrase = page.find('.header').first('.phrasable')
-    header_phrase['class'].should == 'phrasable phrasable_on'
-    header_phrase.text.should == 'The Header'
+    header_phrase['class'].should eq 'phrasable phrasable_on'
+    expect(header_phrase.text).to eq 'The Header'
     header_phrase.set "content"
-    header_phrase.text.should == 'content'
+    expect(header_phrase.expect.text).to eq 'content'
   end
 end
 
@@ -54,50 +54,50 @@ feature "phrasing index" do
   end
 
   it " shows phrases" do
-    page.should have_content 'foo'
-    page.should have_content 'bar'
+    expect(page).to have_content 'foo'
+    expect(page).to have_content 'bar'
   end
 
   it "allows search by key" do
     fill_in 'search', with: 'foo'
     click_button 'Search'
-    page.should have_content 'foo'
-    page.should have_content 'bar'
+    expect(page).to have_content 'foo'
+    expect(page).to have_content 'bar'
   end
 
   it "allows search by key" do
     fill_in 'search', with: 'xfoo'
     click_button 'Search'
-    page.should_not have_content 'foo'
-    page.should_not have_content 'bar'
+    expect(page).not_to have_content 'foo'
+    expect(page).not_to have_content 'bar'
   end
 
   it "allows search by value" do
     fill_in 'search', with: 'bar'
     click_button 'Search'
-    page.should have_content 'foo'
-    page.should have_content 'bar'
+    expect(page).to have_content 'foo'
+    expect(page).to have_content 'bar'
   end
 
   it "allows search by value" do
     fill_in 'search', with: 'xbar'
     click_button 'Search'
-    page.should_not have_content 'foo'
-    page.should_not have_content 'bar'
+    expect(page).not_to have_content 'foo'
+    expect(page).not_to have_content 'bar'
   end
 
   it "searches in the middles of strings" do
     FactoryGirl.create(:phrasing_phrase, key: "site.index.something")
     fill_in 'search', with: 'index'
     click_button 'Search'
-    page.should have_content 'site.index.something'
+    expect(page).to have_content 'site.index.something'
   end
 
   it "can show all" do
     FactoryGirl.create(:phrasing_phrase, key: "foe", value: "beer")
     click_button 'Search'
-    page.should have_content 'foo'
-    page.should have_content 'foe'
+    expect(page).to have_content 'foo'
+    expect(page).to have_content 'foe'
   end
 
   it 'not null values first, global order by key' do
@@ -105,7 +105,7 @@ feature "phrasing index" do
     FactoryGirl.create(:phrasing_phrase, key: "foo2", value: "beer")
     FactoryGirl.create(:phrasing_phrase, key: "foo3", value: nil)
     visit phrasing_phrases_path
-    page.body.should =~ /foo[\s\S]*foo2[\s\S]*foo1[\s\S]*foo3/
+    expect(page.body).to match /foo[\s\S]*foo2[\s\S]*foo1[\s\S]*foo3/
   end
 
   context "more than one locale" do
@@ -120,94 +120,94 @@ feature "phrasing index" do
     it "nil locale, blank search" do
       # impossible for user to replicate this case
       visit phrasing_phrases_path('search' => '', 'commit' => 'Search')
-      page.should have_content 'bar1'
-      page.should_not have_content 'bar2'
-      page.should_not have_content 'bar3'
+      expect(page).to have_content 'bar1'
+      expect(page).not_to have_content 'bar2'
+      expect(page).not_to have_content 'bar3'
     end
 
     it "nil locale, present search" do
       # impossible for user to replicate this case
       visit phrasing_phrases_path('search' => 'foo', 'commit' => 'Search')
-      page.should have_content 'bar1'
-      page.should_not have_content 'bar2'
-      page.should_not have_content 'bar3'
+      expect(page).to have_content 'bar1'
+      expect(page).not_to have_content 'bar2'
+      expect(page).not_to have_content 'bar3'
       visit phrasing_phrases_path('search' => 'fuu', 'commit' => 'Search')
-      page.should_not have_content 'foo'
+      expect(page).not_to have_content 'foo'
     end
 
     it "blank locale, foo search" do
       # impossible for user to replicate this case
       visit phrasing_phrases_path('locale' => '', 'commit' => 'Search')
-      page.should have_content 'foo'
+      expect(page).to have_content 'foo'
     end
 
     it "blank locale, blank search" do
       select '', from: 'locale'
       click_button 'Search'
-      page.should have_content 'bar1'
-      page.should have_content 'bar2'
-      page.should have_content 'bar3'
+      expect(page).to have_content 'bar1'
+      expect(page).to have_content 'bar2'
+      expect(page).to have_content 'bar3'
     end
 
     it "blank locale, present search" do
       select '', from: 'locale'
       fill_in 'search', with: 'foo'
       click_button 'Search'
-      page.should have_content 'bar1'
-      page.should have_content 'bar2'
-      page.should have_content 'bar3'
+      expect(page).to have_content 'bar1'
+      expect(page).to have_content 'bar2'
+      expect(page).to have_content 'bar3'
       fill_in 'search', with: 'fuu'
       click_button 'Search'
-      page.should_not have_content 'foo'
+      expect(page).not_to have_content 'foo'
     end
 
     it "present locale, foo search" do
       # impossible for user to replicate this case
       visit phrasing_phrases_path('locale' => 'en', 'commit' => 'Search')
-      page.should have_content 'foo'
+      expect(page).to have_content 'foo'
     end
 
     it "present locale, blank search" do
       select 'en', from: 'locale'
       click_button 'Search'
-      page.should have_content 'bar1'
-      page.should_not have_content 'bar2'
-      page.should_not have_content 'bar3'
+      expect(page).to have_content 'bar1'
+      expect(page).not_to have_content 'bar2'
+      expect(page).not_to have_content 'bar3'
       select 'fa', from: 'locale'
       click_button 'Search'
-      page.should_not have_content 'bar1'
-      page.should have_content 'bar2'
-      page.should_not have_content 'bar3'
+      expect(page).not_to have_content 'bar1'
+      expect(page).to have_content 'bar2'
+      expect(page).not_to have_content 'bar3'
       select 'it', from: 'locale'
       click_button 'Search'
-      page.should_not have_content 'bar1'
-      page.should_not have_content 'bar2'
-      page.should have_content 'bar3'
+      expect(page).not_to have_content 'bar1'
+      expect(page).not_to have_content 'bar2'
+      expect(page).to have_content 'bar3'
     end
 
     it "present locale, present search" do
       select 'en', from: 'locale'
       fill_in 'search', with: 'foo'
       click_button 'Search'
-      page.should have_content 'bar1'
-      page.should_not have_content 'bar2'
-      page.should_not have_content 'bar3'
+      expect(page).to have_content 'bar1'
+      expect(page).not_to have_content 'bar2'
+      expect(page).not_to have_content 'bar3'
       select 'fa', from: 'locale'
       fill_in 'search', with: 'foo'
       click_button 'Search'
-      page.should_not have_content 'bar1'
-      page.should have_content 'bar2'
-      page.should_not have_content 'bar3'
+      expect(page).not_to have_content 'bar1'
+      expect(page).to have_content 'bar2'
+      expect(page).not_to have_content 'bar3'
       select 'it', from: 'locale'
       fill_in 'search', with: 'foo'
       click_button 'Search'
-      page.should_not have_content 'bar1'
-      page.should_not have_content 'bar2'
-      page.should have_content 'bar3'
+      expect(page).not_to have_content 'bar1'
+      expect(page).not_to have_content 'bar2'
+      expect(page).to have_content 'bar3'
       select 'en', from: 'locale'
       fill_in 'search', with: 'fuu'
       click_button 'Search'
-      page.should_not have_content 'foo'
+      expect(page).not_to have_content 'foo'
     end
 
   end
@@ -242,16 +242,16 @@ feature "phrasing update" do
   end
 
   scenario 'has delete and update buttons' do
-    page.should have_selector(:link_or_button, 'Delete Phrase')
-    page.should have_selector(:link_or_button, 'Update')
+    expect(page).to have_selector(:link_or_button, 'Delete Phrase')
+    expect(page).to have_selector(:link_or_button, 'Update')
   end
 
   scenario "update" do
     fill_in "phrasing_phrase[value]", with: 'baz'
     click_button "Update"
-    current_path.should == phrasing_phrases_path
-    PhrasingPhrase.find_by_key("foo").value.should == 'baz'
-    page.should have_content "foo updated!"
+    expect(current_path).to eq phrasing_phrases_path
+    expect(PhrasingPhrase.find_by_key("foo").value).to eq 'baz'
+    expect(page).to have_content "foo updated!"
   end
 end
 
@@ -267,28 +267,28 @@ feature 'phrase versions' do
   end
 
   it " shows phrases" do
-    page.should have_content 'foo'
-    page.should have_content 'bar'
+    expect(page).to have_content 'foo'
+    expect(page).to have_content 'bar'
   end
 
   it 'update a phrase and get first phrase versions' do
-    PhrasingPhraseVersion.count.should == 0
+    expect(PhrasingPhraseVersion.count).to eq 0
     update_phrase
-    PhrasingPhraseVersion.count.should == 1
-    current_path.should == phrasing_phrases_path
-    PhrasingPhrase.find_by_key("foo").value.should == 'baz'
-    page.should have_content "foo updated!"
+    expect(PhrasingPhraseVersion.count).to eq 1
+    expect(current_path).to eq phrasing_phrases_path
+    expect(PhrasingPhrase.find_by_key("foo").value).to eq 'baz'
+    expect(page).to have_content "foo updated!"
   end
 
   it 'view first phrase' do
-    PhrasingPhraseVersion.count.should == 0
+    expect(PhrasingPhraseVersion.count).to eq 0
     update_phrase
-    PhrasingPhraseVersion.count.should == 1
+    expect(PhrasingPhraseVersion.count).to eq 1
     click_link 'foo'
-    page.should have_selector(:link_or_button, 'Delete')
-    page.should have_selector(:link_or_button, 'Revert')
-    page.should have_content 'bar'
-    page.should have_content 'baz'
+    expect(page).to have_selector(:link_or_button, 'Delete')
+    expect(page).to have_selector(:link_or_button, 'Revert')
+    expect(page).to have_content 'bar'
+    expect(page).to have_content 'baz'
   end
 
 end
@@ -304,13 +304,13 @@ feature "downloading and uploading yaml files" do
     FactoryGirl.create(:phrasing_phrase, key: "a.b.foo3", value: "bar3")
     FactoryGirl.create(:phrasing_phrase, key: "c.foo4", value: "bar4")
     FactoryGirl.create(:phrasing_phrase, key: 2, value: "bar5")
-    assert PhrasingPhrase.count == 5
+    expect(PhrasingPhrase.count).to eq 5
 
     visit import_export_phrasing_phrases_path
 
     click_link 'Download as YAML'
     PhrasingPhrase.destroy_all
-    assert PhrasingPhrase.count == 0
+    expect(PhrasingPhrase.count).to eq 0
 
     yaml = page.source
     file = Tempfile.new 'phrasing'
@@ -322,12 +322,12 @@ feature "downloading and uploading yaml files" do
     click_button "Upload"
     file.unlink
 
-    assert PhrasingPhrase.count == 5
-    assert PhrasingPhrase.find_by_key("a.foo1").value == "bar1"
-    assert PhrasingPhrase.find_by_key("a.foo2:").value == "bar2"
-    assert PhrasingPhrase.find_by_key("a.b.foo3").value == "bar3"
-    assert PhrasingPhrase.find_by_key("c.foo4").value == "bar4"
-    assert PhrasingPhrase.find_by_key(2).value == "bar5"
+    expect(PhrasingPhrase.count).to eq 5
+    expect(PhrasingPhrase.find_by_key("a.foo1").value).to eq "bar1"
+    expect(PhrasingPhrase.find_by_key("a.foo2:").value).to eq "bar2"
+    expect(PhrasingPhrase.find_by_key("a.b.foo3").value).to eq "bar3"
+    expect(PhrasingPhrase.find_by_key("c.foo4").value).to eq "bar4"
+    expect(PhrasingPhrase.find_by_key(2).value).to eq "bar5"
   end
 
   it "round-trips the yaml with complicated text" do
@@ -347,7 +347,7 @@ feature "downloading and uploading yaml files" do
     attach_file "file", file.path
     click_button "Upload"
     file.unlink
-    assert PhrasingPhrase.find_by_key("a.foo").value == value
+    expect(PhrasingPhrase.find_by_key("a.foo").value).to eq value
   end
 
   it "gives 400 on bad upload" do
@@ -359,9 +359,9 @@ feature "downloading and uploading yaml files" do
     attach_file "file", file.path
     click_button "Upload"
     file.unlink
-    page.status_code.should == 400
-    page.should have_content("There was an error processing your upload!")
-    assert PhrasingPhrase.count == 0
+    expect(page.status_code).to eq 400
+    expect(page).to have_content("There was an error processing your upload!")
+    expect(PhrasingPhrase.count).to eq 0
   end
 
 end
@@ -387,13 +387,13 @@ feature "locales" do
     click_button "Upload"
     file.unlink
 
-    assert PhrasingPhrase.count == 2
+    expect(PhrasingPhrase.count).to eq 2
     a = PhrasingPhrase.where(locale: 'en').first
-    assert a.key == 'hello'
-    assert a.value == 'world'
+    expect(a.key).to eq 'hello'
+    expect(a.value).to eq 'world'
     b = PhrasingPhrase.where(locale: 'es').first
-    assert b.key == 'hello'
-    assert b.value == 'mundo'
+    expect(b.key).to eq 'hello'
+    expect(b.value).to eq 'mundo'
   end
 
   it "exports yaml containing multiple locales" do
@@ -402,8 +402,8 @@ feature "locales" do
 
     visit download_phrasing_phrases_path
     yaml = page.source
-    assert yaml =~ /en:\s*hello: world/
-    assert yaml =~ /es:\s*hello: mundo/
+    expect(yaml).to match(/en:\s*hello: world/)
+    expect(yaml).to match(/es:\s*hello: mundo/)
   end
 
 end
