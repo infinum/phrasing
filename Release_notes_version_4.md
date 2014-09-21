@@ -21,3 +21,6 @@ If they try to erase parts of it, the developer also might end up being confused
 
 There is a posibility we might add html sanitization to prevent ugly copy-pasted html insertion (as well as XSS attacks).
 
+## Switching rake tasks with Rails generators
+
+Since Rails comes with outofbox generators that enable easy existing file detection and similar behaviors, Phrasing 4 will use Rails generators instead of the old rake tasks.
