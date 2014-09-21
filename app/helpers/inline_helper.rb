@@ -20,14 +20,13 @@ module InlineHelper
     def inline(record, attribute, options={})
       return uneditable_phrase(record, attribute, options) unless can_edit_phrases?
 
-      klass  = 'phrasable'
-      klass += ' phrasable_on' if edit_mode_on?
+      klass  = 'phrasable phrasable_on'
       klass += ' inverse'      if options[:inverse]
       klass += options[:class] if options[:class]
 
       url = phrasing_polymorphic_url(record, attribute)
 
-      content_tag(:span, { class: klass, contenteditable: edit_mode_on?, spellcheck: false, "data-url" => url}) do
+      content_tag(:span, { class: klass, contenteditable: true, spellcheck: false, "data-url" => url }) do
         (record.send(attribute) || record.try(:key)).to_s.html_safe
       end
     end
@@ -45,15 +44,6 @@ module InlineHelper
         record.send(attribute)
       end
       record_value.to_s.html_safe
-    end
-
-    def edit_mode_on?
-      if cookies["editing_mode"].nil?
-        cookies['editing_mode'] = "true"
-        true
-      else
-        cookies['editing_mode'] == "true"
-      end
     end
 
     def phrasing_polymorphic_url(record, attribute)

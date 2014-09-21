@@ -73,7 +73,7 @@ var phrasing_setup = function(){
     var content = record.innerHTML;
 
     if(content.length == 0){
-      content= "Empty"
+      content = "Empty"
     }
 
     $.ajax({
@@ -82,9 +82,10 @@ var phrasing_setup = function(){
       data: { new_value: content },
       success: function(e){
         trigger_binded_events_for_phrasable_class = 0;
-        if(content == "Empty"){
+        if(content === "Empty"){
           $('span.phrasable[data-url="'+ url +'"]').html(content)
         }else{
+          // Not to lose the cursor on the current contenteditable element
           $('span.phrasable[data-url="'+ url +'"]').not(record).html(content)
         }
         trigger_binded_events_for_phrasable_class = 1;
@@ -111,14 +112,14 @@ var phrasing_setup = function(){
     }
   });
 
-  if($.cookie("editing_mode") == null){
+  if($.cookie("editing_mode") === null){
     $.cookie("editing_mode", "true");
-    $('#edit-mode-onoffswitch').prop('checked', true)
+    $('#edit-mode-onoffswitch').prop('checked', true).change();
   }
   else if($.cookie("editing_mode") == "true"){
-    $('#edit-mode-onoffswitch').prop('checked', true)
+    $('#edit-mode-onoffswitch').prop('checked', true).change();
   }else{
-    $('#edit-mode-onoffswitch').prop('checked', false)
+    $('#edit-mode-onoffswitch').prop('checked', false).change();
   }
 
 };
