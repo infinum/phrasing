@@ -8,18 +8,21 @@ class PhrasingPhrasesController < ActionController::Base
 
   before_filter :authorize_editor
 
+  def import_export; end
+  def help; end
+
   def index
     params[:locale] ||= I18n.default_locale
-    query = PhrasingPhrase
-    query = query.order("#{query.table_name}.key")
-    query = query.where(locale: params[:locale]) unless params[:locale].blank?
+    query = PhrasingPhrase.order("phrasing_phrases.key")
+    query = query.where(locale: params[:locale]) if params[:locale].present?
 
-    if params[:search] and !params[:search].blank?
-        key_like = PhrasingPhrase.arel_table[:key].matches("%#{params[:search]}%")
-        value_like = PhrasingPhrase.arel_table[:value].matches("%#{params[:search]}%")
-        @phrasing_phrases = query.where(key_like.or(value_like))
+    @phrasing_phrases = if params[:search].present?
+      key_like   = PhrasingPhrase.arel_table[:key].matches("%#{params[:search]}%")
+      value_like = PhrasingPhrase.arel_table[:value].matches("%#{params[:search]}%")
+      query.where(key_like.or(value_like))
     else
-      @phrasing_phrases = query.where("value is not null") + query.where("value is null")
+      # because we want to have non nil values first.
+      query.where("value is not null") + query.where("value is null")
     end
 
     @locale_names = PhrasingPhrase.uniq.pluck(:locale)
@@ -30,22 +33,11 @@ class PhrasingPhrasesController < ActionController::Base
   end
 
   def update
-    @phrasing_phrase = PhrasingPhrase.find(params[:id])
-    @phrasing_phrase.value = params[:phrasing_phrase][:value]
-    @phrasing_phrase.save!
-
-    respond_to do |format|
-      format.html do
-        redirect_to phrasing_phrases_path, notice: "#{@phrasing_phrase.key} updated!"
-      end
-
-      format.js do
-        render json: @phrasing_phrase
-      end
+    if request.xhr?
+      xhr_phrase_update
+    else
+      phrase_update
     end
-  end
-
-  def import_export
   end
 
   def download
@@ -58,7 +50,7 @@ class PhrasingPhrasesController < ActionController::Base
   def upload
       number_of_changes = Phrasing::Serializer.import_yaml(params["file"].tempfile)
       redirect_to phrasing_phrases_path, notice: "YAML file uploaded successfully! Number of phrases changed: #{number_of_changes}."
-    rescue Exception => e
+    rescue => e
       logger.info "\n#{e.class}\n#{e.message}"
       message = if params[:file].nil?
         "Please choose a file."
@@ -76,30 +68,35 @@ class PhrasingPhrasesController < ActionController::Base
     redirect_to phrasing_phrases_path, notice: "#{phrasing_phrase.key} deleted!"
   end
 
-  def help
-  end
-
-  def remote_update_phrase
-    klass, attribute = params[:klass], params[:attribute]
-
-    if Phrasing.is_whitelisted?(klass, attribute)
-      class_object = klass.classify.constantize
-      @object = class_object.where(id: params[:id]).first
-      @object.send("#{attribute}=",params[:new_value])
-      @object.save!
-      render json: @object
-    else
-      render status: 403, text: "Attribute not whitelisted!"
-    end
-
-    rescue ActiveRecord::RecordInvalid => e
-      render status: 403, text: e
-  end
-
   private
 
     def authorize_editor
       redirect_to root_path unless can_edit_phrases?
+    end
+
+    def xhr_phrase_update
+      klass, attribute = params[:klass], params[:attribute]
+
+      if Phrasing.is_whitelisted?(klass, attribute)
+        class_object = klass.classify.constantize
+        @object = class_object.where(id: params[:id]).first
+        @object.send("#{attribute}=",params[:new_value])
+        @object.save!
+        render json: @object
+      else
+        render status: 403, text: "Attribute not whitelisted!"
+      end
+
+      rescue ActiveRecord::RecordInvalid => e
+        render status: 403, text: e
+    end
+
+    def phrase_update
+      phrase = PhrasingPhrase.find(params[:id])
+      phrase.value = params[:phrasing_phrase][:value]
+      phrase.save!
+
+      redirect_to phrasing_phrases_path, notice: "#{phrase.key} updated!"
     end
 
 end
