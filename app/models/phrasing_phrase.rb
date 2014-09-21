@@ -1,7 +1,8 @@
 class PhrasingPhrase < ActiveRecord::Base
 
   validates_presence_of :key, :locale
-  validate :uniqueness_of_key_on_locale_scope, on: :create
+  # validate :uniqueness_of_key_on_locale_scope, on: :create
+  validates_uniqueness_of :key, scope: [:locale]
 
   has_many :versions, dependent: :destroy, class_name: PhrasingPhraseVersion
 
