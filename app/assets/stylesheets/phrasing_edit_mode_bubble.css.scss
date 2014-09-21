@@ -23,7 +23,7 @@
   p{
     line-height:20px;
   }
-  ::selection{ color: grey;  background: white; } 
+  ::selection{ color: grey;  background: white; }
 
   #phrasing-edit-mode, #phrasing-saved-status, #phrasing-edit-all-phrases{
     height:32px;
@@ -81,7 +81,7 @@
       border: 3px solid #CCCCCC; border-radius: 5px;
       position: absolute; top: 0; bottom: 0; right: 29px;
       -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
-      -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+      -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
       background-image: -moz-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
       background-image: -webkit-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
       background-image: -o-linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
@@ -112,7 +112,7 @@
     float:left;
   }
   #phrasing-saved-status-indicator-circle{
-    background-color:green;
+    background-color: #56AE45;
     width:20px;
     height:20px;
     -webkit-border-radius: 10px;

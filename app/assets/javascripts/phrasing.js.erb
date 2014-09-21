@@ -1,6 +1,29 @@
 //= require editor
 
+function StatusBubble(){
+  var $headline = $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p');
+  var $circle = $('#phrasing-saved-status-indicator-circle');
+
+  var alterStatus = function(text, color){
+    $headline.text(text);
+    $circle.css('background-color', color);
+  }
+
+  this.saving = function(){
+    alterStatus('Saving', 'orange');
+  }
+
+  this.saved = function(){
+    alterStatus('Saved', '#56AE45');
+  }
+
+  this.error = function(){
+    alterStatus('Error', 'red');
+  }
+}
+
 var phrasing_setup = function(){
+  var status = new StatusBubble();
 
   // Initialize the editing bubble
   editor.init();
@@ -24,9 +47,7 @@ var phrasing_setup = function(){
   var timer_status = {}
 
   $('.phrasable').on('DOMNodeInserted DOMNodeRemoved DOMCharacterDataModified', function(e){
-
-    $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Saving")
-    $('#phrasing-saved-status-indicator-circle').css('background-color', 'orange')
+    status.saving();
 
     if (trigger_binded_events_for_phrasable_class == 1){
 
@@ -69,13 +90,11 @@ var phrasing_setup = function(){
         trigger_binded_events_for_phrasable_class = 1;
 
         if (Object.size(timer_status) == 0){
-          $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Saved")
-          $('#phrasing-saved-status-indicator-circle').css('background-color', '#56AE45')
+          status.saved();
         }
       },
       error: function(e){
-        $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Error")
-        $('#phrasing-saved-status-indicator-circle').css('background-color', 'red')
+        status.error();
       }
     });
   }
