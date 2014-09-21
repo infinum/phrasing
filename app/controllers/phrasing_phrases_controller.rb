@@ -71,28 +71,12 @@ class PhrasingPhrasesController < ActionController::Base
   end
 
   def destroy
-    @phrasing_phrase = PhrasingPhrase.find(params[:id])
-    @phrasing_phrase.destroy
-    redirect_to phrasing_phrases_path, notice: "#{@phrasing_phrase.key} deleted!"
+    phrasing_phrase = PhrasingPhrase.find(params[:id])
+    phrasing_phrase.destroy
+    redirect_to phrasing_phrases_path, notice: "#{phrasing_phrase.key} deleted!"
   end
 
   def help
-  end
-
-  def sync
-    if Phrasing.staging_server_endpoint.nil?
-      redirect_to :back, alert: "You didn't set your source server"
-    else
-      yaml = read_remote_yaml(Phrasing.staging_server_endpoint)
-
-      if yaml
-        Phrasing::Serializer.import_yaml(yaml)
-        redirect_to :back, notice: "Translations synced from source server"
-      else
-        redirect_to :back
-      end
-
-    end
   end
 
   def remote_update_phrase
@@ -112,21 +96,7 @@ class PhrasingPhrasesController < ActionController::Base
       render status: 403, text: e
   end
 
-  protected
-
-    def read_remote_yaml(url)
-      output = nil
-      begin
-        open(url, http_basic_authentication: [Phrasing.username, Phrasing.password]) do |remote|
-          output = remote.read()
-        end
-      rescue Exception => e
-        logger.fatal e
-        flash[:alert] = "Syncing failed: #{e}"
-      end
-      output
-    end
-
+  private
 
     def authorize_editor
       redirect_to root_path unless can_edit_phrases?
