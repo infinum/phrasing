@@ -1,38 +1,19 @@
 require 'phrasing'
-require "phrasing/serializer"
+require 'phrasing/serializer'
+require 'phrasing/rails/engine'
 require 'jquery-rails'
 require 'jquery-cookie-rails'
 require 'haml-rails'
 
 module Phrasing
-  module Rails
-    class Engine < ::Rails::Engine
-      initializer :assets, group: :all do
-        ::Rails.application.config.assets.paths << ::Rails.root.join('app', 'assets', 'fonts')
-        ::Rails.application.config.assets.paths << ::Rails.root.join('app', 'assets', 'images')
-        ::Rails.application.config.assets.precompile +=  %w(editor.js
-                                                            phrasing_engine.css
-                                                            phrasing_engine.js
-                                                            icomoon.dev.svg
-                                                            icomoon.svg
-                                                            icomoon.eot
-                                                            icomoon.ttf
-                                                            icomoon.woff
-                                                            phrasing_icon_edit_all.png)
-      end
-    end
-  end
-end
-
-
-module Phrasing
-
   mattr_accessor :allow_update_on_all_models_and_attributes
-  mattr_accessor :route
-  mattr_accessor :parent_controller
+  @@allow_update_on_all_models_and_attributes = false
 
-  @@parent_controller = "ApplicationController"
+  mattr_accessor :route
   @@route = 'phrasing'
+
+  mattr_accessor :parent_controller
+  @@parent_controller = "ApplicationController"
 
   def self.setup
     yield self
