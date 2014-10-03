@@ -1,6 +1,6 @@
 module InlineHelper
 # Normal phrase
-# phrase("headline", url: www.infinum.co/yabadaba, inverse: true, interpolation: {min: 15, max: 20}, scope: "models.errors")
+# phrase("headline", url: www.infinum.co/yabadaba, inverse: true, scope: "models.errors")
 
 # Data model phrase
 # phrase(record, :title, inverse: true, class: phrase-record-title)
@@ -18,7 +18,7 @@ module InlineHelper
   private
 
     def inline(record, attribute, options={})
-      return uneditable_phrase(record, attribute, options) unless can_edit_phrases?
+      return uneditable_phrase(record, attribute) unless can_edit_phrases?
 
       klass  = 'phrasable phrasable_on'
       klass += ' inverse'      if options[:inverse]
@@ -37,12 +37,8 @@ module InlineHelper
       inline(record, :value, options)
     end
 
-    def uneditable_phrase(record, attribute, options={})
-      record_value = if options[:interpolation]
-        I18n.interpolate(record.send(attribute), options[:interpolation])
-      else
-        record.send(attribute)
-      end
+    def uneditable_phrase(record, attribute)
+      record_value = record.send(attribute)
       record_value.to_s.html_safe
     end
 

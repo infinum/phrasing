@@ -114,7 +114,6 @@ The `phrase` view helper can take the `options` hash as the last parameter. Feat
 url: custom_url # point Phrasing to other actions in other controllers
 inverse: true # change the hovered background and underline colors to better fit darker backgrounds
 class: custom_class # add custom CSS classes to your phrases to change the appearance of phrases in your application
-interpolation: { %min: 10 } # add variables to your translations just like w/ I18n
 scope: 'homepage.footer' # add scopes just like you would w/ I18.n. If the first argument is 'test', than the key would be 'homepage.footer.test'
 ```
 

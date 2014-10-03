@@ -11,7 +11,7 @@ However, when using the phrase(key) method, if the key doesn't currently exist i
 
 ## Interpolation
 
-Try not to use the interpolation option anymore since it will probably be kicked out in the first stable release.
+The interpolation option has been kicked out.
 
 The problem with the interpolation option is that most clients won't understand what's happening when they see something like "Hi, my name is %{name}" once they are editing data.
 
