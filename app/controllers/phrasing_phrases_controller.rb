@@ -1,4 +1,4 @@
-class PhrasingPhrasesController < ActionController::Base
+class PhrasingPhrasesController < Phrasing.parent_controller.constantize
 
   layout 'phrasing'
 

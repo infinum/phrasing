@@ -24,7 +24,9 @@ module Phrasing
   mattr_accessor :allow_update_on_all_models_and_attributes
   mattr_accessor :route
   mattr_accessor :staging_server_endpoint
+  mattr_accessor :parent_controller
 
+  @@parent_controller = "ApplicationController"
   @@route = 'phrasing'
 
   def self.log

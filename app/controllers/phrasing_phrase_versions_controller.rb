@@ -1,4 +1,4 @@
-class PhrasingPhraseVersionsController < ActionController::Base
+class PhrasingPhraseVersionsController < Phrasing.parent_controller.constantize
 
   def destroy
     @phrasing_phrase_version = PhrasingPhraseVersion.find(params[:id])
