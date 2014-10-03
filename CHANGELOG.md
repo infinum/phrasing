@@ -1,5 +1,13 @@
 # Phrasing Change Log
 
+## 3.2.7 (October 3rd, 2014)
+
+Add a config option to set a parent controller to Phrasing Engine Controllers.
+
+## 3.2.6 (September 15th, 2014)
+
+Show Home page only when view responds to :root_path.
+
 ## 3.2.5 (June 17th, 2014)
 
 Added index for phrasing_phrase_id in versions table.
