@@ -17,10 +17,21 @@ The problem with the interpolation option is that most clients won't understand 
 
 If they try to erase parts of it, the developer also might end up being confused and the UI might get broken or at least ugly for some time until the developer fixes the issue.
 
-## HTML Sanitization
+## Loading asset dependencies
 
-There is a posibility we might add html sanitization to prevent ugly copy-pasted html insertion (as well as XSS attacks).
+From phrasing v4.0.0rc3, add your jquery files manually:
+
+```javascript
+//= require jquery
+//= require jquery_ujs
+//= require jquery.cookie
+//= require phrasing
+```
 
 ## Switching rake tasks with Rails generators
 
 Since Rails comes with outofbox generators that enable easy existing file detection and similar behaviors, Phrasing 4 will use Rails generators instead of the old rake tasks.
+
+## HTML Sanitization
+
+There is a posibility we might add html sanitization to prevent ugly copy-pasted html insertion as well as XSS attacks.
