@@ -12,6 +12,20 @@ class PhrasingPhrase < ActiveRecord::Base
     where(key: key, locale: I18n.locale.to_s).first || search_i18n_and_create_phrase(key)
   end
 
+  def self.fuzzy_search(search_term, locale)
+    query = order("phrasing_phrases.key")
+    query = query.where(locale: locale) if locale.present?
+
+    if search_term.present?
+      key_like   = PhrasingPhrase.arel_table[:key].matches("%#{search_term}%")
+      value_like = PhrasingPhrase.arel_table[:value].matches("%#{search_term}%")
+      query.where(key_like.or(value_like))
+    else
+      # because we want to have non nil values first.
+      query.where("value is not null") + query.where("value is null")
+    end
+  end
+
   private
 
     def self.search_i18n_and_create_phrase(key)

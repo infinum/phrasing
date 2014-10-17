@@ -13,18 +13,7 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
 
   def index
     params[:locale] ||= I18n.default_locale
-    query = PhrasingPhrase.order("phrasing_phrases.key")
-    query = query.where(locale: params[:locale]) if params[:locale].present?
-
-    @phrasing_phrases = if params[:search].present?
-      key_like   = PhrasingPhrase.arel_table[:key].matches("%#{params[:search]}%")
-      value_like = PhrasingPhrase.arel_table[:value].matches("%#{params[:search]}%")
-      query.where(key_like.or(value_like))
-    else
-      # because we want to have non nil values first.
-      query.where("value is not null") + query.where("value is null")
-    end
-
+    @phrasing_phrases = PhrasingPhrase.fuzzy_search(params[:search], params[:locale])
     @locale_names = PhrasingPhrase.uniq.pluck(:locale)
   end
 
