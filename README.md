@@ -43,7 +43,7 @@ module PhrasingHelper
   def can_edit_phrases?
     current_user.is_admin?
   end
-  
+
 end
 ```
 Include the phrasing **html** initializer at the top of your application layout file.
@@ -64,15 +64,29 @@ Include the required **stylesheet** file:
 *= require phrasing
 ```
 
+If you want phrasing to edit your model attributes, you'll need to modify the <tt>phrasing.rb</tt>initializer file in your <tt>app/config/initializers</tt> folder.
+
+To allow phrasing to modify all your models:
+
+```
+Phrasing.allow_update_on_all_models_and_attributes = true;
+```
+
+To allow phrasing to only modify specific model attributes:
+
+```
+Phrasing.whitelist = ["Post.title", "Post.description"]
+```
+
 ## How to use phrasing?
 
 You can start adding new phrases by simply adding them in your view file:
 
-	= phrase('my-first-phrase')
+  = phrase('my-first-phrase')
 
 Aside from editing phrases (basically, Rails translations) you can also edit model attributes inline. Use the same `phrase` method, with the first attribute being the record in question, and the second one the attribute you wish to make editable:
 
-  	= phrase(@post, :title)
+    = phrase(@post, :title)
 
 In the above example, <tt>@post</tt> is the record with a <tt>title</tt> attribute.
 
@@ -115,7 +129,7 @@ The `phrase` view helper can take the `options` hash as the last parameter. Feat
 ```ruby
 url: custom_url # point Phrasing to other actions in other controllers
 inverse: true # change the hovered background and underline colors to better fit darker backgrounds
-class: custom_class # add custom CSS classes to your phrases to change the appearance of phrases in your application 
+class: custom_class # add custom CSS classes to your phrases to change the appearance of phrases in your application
 interpolation: { %min: 10 } # add variables to your translations just like w/ I18n
 scope: 'homepage.footer' # add scopes just like you would w/ I18.n. If the first argument is 'test', than the key would be 'homepage.footer.test'
 ```
