@@ -1,6 +1,6 @@
 .edit
   %h2= @phrasing_phrase.key
-  = link_to "Delete Phrase", phrasing_phrase_path(@phrasing_phrase), class: "btn btn-danger delete-phrase", method: :delete, onclick: "return confirm('Are you sure?');"
+  = link_to "Delete Phrase", phrasing_phrase_path(@phrasing_phrase), class: "btn btn-danger delete-phrase", method: :delete, confirm: 'Are you sure?'
   = form_for @phrasing_phrase, url: { action: "update" } do |f|
     = f.text_area :value, rows: 12
     = f.submit "Update", class: "btn btn-success submit-edit-phrase"
@@ -20,4 +20,4 @@
           %td.phrasing-version-value= version.value.html_safe
           %td.phrasing-version-created_at= version.created_at.strftime("%d-%m-%Y %H:%M:%S")
           %td= link_to "Revert", phrasing_phrase_path(@phrasing_phrase.id, phrasing_phrase: {value: version.value}), class: "btn btn-success", method: :put
-          %td= link_to "Delete", phrasing_phrase_version_path(version.id), class: "btn btn-danger", method: :delete, onclick: "return confirm('Are you sure?');"
+          %td= link_to "Delete", phrasing_phrase_version_path(version.id), class: "btn btn-danger", method: :delete, confirm: 'Are you sure?'
