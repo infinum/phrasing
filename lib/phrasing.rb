@@ -4,7 +4,7 @@ require "phrasing/simple"
 require "phrasing/serializer"
 require 'jquery-rails'
 require 'jquery-cookie-rails'
-require 'haml-rails'
+require 'haml'
 
 module Phrasing
   module Rails
