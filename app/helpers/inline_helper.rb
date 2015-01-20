@@ -37,10 +37,10 @@ module InlineHelper
     def phrasing_phrase(key, options = {})
       key = options[:scope] ? "#{options[:scope]}.#{key}" : key.to_s
       if can_edit_phrases?
-        @record = PhrasingPhrase.where(key: key, locale: I18n.locale.to_s).first || PhrasingPhrase.search_i18n_and_create_phrase(key)
+        @record = PhrasingPhrase.where(key: key, locale: I18n.locale.to_s).first || PhrasingPhrase.search_i18n_and_create_phrase(key, options[:default] )
         inline(@record, :value, options)
       else
-        options.try(:[], :interpolation) ? t(key, options[:interpolation]).html_safe : t(key).html_safe
+        options.try(:[], :interpolation) ? t(key, options[:interpolation], default: options[:default] ).html_safe : t(key, default: options[:default] ).html_safe
       end
     end
 
