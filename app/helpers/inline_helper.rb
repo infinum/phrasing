@@ -5,9 +5,10 @@ module InlineHelper
 # Data model phrase
 # phrase(@record, :title, inverse: true, class: phrase-record-title)
 
-  def phrase(*args)
+  def phrase(*args,&block)
     if args[0].class == String or args[0].class == Symbol
       key, options = args[0].to_s, args[1]
+      options[:default] = capture(&block) if block
       phrasing_phrase(key,options || {})
     else
       record, field_name, options = args[0], args[1], args[2]
