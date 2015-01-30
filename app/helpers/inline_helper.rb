@@ -8,6 +8,7 @@ module InlineHelper
   def phrase(*args,&block)
     if args[0].class == String or args[0].class == Symbol
       key, options = args[0].to_s, args[1]
+      options = { default: options } if options.kind_of?( String )
       if block
         options ||= {} 
         options[:default] = capture(&block) 
