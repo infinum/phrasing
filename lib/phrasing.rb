@@ -3,7 +3,7 @@ require 'phrasing/serializer'
 require 'phrasing/rails/engine'
 require 'jquery-rails'
 require 'jquery-cookie-rails'
-require 'haml-rails'
+require 'haml'
 
 module Phrasing
   mattr_accessor :allow_update_on_all_models_and_attributes
@@ -33,7 +33,7 @@ module Phrasing
     @@whitelist = whitelist
   end
 
-  def self.is_whitelisted?(klass,attribute)
-    allow_update_on_all_models_and_attributes == true or whitelist.include? "#{klass}.#{attribute}"
+  def self.whitelisted?(klass, attribute)
+    allow_update_on_all_models_and_attributes == true || whitelist.include?("#{klass}.#{attribute}")
   end
 end

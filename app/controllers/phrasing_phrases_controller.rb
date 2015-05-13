@@ -8,8 +8,11 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
 
   before_filter :authorize_editor
 
-  def import_export; end
-  def help; end
+  def import_export
+  end
+
+  def help
+  end
 
   def index
     params[:locale] ||= I18n.default_locale
@@ -22,33 +25,29 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
   end
 
   def update
-    if request.xhr?
-      xhr_phrase_update
-    else
-      phrase_update
-    end
+    request.xhr? ? xhr_phrase_update : phrase_update
   end
 
   def download
     app_name = Rails.application.class.to_s.split("::").first
     app_env = Rails.env
-    filename = "phrasing_phrases_#{app_name}_#{app_env}_#{Time.now.strftime("%Y_%m_%d_%H_%M_%S")}.yml"
+    time = Time.now.strftime('%Y_%m_%d_%H_%M_%S')
+    filename = "phrasing_phrases_#{app_name}_#{app_env}_#{time}.yml"
     send_data Phrasing::Serializer.export_yaml, filename: filename
   end
 
   def upload
-      number_of_changes = Phrasing::Serializer.import_yaml(params["file"].tempfile)
-      redirect_to phrasing_phrases_path, notice: "YAML file uploaded successfully! Number of phrases changed: #{number_of_changes}."
-    rescue => e
-      logger.info "\n#{e.class}\n#{e.message}"
-      message = if params[:file].nil?
-        "Please choose a file."
-      else
-        "Please upload a valid YAML file."
-      end
+    number_of_changes = Phrasing::Serializer.import_yaml(params["file"].tempfile)
+    redirect_to phrasing_phrases_path, notice: "YAML file uploaded successfully! Number of phrases changed: #{number_of_changes}."
+  rescue => e
+    message = if params[:file].nil?
+                'Please choose a file.'
+              else
+                'Please upload a valid YAML file.'
+              end
 
-      flash[:alert] = "There was an error processing your upload! #{message}"
-      render action: 'import_export', status: 400
+    flash[:alert] = "There was an error processing your upload! #{message}"
+    render action: 'import_export', status: 400
   end
 
   def destroy
@@ -59,33 +58,30 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
 
   private
 
-    def authorize_editor
-      redirect_to root_path unless can_edit_phrases?
+  def authorize_editor
+    redirect_to root_path unless can_edit_phrases?
+  end
+
+  def xhr_phrase_update
+    klass, attribute = params[:klass], params[:attribute]
+
+    return render status: 403 if Phrasing.whitelisted?(klass, attribute)
+
+    record = klass.classify.constantize.where(id: params[:id]).first
+
+    if record.update(attribute => params[:new_value])
+      render json: record
+    else
+      render status: 403, json: record.error.full_messages
     end
+  end
 
-    def xhr_phrase_update
-      klass, attribute = params[:klass], params[:attribute]
+  def phrase_update
+    phrase = PhrasingPhrase.find(params[:id])
+    phrase.value = params[:phrasing_phrase][:value]
+    phrase.save!
 
-      if Phrasing.is_whitelisted?(klass, attribute)
-        class_object = klass.classify.constantize
-        @object = class_object.where(id: params[:id]).first
-        @object.send("#{attribute}=",params[:new_value])
-        @object.save!
-        render json: @object
-      else
-        render status: 403, text: "Attribute not whitelisted!"
-      end
-
-      rescue ActiveRecord::RecordInvalid => e
-        render status: 403, text: e
-    end
-
-    def phrase_update
-      phrase = PhrasingPhrase.find(params[:id])
-      phrase.value = params[:phrasing_phrase][:value]
-      phrase.save!
-
-      redirect_to phrasing_phrases_path, notice: "#{phrase.key} updated!"
-    end
+    redirect_to phrasing_phrases_path, notice: "#{phrase.key} updated!"
+  end
 
 end

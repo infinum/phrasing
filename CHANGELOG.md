@@ -1,5 +1,13 @@
 # Phrasing Change Log
 
+## 3.2.9 (January 7th, 2015)
+
+Require only haml, not haml-rails.
+
+## 3.2.8 (January 6th, 2015)
+
+Fix confirm dialogs when deleting phrases and phrase versions.
+
 ## 3.2.7 (October 3rd, 2014)
 
 Add a config option to set a parent controller to Phrasing Engine Controllers.
