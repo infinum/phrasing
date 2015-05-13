@@ -25,7 +25,7 @@ module InlineHelper
 
     url = phrasing_polymorphic_url(record, field_name)
 
-    content_tag(:span, { class: klass, contenteditable: edit_mode_on?, spellcheck: false,   "data-url" => url}) do 
+    content_tag(:span, { class: klass, contenteditable: edit_mode_on?, spellcheck: false,   "data-url" => url}) do
       (record.send(field_name) || record.try(:key)).to_s.html_safe
     end
   end
@@ -33,7 +33,7 @@ module InlineHelper
   alias_method :model_phrase, :inline
 
   private
-  
+
     def phrasing_phrase(key, options = {})
       key = options[:scope] ? "#{options[:scope]}.#{key}" : key.to_s
       if can_edit_phrases?
@@ -48,7 +48,7 @@ module InlineHelper
       if cookies["editing_mode"].nil?
         cookies['editing_mode'] = "true"
         true
-      else  
+      else
         cookies['editing_mode'] == "true"
       end
     end
