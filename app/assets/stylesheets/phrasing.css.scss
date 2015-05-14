@@ -8,14 +8,14 @@
 	overflow: hidden;
 }*/
 
-.phrasable_on{
+.phrasable.phrasable-on{
 	border-bottom: 1px dashed black;
-	
+
 	a{
   	pointer-events: none;
    	cursor: default;
 	}
-	
+
 	&:focus{
 		outline: none;
 	}
@@ -172,7 +172,7 @@ span.no-overflow {
 			margin-right: 0px;
 			opacity: 0;
 		}
-		
+
 		input{
 			border-left: 2px solid transparent;
 			padding-right: 5px;

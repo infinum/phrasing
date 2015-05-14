@@ -19,7 +19,7 @@ module InlineHelper
   def inline(record, attribute, options = {})
     return uneditable_phrase(record, attribute) unless can_edit_phrases?
 
-    klass  = 'phrasable phrasable_on'
+    klass  = 'phrasable'
     klass += ' inverse'      if options[:inverse]
     klass += options[:class] if options[:class]
 
