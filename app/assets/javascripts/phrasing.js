@@ -5,6 +5,10 @@ var Phrasing = {
   EDIT_MODE_KEY : 'editing-mode'
 };
 
+Phrasing.isEditModeEnabled = function(){
+  return localStorage.getItem(this.EDIT_MODE_KEY) === "true";
+};
+
 function StatusBubbleWidget(options){
   this.$statusText       = options.$statusText;
   this.$statusIndicator  = options.$statusIndicator;
