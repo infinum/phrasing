@@ -2,7 +2,6 @@
 require 'spec_helper'
 
 describe Phrasing::Serializer do
-
   let(:english_phrases) do
     PhrasingPhrase.where(locale: :en)
   end
@@ -12,15 +11,14 @@ describe Phrasing::Serializer do
   end
 
   describe 'flatten_the_hash' do
-
     it 'with simple data' do
-      hash = { "site.intro" => "Hello", "site.outro" => "KthnxBye", "site.overture" => "The Butler"}
+      hash = { "site.intro" => "Hello", "site.outro" => "KthnxBye", "site.overture" => "The Butler" }
       new_hash = Phrasing::Serializer.flatten_the_hash(hash)
       expect(new_hash).to eq(hash)
     end
 
     it 'with nested data' do
-      hash = { "site.text" => {"intro" => "Hello", "outro" => "KthnxBye"}}
+      hash = { "site.text" => { "intro" => "Hello", "outro" => "KthnxBye" } }
       new_hash = Phrasing::Serializer.flatten_the_hash(hash)
 
       predicted_new_hash = { "site.text.intro" => "Hello", "site.text.outro" => "KthnxBye" }
@@ -28,17 +26,24 @@ describe Phrasing::Serializer do
     end
 
     it 'with deeply nested data' do
-      hash = { "site" => {"text" => {"intro" => "Hello", "outro" => "KthnxBye", "overture" => {"intro" => "Overture intro", "outro" => "Overture outro"}}}}
+      hash = { "site" => { "text" => { "intro" => "Hello",
+                                       "outro" => "KthnxBye",
+                                       "overture" => { "intro" => "Overture intro",
+                                                       "outro" => "Overture outro" }
+                                      }
+                          }
+              }
       new_hash = Phrasing::Serializer.flatten_the_hash(hash)
 
-      predicted_new_hash = { "site.text.intro" => "Hello", "site.text.outro" => "KthnxBye", "site.text.overture.intro" => "Overture intro", "site.text.overture.outro" => "Overture outro"}
+      predicted_new_hash = { "site.text.intro" => "Hello",
+                             "site.text.outro" => "KthnxBye",
+                             "site.text.overture.intro" => "Overture intro",
+                             "site.text.overture.outro" => "Overture outro" }
       expect(new_hash).to eq(predicted_new_hash)
     end
-
   end
 
   context 'import_yaml' do
-
     it 'simply formatted phrases' do
       yaml = <<-YAML
         en:
@@ -84,7 +89,6 @@ describe Phrasing::Serializer do
       expect(english_phrases.where(key: "site.text.overture.outro").first.value).to eq("Overture outro")
     end
 
-
     it 'overrides old values' do
       FactoryGirl.create(:phrasing_phrase, key: "site.intro", value: "Go Home")
       FactoryGirl.create(:phrasing_phrase, key: "site.outro", value: "Kthnx Bye")
@@ -104,9 +108,7 @@ describe Phrasing::Serializer do
 
       expect(number_of_changes).to eq(1)
     end
-
   end
-
 
   context 'imports and exports' do
     it 'without changing, should return 0 number of changes' do
@@ -125,7 +127,6 @@ describe Phrasing::Serializer do
       expect(number_of_changes).to eq(0)
     end
   end
-
 
   context 'export_yaml' do
     it 'flattened phrases' do
@@ -153,13 +154,5 @@ describe Phrasing::Serializer do
       expect(yaml).to match(/en:\s*\n\s*site.intro:\sHello/)
       expect(yaml).to match(/fr:\s*\n\s*site.intro:\sBonjour/)
     end
-
   end
-
-
-
 end
-
-
-
-

@@ -65,9 +65,9 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
   def xhr_phrase_update
     klass, attribute = params[:klass], params[:attribute]
 
-    return render status: 403 if Phrasing.whitelisted?(klass, attribute)
+    return render status: 403, text: 'Phrase not whitelisted' unless Phrasing.whitelisted?(klass, attribute)
 
-    record = klass.classify.constantize.where(id: params[:id]).first
+    record = klass.classify.constantize.find(params[:id])
 
     if record.update(attribute => params[:new_value])
       render json: record
