@@ -14,10 +14,10 @@ feature 'edit mode bubble' do
     expect(edit_mode_checkbox).not_to be_checked
   end
 
-  it "phrases should have class 'phrasable_on' and contenteditable=true" do
+  it "phrases initially shouldn't have class 'phrasable-on' and contenteditable=true" do
     expect(page.find('.header').first('.phrasable').text).to eq 'The Header'
-    expect(page.find('.header').first('.phrasable')['class']).to eq 'phrasable phrasable_on'
-    expect(page.find('.header').first('.phrasable')['contenteditable']).to eq 'true'
+    expect(page.find('.header').first('.phrasable')['class']).to eq 'phrasable'
+    expect(page.find('.header').first('.phrasable')['contenteditable']).to be_nil
   end
 
   it 'should be able to visit phrasing index via edit_all icon' do

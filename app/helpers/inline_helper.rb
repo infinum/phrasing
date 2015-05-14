@@ -20,12 +20,12 @@ module InlineHelper
     return uneditable_phrase(record, attribute) unless can_edit_phrases?
 
     klass  = 'phrasable'
-    klass += ' inverse'      if options[:inverse]
-    klass += options[:class] if options[:class]
+    klass += ' inverse' if options[:inverse]
+    klass += ' ' + options[:class] if options[:class]
 
     url = phrasing_polymorphic_url(record, attribute)
 
-    content_tag(:span, class: klass, contenteditable: true, spellcheck: false, 'data-url' => url) do
+    content_tag(:span, class: klass, spellcheck: false, 'data-url' => url) do
       (record.send(attribute) || record.try(:key)).to_s.html_safe
     end
   end
