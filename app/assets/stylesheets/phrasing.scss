@@ -1,0 +1,252 @@
+@import "phrasing_fonts";
+@import "phrasing_edit_mode_bubble";
+
+/*********************************************
+ * BASE STYLES
+ *********************************************/
+
+/*html {
+  overflow: hidden;
+}*/
+
+.phrasable.phrasable-on{
+  border-bottom: 1px dashed black;
+
+  a{
+    pointer-events: none;
+    cursor: default;
+  }
+
+  &:focus{
+    outline: none;
+  }
+
+  &:hover{
+    background-color: #fffadc;
+    cursor: pointer;
+  }
+
+  &.inverse{
+    border-bottom: 1px dashed white;
+
+    &:hover{
+      background-color: #333333;
+    }
+  }
+
+}
+
+/*blockquote {
+  border-left: 4px solid deepskyblue;
+  margin-left: -19px;
+  padding-left: 15px;
+  margin-right: 0px;
+}*/
+
+span.no-overflow {
+  overflow: hidden;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+/* Used by the ui bubble to stop wrapping */
+.lengthen {
+  display: block;
+  width: 300px;
+  height: 100%;
+}
+
+.useicons {
+  -webkit-font-smoothing: antialiased;
+  font-size: 20px !important;
+  font-family: 'icomoon' !important;
+}
+
+/*.ui {
+  position: fixed;
+  padding: 20px;
+  width: 65px;
+  bottom: 0px;
+  left: 0px;
+  top: 0px;
+}
+
+.ui:hover button {
+  opacity: 0.4;
+}
+
+.ui button:hover {
+  opacity: 1;
+}*/
+
+.text-options button {
+
+  -webkit-transition: opacity 400ms;
+  -moz-transition: opacity 400ms;
+  -ms-transition: opacity 400ms;
+  -o-transition: opacity 400ms;
+  transition: opacity 400ms;
+
+  font-family: inherit;
+  background: none;
+  cursor: pointer;
+  font-size: 25px;
+  color: inherit;
+  opacity: 0.1;
+  padding: 0px;
+  height: 32px;
+  width: 25px;
+  border: 0px;
+}
+
+/*.quote {
+  line-height: 60px !important;
+  font-size: 49px !important;
+}*/
+
+/*********************************************
+ * UI BUBBLE
+ *********************************************/
+
+.text-options {
+
+  -webkit-transition: opacity 250ms, margin 250ms;
+  -moz-transition: opacity 250ms, margin 250ms;
+  -ms-transition: opacity 250ms, margin 250ms;
+  -o-transition: opacity 250ms, margin 250ms;
+  transition: opacity 250ms, margin 250ms;
+  *, *:before, *:after{
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+  }
+  position: absolute;
+  left: -999px;
+  top: -999px;
+  color: #fff;
+  height: 0px;
+  width: 0px;
+  z-index: 5;
+  margin-top: 5px;
+  opacity: 0;
+
+  &.fade {
+    opacity: 0;
+    margin-top: -5px;
+  }
+
+  &.active {
+    opacity: 1;
+    margin-top: 0px;
+  }
+}
+
+
+.text-options .options {
+  background-color: rgba(0,0,0,0.9);
+  position: absolute;
+  border-radius: 5px;
+  margin-left: -48px;
+  margin-top: -46px;
+  z-index: 1000;
+  padding: 5px 4px 5px 5px;
+  width: 96px;
+  height: 40px;
+
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+
+
+  &.url-mode {
+    width: 275px;
+    margin-left: -137px;
+
+   .bold, .options.url-mode .italic, .options.url-mode .quote {
+      width: 0px;
+      overflow: hidden;
+      margin-right: 0px;
+      opacity: 0;
+    }
+
+    input{
+      border-left: 2px solid transparent;
+      padding-right: 5px;
+      padding-left: 5px;
+      width: 236px;
+    }
+  }
+
+  .italic {
+    font-style: italic;
+  }
+  .bold, .italic{
+    line-height:normal;
+  }
+
+  button {
+    -webkit-transition: all 250ms ease-in-out;
+    -moz-transition: all 250ms ease-in-out;
+    -ms-transition: all 250ms ease-in-out;
+    -o-transition: all 250ms ease-in-out;
+    transition: all 250ms ease-in-out;
+
+    float: left;
+    width: 28px;
+    opacity: 0.7;
+    height: 30px;
+    border-radius: 3px;
+    margin-right: 1px;
+    font-family: 'Lora', serif;
+
+    &.active {
+      background-color: rgba(255,255,255,0.4);
+      opacity: 1;
+    }
+
+    &:hover {
+      opacity: 0.95;
+    }
+  }
+
+  input {
+    -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -ms-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+
+    border-radius: 3px;
+    overflow: hidden;
+    outline: 0px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    float: left;
+    width: 0px;
+  }
+
+  &:before {
+    content: "";
+    border-top: 5px solid rgba(0,0,0,0.9);
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    position: absolute;
+    margin-left: -5px;
+    bottom: -15px;
+    height: 5px;
+    width: 0px;
+    left: 50%;
+  }
+}
+
+.url {
+  -webkit-font-smoothing: antialiased;
+}
