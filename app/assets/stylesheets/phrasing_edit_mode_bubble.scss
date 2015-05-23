@@ -1,3 +1,7 @@
+$phrasing-edit-mode-bubble-paragraph-line-height: 20px;
+$phrasing-edit-mode-bubble-paragraph-font-family: Arial, Helvetica, sans-serif;
+$phrasing-edit-mode-bubble-paragraph-font-size: 14px;
+
 #phrasing-edit-mode-bubble{
   *, *:after, *:before{
     webkit-box-sizing:content-box;
@@ -21,7 +25,9 @@
   border-radius: 10px;
 
   p{
-    line-height:20px;
+    line-height: $phrasing-edit-mode-bubble-paragraph-line-height;
+    font-family: $phrasing-edit-mode-bubble-paragraph-font-family;
+    font-size: $phrasing-edit-mode-bubble-paragraph-font-size;
   }
   ::selection{ color: grey;  background: white; }
 
