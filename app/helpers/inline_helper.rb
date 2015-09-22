@@ -40,7 +40,7 @@ module InlineHelper
   end
 
   def phrasing_polymorphic_url(record, attribute)
-    phrasing_phrase_path(klass: record.class.to_s, id: record.id, attribute: attribute)
+    phrasing_phrase_path(record.id, klass: record.class.to_s, attribute: attribute)
   end
 
 end
