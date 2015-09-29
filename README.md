@@ -6,6 +6,8 @@
 
 Phrasing is a gem for live editing phrases (copy) on websites.
 
+**Phrasing is currently iterating over release candidates for a major update: 4.0. The Readme for those versions can be found** [here](https://github.com/infinum/phrasing/tree/new-release-4)
+
 ## Installation
 
 Include the gem in your Gemfile
