@@ -11,7 +11,7 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
   def index
     params[:locale] ||= I18n.default_locale
     query = PhrasingPhrase
-    query = query.order("#{query.table_name}.key")
+    query = query.order("#{query.table_name}.[key]")
     query = query.where(locale: params[:locale]) unless params[:locale].blank?
 
     if params[:search] and !params[:search].blank?
