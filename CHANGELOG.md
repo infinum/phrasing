@@ -1,5 +1,9 @@
 # Phrasing Change Log
 
+## 3.2.10 (October 2nd, 2015)
+
+Change order parameters in PhrasingPhrases#index to support SQLServer.
+
 ## 3.2.9 (January 7th, 2015)
 
 Require only haml, not haml-rails.
