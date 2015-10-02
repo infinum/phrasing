@@ -13,7 +13,7 @@ class PhrasingPhrase < ActiveRecord::Base
   end
 
   def self.fuzzy_search(search_term, locale)
-    query = order("phrasing_phrases.key")
+    query = order(:key)
     query = query.where(locale: locale) if locale.present?
 
     if search_term.present?
