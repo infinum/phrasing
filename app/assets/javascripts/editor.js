@@ -202,9 +202,9 @@ var editor = (function() {
 		while ( element.parentNode ) {
 			if (element.className !== undefined){
 				if (
-            element.className.indexOf("phrasable")>=0 &&
-            element.className.indexOf("phrasable-on")>=0
-        ){
+						element.className.indexOf("phrasable")>=0 &&
+						element.className.indexOf("phrasable-on")>=0
+				){
 					return true;
 				}
 			}
