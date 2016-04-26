@@ -130,6 +130,8 @@ By default, Phrasing autosaves after 2.5 seconds. In the <tt>config/initializers
 Phrasing.autosave = false
 ```
 
+This will create a button for the editor to save all alterations on the current page.
+
 ## Credits
 
 Phrasing is maintained and sponsored by
