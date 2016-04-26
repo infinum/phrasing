@@ -23,26 +23,34 @@ var phrasing_setup = function(){
 
   // Trigger AJAX on textchange
   var trigger_binded_events_for_phrasable_class = 1;
+  var changed_content = {}
   var timer = {}
   var timer_status = {}
 
   $('.phrasable').on('DOMNodeInserted DOMNodeRemoved DOMCharacterDataModified', function(e){
 
+    $('#phrasing-edit-mode-bubble #phrasing-save button').text("Save").css('background', 'orange')
     $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Saving")
     $('#phrasing-saved-status-indicator-circle').css('background-color', 'orange')
-    
-    if (trigger_binded_events_for_phrasable_class == 1){
 
+    if (trigger_binded_events_for_phrasable_class == 1){
       var record = this;
       
-      clearTimeout(timer[$(record).data("url")]);
-      timer_status[$(record).data("url")] = 0;
-      
-      timer[$(record).data("url")] = setTimeout(function(){
-        savePhraseViaAjax(record);
-        delete timer_status[$(record).data("url")]
-      },2500)
-      timer_status[$(record).data("url")] = 1;
+      if( window.phrasingAutoSave ){
+        clearTimeout(timer[$(record).data("url")]);
+        timer_status[$(record).data("url")] = 0;
+        
+        timer[$(record).data("url")] = setTimeout(function(){
+          savePhraseViaAjax(record);
+          delete timer_status[$(record).data("url")]
+        },2500)
+        timer_status[$(record).data("url")] = 1;
+      } else {
+        changed_content[$(record).data("url")] = record;
+        if (Object.keys(changed_content).length > 1) {
+          $('#phrasing-edit-mode-bubble #phrasing-save button').text("Save All")
+        }
+      }
     }
 
   });
@@ -75,8 +83,11 @@ var phrasing_setup = function(){
           $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Saved")
           $('#phrasing-saved-status-indicator-circle').css('background-color', '#56AE45')
         }
+
+        $('#phrasing-edit-mode-bubble #phrasing-save button').text("Saved").css('background', '#56AE45')
       },
       error: function(e){
+        $('#phrasing-edit-mode-bubble #phrasing-save button').text("Error").css('background', 'red')
         $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Error")
         $('#phrasing-saved-status-indicator-circle').css('background-color', 'red')
       }
@@ -92,6 +103,14 @@ var phrasing_setup = function(){
     else{
       $('.phrasable').removeClass("phrasable_on").attr("contenteditable", "false");
       $.cookie("editing_mode", "false");
+    }
+  });
+
+  $('#phrasing-save button').on('click', function(e){
+    e.preventDefault();
+    for (var key in changed_content) {
+        savePhraseViaAjax(changed_content[key]);
+        delete changed_content[key];
     }
   });
 

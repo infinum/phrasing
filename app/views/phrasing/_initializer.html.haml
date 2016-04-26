@@ -13,6 +13,8 @@
 
 
   #phrasing-edit-mode-bubble
+    :javascript
+      window.phrasingAutoSave = #{Phrasing.autosave};
     #phrasing-edit-mode
       #phrasing-edit-mode-headline
         %p Edit
@@ -22,11 +24,15 @@
           %label.onoffswitch-label{for: "edit-mode-onoffswitch"}
             .onoffswitch-inner
             .onoffswitch-switch
-    #phrasing-saved-status
-      #phrasing-saved-status-headline
-        %p Saved
-      #phrasing-saved-status-indicator
-        #phrasing-saved-status-indicator-circle
+    - if Phrasing.autosave
+      #phrasing-saved-status
+        #phrasing-saved-status-headline
+          %p Saved
+        #phrasing-saved-status-indicator
+          #phrasing-saved-status-indicator-circle
+    - else
+      #phrasing-save
+        %button Save
     #phrasing-edit-all-phrases
       #phrasing-edit-all-phrases-headline
         %p Edit all
