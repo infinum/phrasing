@@ -128,6 +128,17 @@ class: custom_class # add custom CSS classes to your phrases to change the appea
 scope: 'homepage.footer' # add scopes just like you would w/ I18.n. If the first argument is 'test', than the key would be 'homepage.footer.test'
 ```
 
+## Phrasing Autosave
+
+By default, Phrasing autosaves after 2.5 seconds. In the <tt>config/initializers/phrasing.rb</tt> file, this feature can be toggled:
+
+```ruby
+Phrasing.autosave = false
+```
+
+This will create a button for the editor to save all alterations on the current page.
+
+
 ## Credits
 
 Phrasing is maintained and sponsored by

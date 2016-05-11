@@ -15,8 +15,15 @@ module Phrasing
   mattr_accessor :parent_controller
   @@parent_controller = "ApplicationController"
 
+  mattr_accessor :autosave
+  @@autosave = true
+
   def self.setup
     yield self
+  end
+
+  def self.autosave
+    @@autosave
   end
 
   WHITELIST = "PhrasingPhrase.value"

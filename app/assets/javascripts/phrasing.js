@@ -12,6 +12,7 @@ Phrasing.isEditModeEnabled = function(){
 function StatusBubbleWidget(options){
   this.$statusText       = options.$statusText;
   this.$statusIndicator  = options.$statusIndicator;
+  this.$saveButton       = options.$saveButton; 
   this.$editModeChechbox = options.$editModeChechbox;
   this._init();
 }
@@ -25,6 +26,12 @@ StatusBubbleWidget.prototype = {
         Phrasing.Bus.trigger('phrasing:edit-mode:off');
       }
     });
+
+    this.$saveButton.on('click', function(){
+      if (Phrasing.isEditModeEnabled()){
+        Phrasing.Bus.trigger('phrasing:handle-manual-save');
+      }
+    });
   },
 
   _alterStatus : function(text, color){
@@ -32,16 +39,31 @@ StatusBubbleWidget.prototype = {
     this.$statusIndicator.css('background-color', color);
   },
 
+  _alterButton : function(text, color){
+    this.$saveButton.text(text).css('background', color);
+  },
+
+  multiSave : function(){
+    this._alterButton('Save All', 'orange');
+  },
+
+  dirty : function(){
+    this._alterButton('Save', 'orange');
+  },
+
   saving : function(){
     this._alterStatus('Saving', 'orange');
+    this._alterButton('Saving', 'orange');
   },
 
   saved : function(){
     this._alterStatus('Saved', '#56AE45');
+    this._alterButton('Save', '#56AE45');
   },
 
   error : function(){
     this._alterStatus('Error', 'red');
+    this._alterButton('Save', 'red');
   }
 };
 
@@ -49,6 +71,7 @@ var phrasing_setup = function(){
   var statusBubbleWidget = new StatusBubbleWidget({
     $statusText       : $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p'),
     $statusIndicator  : $('#phrasing-saved-status-indicator-circle'),
+    $saveButton       : $('#phrasing-save button'),
     $editModeChechbox : $('#edit-mode-onoffswitch')
   });
 
@@ -60,6 +83,15 @@ var phrasing_setup = function(){
   Phrasing.Bus.on('phrasing:edit-mode:off', function(){
     $('.phrasable').removeClass("phrasable-on").attr("contenteditable", "false");
     localStorage.setItem(Phrasing.EDIT_MODE_KEY, "false");
+  });
+
+  Phrasing.Bus.on('phrasing:handle-manual-save', function(e){
+    e.preventDefault();
+
+    for (var key in changed_content) {
+        savePhraseViaAjax(changed_content[key]);
+        delete changed_content[key];
+    }
   });
 
   // Initialize the editing bubble
@@ -80,6 +112,7 @@ var phrasing_setup = function(){
 
   // Trigger AJAX on textchange
   var userTriggeredPhrasingDOMChange = true;
+  var changed_content = {};
   var timer = {};
   var timer_status = {};
 
@@ -88,19 +121,27 @@ var phrasing_setup = function(){
       return;
     }
 
-    statusBubbleWidget.saving();
-
     var record = this;
 
-    clearTimeout(timer[$(record).data("url")]);
-    timer_status[$(record).data("url")] = 0;
+    if(window.phrasingAutoSave){
+      statusBubbleWidget.saving();
+      clearTimeout(timer[$(record).data("url")]);
+      timer_status[$(record).data("url")] = 0;
 
-    timer[$(record).data("url")] = setTimeout(function(){
-      savePhraseViaAjax(record);
-      delete timer_status[$(record).data("url")];
-    },2500);
+      timer[$(record).data("url")] = setTimeout(function(){
+        savePhraseViaAjax(record);
+        delete timer_status[$(record).data("url")];
+      },2500);
 
-    timer_status[$(record).data("url")] = 1;
+      timer_status[$(record).data("url")] = 1;
+    } else {
+      changed_content[$(record).data("url")] = record;
+      if (Object.keys(changed_content).length > 1) {
+        statusBubbleWidget.multiSave();
+      } else {
+        statusBubbleWidget.dirty();
+      }
+    }
   });
 
   // AJAX Request
