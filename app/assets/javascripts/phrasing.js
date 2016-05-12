@@ -56,7 +56,7 @@ var phrasing_setup = function(){
     $('.phrasable').addClass("phrasable-on").attr("contenteditable", 'true');
     localStorage.setItem(Phrasing.EDIT_MODE_KEY, 'true');
 
-    $(document).on("click", 'a', function(e){
+    $('a').on("click", function(e){
       if ( !(this.href.indexOf("phrasing") > -1) ) {
         e.preventDefault();
       }
@@ -67,7 +67,7 @@ var phrasing_setup = function(){
   Phrasing.Bus.on('phrasing:edit-mode:off', function(){
     $('.phrasable').removeClass("phrasable-on").attr("contenteditable", "false");
     localStorage.setItem(Phrasing.EDIT_MODE_KEY, "false");
-    $(document).off('click');
+    $('a').off('click');
   });
 
   // Initialize the editing bubble
