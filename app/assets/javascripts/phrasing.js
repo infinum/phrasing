@@ -67,6 +67,7 @@ var phrasing_setup = function(){
   Phrasing.Bus.on('phrasing:edit-mode:off', function(){
     $('.phrasable').removeClass("phrasable-on").attr("contenteditable", "false");
     localStorage.setItem(Phrasing.EDIT_MODE_KEY, "false");
+    $(document).off('click');
   });
 
   // Initialize the editing bubble
