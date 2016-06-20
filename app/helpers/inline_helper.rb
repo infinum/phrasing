@@ -7,7 +7,7 @@ module InlineHelper
   def phrase(*args)
     if args[0].class.in? [String, Symbol]
       key, options = args[0].to_s, (args[1] || {})
-      inline(extract_record(key, options), :value, options)
+      inline(phrasing_extract_record(key, options), :value, options)
     else
       record, attribute, options = args[0], args[1], args[2]
       inline(record, attribute, options || {})
@@ -30,7 +30,7 @@ module InlineHelper
     end
   end
 
-  def extract_record(key, options = {})
+  def phrasing_extract_record(key, options = {})
     key = options[:scope] ? "#{options[:scope]}.#{key}" : key
     PhrasingPhrase.find_phrase(key)
   end
