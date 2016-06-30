@@ -1,8 +1,7 @@
 class PhrasingPhrasesController < Phrasing.parent_controller.constantize
-
+  skip_before_action :verify_authenticity_token
+  
   layout 'phrasing'
-
-  protect_from_forgery
 
   include PhrasingHelper
 
