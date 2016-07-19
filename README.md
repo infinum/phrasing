@@ -65,7 +65,6 @@ Include the required **javascript** files:
 ```javascript
 //= require jquery
 //= require jquery_ujs
-//= require js.cookie
 //= require phrasing
 ```
 
@@ -112,7 +111,6 @@ If you're experiencing problems with Rails apps using Turbolinks, include the [j
 ```javascript
 //= require jquery
 //= require jquery_ujs
-//= require js.cookie
 //= require jquery.turbolinks
 //= require phrasing
 //= require turbolinks

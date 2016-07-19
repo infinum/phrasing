@@ -6,6 +6,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require js.cookie
 //= require phrasing
 //= require_tree .

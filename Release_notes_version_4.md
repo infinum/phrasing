@@ -24,7 +24,6 @@ From phrasing v4.0.0rc3, add your jquery files manually:
 ```javascript
 //= require jquery
 //= require jquery_ujs
-//= require js.cookie
 //= require phrasing
 ```
 
