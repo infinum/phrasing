@@ -3,8 +3,6 @@ language: ruby
 
 matrix:
   include:
-    - rvm: 1.9.3
-      env: "RAILS_VERSION=3.2.0"
     - rvm: 2.0.0
       env: "RAILS_VERSION=4.0.0"
     - rvm: 2.1.2
