@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/infinum/phrasing.png)](https://travis-ci.org/infinum/phrasing)
 
-![Phrasing](http://www.miataturbo.net/attachments/miata-parts-sale-trade-5/74257-lots-leftovers-near-boston-archer-phrasing2-300x225-jpg?dateline=1366600534)
-
 Phrasing is a gem for live editing phrases (copy) on websites.
 
 **Phrasing is currently iterating over release candidates for a major update: 4.0. The Readme for those versions can be found** [here](https://github.com/infinum/phrasing/tree/new-release-4)
@@ -127,7 +125,7 @@ scope: 'homepage.footer' # add scopes just like you would w/ I18.n. If the first
 Phrasing is maintained and sponsored by
 [Infinum] (http://www.infinum.co).
 
-![Infinum](https://www.infinum.co/assets/logo_pic-2e19713f50692ed9b0805b199676c19a.png)
+<img src="https://infinum.co/logo.png" width="64">
 
 Phrasing leverages parts of [Copycat](https://github.com/Zorros/copycat) and [ZenPen](https://github.com/tholman/zenpen/tree/master/).
 
