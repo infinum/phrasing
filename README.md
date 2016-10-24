@@ -125,7 +125,7 @@ scope: 'homepage.footer' # add scopes just like you would w/ I18.n. If the first
 Phrasing is maintained and sponsored by
 [Infinum] (http://www.infinum.co).
 
-<img src="https://infinum.co/logo.png" width="64">
+<img src="https://infinum.co/infinum.png" width="264">
 
 Phrasing leverages parts of [Copycat](https://github.com/Zorros/copycat) and [ZenPen](https://github.com/tholman/zenpen/tree/master/).
 
