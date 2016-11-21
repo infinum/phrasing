@@ -6,7 +6,7 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
 
   include PhrasingHelper
 
-  before_filter :authorize_editor
+  before_action :authorize_editor
 
   def import_export
   end
@@ -17,7 +17,7 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
   def index
     params[:locale] ||= I18n.default_locale
     @phrasing_phrases = PhrasingPhrase.fuzzy_search(params[:search], params[:locale])
-    @locale_names = PhrasingPhrase.uniq.pluck(:locale)
+    @locale_names = PhrasingPhrase.distinct.pluck(:locale)
   end
 
   def edit
