@@ -30,14 +30,14 @@ var phrasing_setup = function(){
 
     $('#phrasing-edit-mode-bubble #phrasing-saved-status-headline p').text("Saving")
     $('#phrasing-saved-status-indicator-circle').css('background-color', 'orange')
-    
+
     if (trigger_binded_events_for_phrasable_class == 1){
 
       var record = this;
-      
+
       clearTimeout(timer[$(record).data("url")]);
       timer_status[$(record).data("url")] = 0;
-      
+
       timer[$(record).data("url")] = setTimeout(function(){
         savePhraseViaAjax(record);
         delete timer_status[$(record).data("url")]
@@ -49,11 +49,11 @@ var phrasing_setup = function(){
 
   // AJAX Request
   function savePhraseViaAjax(record){
-    
+
     var url = $(record).data("url");
 
     var content = record.innerHTML;
-    
+
     if(content.length == 0){
       content= "Empty"
     }
@@ -83,15 +83,24 @@ var phrasing_setup = function(){
     });
   }
 
-  // Edit Mode On/Off Button
+// EDIT MODE SWITCH MODE BUTTON
+  var block_events = function(event){
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+
   $('#edit-mode-onoffswitch').on('change', function(){
     if(this.checked){
       $('.phrasable').addClass("phrasable_on").attr("contenteditable", "true");
       $.cookie("editing_mode", "true");
+      $('a:not(#phrasing-edit-mode-bubble a)').on('click', block_events);
+      $('form').on('submit', block_events);
     }
     else{
       $('.phrasable').removeClass("phrasable_on").attr("contenteditable", "false");
       $.cookie("editing_mode", "false");
+      $('a:not(#phrasing-edit-mode-bubble a)').off('click', block_events);
+      $('form').off('submit', block_events);
     }
   });
 
@@ -107,4 +116,7 @@ var phrasing_setup = function(){
 
 };
 
-$(document).ready(phrasing_setup)
+$(document).ready(function(){
+  phrasing_setup()
+  $('#edit-mode-onoffswitch').trigger('change')
+})
