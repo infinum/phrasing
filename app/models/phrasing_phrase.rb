@@ -8,12 +8,12 @@ class PhrasingPhrase < ActiveRecord::Base
 
   after_update :version_it
 
-  def self.search_i18n_and_create_phrase key
+  def self.search_i18n_and_create_phrase key, default_value=nil
     begin
       value = I18n.t key, raise: true
       PhrasingPhrase.where(key: key, locale: I18n.locale).first
     rescue I18n::MissingTranslationData
-      create_phrase(key)
+      create_phrase(key,default_value)
     end
   end
 

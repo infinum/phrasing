@@ -5,9 +5,14 @@ module InlineHelper
 # Data model phrase
 # phrase(@record, :title, inverse: true, class: phrase-record-title)
 
-  def phrase(*args)
+  def phrase(*args,&block)
     if args[0].class == String or args[0].class == Symbol
       key, options = args[0].to_s, args[1]
+      options = { default: options } if options.kind_of?( String )
+      if block
+        options ||= {} 
+        options[:default] = capture(&block) 
+      end
       phrasing_phrase(key,options || {})
     else
       record, field_name, options = args[0], args[1], args[2]
@@ -37,10 +42,10 @@ module InlineHelper
     def phrasing_phrase(key, options = {})
       key = options[:scope] ? "#{options[:scope]}.#{key}" : key.to_s
       if can_edit_phrases?
-        @record = PhrasingPhrase.where(key: key, locale: I18n.locale.to_s).first || PhrasingPhrase.search_i18n_and_create_phrase(key)
+        @record = PhrasingPhrase.where(key: key, locale: I18n.locale.to_s).first || PhrasingPhrase.search_i18n_and_create_phrase(key, options[:default] )
         inline(@record, :value, options)
       else
-        options.try(:[], :interpolation) ? t(key, options[:interpolation]).html_safe : t(key).html_safe
+        options.try(:[], :interpolation) ? t(key, options[:interpolation], default: options[:default] ).html_safe : t(key, default: options[:default] ).html_safe
       end
     end
 
