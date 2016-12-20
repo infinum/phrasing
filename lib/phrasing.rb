@@ -25,9 +25,11 @@ module Phrasing
   mattr_accessor :route
   mattr_accessor :staging_server_endpoint
   mattr_accessor :parent_controller
+  mattr_accessor :autosave
 
   @@parent_controller = "ApplicationController"
   @@route = 'phrasing'
+  @@autosave = true
 
   def self.log
     @@log
@@ -40,6 +42,10 @@ module Phrasing
 
   def self.setup
     yield self
+  end
+
+  def self.autosave
+    @@autosave
   end
 
   WHITELIST = "PhrasingPhrase.value"

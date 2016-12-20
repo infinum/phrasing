@@ -101,6 +101,23 @@
       }
     }
   }
+  #phrasing-save{
+    padding: 10px 10px 0 10px;
+    button {
+      -webkit-border-radius: 4;
+      -moz-border-radius: 4;
+      border-radius: 4px;
+      font-family: Arial;
+      color: #ffffff;
+      font-size: 12px;
+      background: #BBB;
+      padding: 10px 20px 10px 20px;
+      border: 0px;
+      text-decoration: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
   #phrasing-saved-status-headline{
     height:30px;
     width:45px;
