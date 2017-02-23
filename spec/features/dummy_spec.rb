@@ -2,6 +2,10 @@
 require 'spec_helper'
 
 feature "use #phrase" do
+  before do
+    PhrasingPhrase.find_by(key: 'site.index.header').destroy
+    PhrasingPhrase.find_by(key: 'site.index.intro').destroy
+  end
 
   it "should see the header phrase" do
     visit root_path
@@ -81,11 +85,12 @@ feature "use #phrase" do
       end
     end
   end
-
-  it 'should preventDefault for links that use phrasing'
 end
 
 feature "locales" do
+  before do
+    PhrasingPhrase.destroy_all
+  end
 
   it "displays different text based on users' locale" do
     FactoryGirl.create(:phrasing_phrase, locale: 'en', key: 'site.index.intro', value: 'world')
@@ -106,7 +111,7 @@ feature "locales" do
     expect(page).not_to have_content 'world'
     expect(page).not_to have_content 'mundo'
 
-    I18n.locale = :en  # reset
+    I18n.locale = :en # reset
   end
 
 end

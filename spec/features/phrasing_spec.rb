@@ -294,7 +294,7 @@ feature 'phrase versions' do
 end
 
 feature "downloading and uploading yaml files" do
-  after do
+  before do
     PhrasingPhrase.destroy_all
   end
 
@@ -368,10 +368,9 @@ end
 
 feature "locales" do
   before do
-  end
-  after do
     PhrasingPhrase.destroy_all
   end
+
   it "imports yaml containing multiple locales" do
     file = Tempfile.new 'phrasing'
     file.write <<-YAML
@@ -405,5 +404,4 @@ feature "locales" do
     expect(yaml).to match(/en:\s*hello: world/)
     expect(yaml).to match(/es:\s*hello: mundo/)
   end
-
 end

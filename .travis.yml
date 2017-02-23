@@ -1,5 +1,8 @@
 sudo: false
 language: ruby
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rspec spec/
 
 matrix:
   include:

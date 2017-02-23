@@ -129,6 +129,9 @@ describe Phrasing::Serializer do
   end
 
   context 'export_yaml' do
+    before do
+      PhrasingPhrase.destroy_all
+    end
     it 'flattened phrases' do
       FactoryGirl.create(:phrasing_phrase, key: "site.intro", value: "Go Home")
       FactoryGirl.create(:phrasing_phrase, key: "site.outro", value: "Kthnx Bye")
