@@ -55,11 +55,19 @@ var phrasing_setup = function(){
   Phrasing.Bus.on('phrasing:edit-mode:on', function(){
     $('.phrasable').addClass("phrasable-on").attr("contenteditable", 'true');
     localStorage.setItem(Phrasing.EDIT_MODE_KEY, 'true');
+
+    $('a').on("click", function(e){
+      if ( !(this.href.indexOf("phrasing") > -1) ) {
+        e.preventDefault();
+      }
+    });
+
   });
 
   Phrasing.Bus.on('phrasing:edit-mode:off', function(){
     $('.phrasable').removeClass("phrasable-on").attr("contenteditable", "false");
     localStorage.setItem(Phrasing.EDIT_MODE_KEY, "false");
+    $('a').off('click');
   });
 
   // Initialize the editing bubble
