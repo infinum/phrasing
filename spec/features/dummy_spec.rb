@@ -2,31 +2,34 @@
 require 'spec_helper'
 
 feature "use #phrase" do
-
   it "should see the header phrase" do
     visit root_path
     expect(page).to have_content('The Header')
   end
 
   it "should see the header phrase modified if created before visiting" do
+    PhrasingPhrase.where(key: 'site.index.header').destroy_all
     FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: 'The Header1')
     visit root_path
     expect(page).to have_content 'The Header1'
   end
 
   it "creates a phrasing_phrase if the yaml has an entry" do
+    PhrasingPhrase.where(key: 'site.index.header').destroy_all
     expect(PhrasingPhrase.find_by_key('site.index.header')).to be_nil
     visit root_path
     expect(PhrasingPhrase.find_by_key('site.index.header')).not_to be_nil
   end
 
   it "creates a phrasing_phrase if the yaml does not have an entry" do
+    PhrasingPhrase.where(key: 'site.index.intro').destroy_all
     expect(PhrasingPhrase.find_by_key('site.index.intro')).to be_nil
     visit root_path
     expect(PhrasingPhrase.find_by_key('site.index.intro')).not_to be_nil
   end
 
   it "shows the phrasing_phrase instead of the yaml" do
+    PhrasingPhrase.where(key: 'site.index.header').destroy_all
     FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: 'A different header')
     visit root_path
     expect(page).not_to have_content 'The Header'
@@ -34,6 +37,7 @@ feature "use #phrase" do
   end
 
   it "allows to treat every translation as html safe" do
+    PhrasingPhrase.where(key: 'site.index.header').destroy_all
     FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: '<strong>Strong header</strong>')
     visit root_path
     expect(page).to have_content 'Strong header'
@@ -47,9 +51,46 @@ feature "use #phrase" do
     expect(page).to have_content 'models.errors.test'
     expect(page).to have_content 'site.test'
   end
+
+  context 'preventing link redirects', js: true do
+    context 'edit mode is enabled' do
+      it 'should prevent phrasing link redirects' do
+        visit root_path
+        find('#phrasing-onoffswitch').click
+        click_link 'Editable link'
+        expect(page).not_to have_content 'Example page for phrasing'
+        expect(page).to have_content 'Editable link'
+      end
+
+      it 'should not prevent other link redirects' do
+        visit root_path
+        click_link 'Uneditable link'
+        expect(page).to have_content 'Example page for phrasing'
+        expect(page).not_to have_content 'Editable link'
+      end
+
+      it 'should not prevent the phrasing edit all phrases link' do
+        visit root_path
+        find('#phrasing-edit-all-phrases-icon-container').click
+        expect(page).to have_content 'Phrasing'
+      end
+    end
+
+    context 'edit mode is disabled' do
+      it 'should not prevent link redirects' do
+        visit root_path
+        click_link 'Editable link'
+        expect(page).to have_content 'Example page for phrasing'
+        expect(page).not_to have_content 'Editable link'
+      end
+    end
+  end
 end
 
 feature "locales" do
+  before do
+    PhrasingPhrase.destroy_all
+  end
 
   it "displays different text based on users' locale" do
     FactoryGirl.create(:phrasing_phrase, locale: 'en', key: 'site.index.intro', value: 'world')
@@ -70,7 +111,7 @@ feature "locales" do
     expect(page).not_to have_content 'world'
     expect(page).not_to have_content 'mundo'
 
-    I18n.locale = :en  # reset
+    I18n.locale = :en # reset
   end
 
 end
