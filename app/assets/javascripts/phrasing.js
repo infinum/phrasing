@@ -153,7 +153,7 @@ var phrasing_setup = function(){
 };
 
 function disable_links() {
-  $('a').on("click", function(e){
+  $('a').on("click.phrasing", function(e){
     if($(this).find('span').hasClass('phrasable')) {
       e.preventDefault();
     }
@@ -161,7 +161,7 @@ function disable_links() {
 }
 
 function enable_links() {
-  $('a').unbind('click')
+  $('a').off('click.phrasing')
 }
 
 $(document).ready(phrasing_setup);

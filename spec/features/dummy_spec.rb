@@ -2,35 +2,34 @@
 require 'spec_helper'
 
 feature "use #phrase" do
-  before do
-    PhrasingPhrase.find_by(key: 'site.index.header').destroy
-    PhrasingPhrase.find_by(key: 'site.index.intro').destroy
-  end
-
   it "should see the header phrase" do
     visit root_path
     expect(page).to have_content('The Header')
   end
 
   it "should see the header phrase modified if created before visiting" do
+    PhrasingPhrase.where(key: 'site.index.header').destroy_all
     FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: 'The Header1')
     visit root_path
     expect(page).to have_content 'The Header1'
   end
 
   it "creates a phrasing_phrase if the yaml has an entry" do
+    PhrasingPhrase.where(key: 'site.index.header').destroy_all
     expect(PhrasingPhrase.find_by_key('site.index.header')).to be_nil
     visit root_path
     expect(PhrasingPhrase.find_by_key('site.index.header')).not_to be_nil
   end
 
   it "creates a phrasing_phrase if the yaml does not have an entry" do
+    PhrasingPhrase.where(key: 'site.index.intro').destroy_all
     expect(PhrasingPhrase.find_by_key('site.index.intro')).to be_nil
     visit root_path
     expect(PhrasingPhrase.find_by_key('site.index.intro')).not_to be_nil
   end
 
   it "shows the phrasing_phrase instead of the yaml" do
+    PhrasingPhrase.where(key: 'site.index.header').destroy_all
     FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: 'A different header')
     visit root_path
     expect(page).not_to have_content 'The Header'
@@ -38,6 +37,7 @@ feature "use #phrase" do
   end
 
   it "allows to treat every translation as html safe" do
+    PhrasingPhrase.where(key: 'site.index.header').destroy_all
     FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: '<strong>Strong header</strong>')
     visit root_path
     expect(page).to have_content 'Strong header'
