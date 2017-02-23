@@ -57,16 +57,16 @@ feature "use #phrase" do
       it 'should prevent phrasing link redirects' do
         visit root_path
         find('#phrasing-onoffswitch').click
-        click_link 'Phrase example page url'
+        click_link 'Editable link'
         expect(page).not_to have_content 'Example page for phrasing'
-        expect(page).to have_content 'Phrase example page url'
+        expect(page).to have_content 'Editable link'
       end
 
       it 'should not prevent other link redirects' do
         visit root_path
-        click_link 'Example page url'
+        click_link 'Uneditable link'
         expect(page).to have_content 'Example page for phrasing'
-        expect(page).not_to have_content 'Phrase example page url'
+        expect(page).not_to have_content 'Editable link'
       end
 
       it 'should not prevent the phrasing edit all phrases link' do
@@ -79,9 +79,9 @@ feature "use #phrase" do
     context 'edit mode is disabled' do
       it 'should not prevent link redirects' do
         visit root_path
-        click_link 'Phrase example page url'
+        click_link 'Editable link'
         expect(page).to have_content 'Example page for phrasing'
-        expect(page).not_to have_content 'Phrase example page url'
+        expect(page).not_to have_content 'Editable link'
       end
     end
   end

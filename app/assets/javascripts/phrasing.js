@@ -150,19 +150,18 @@ var phrasing_setup = function(){
     $('#edit-mode-onoffswitch').prop('checked', false).change();
   }
 
+  function disable_links() {
+    $('a').on("click.phrasing", function(e){
+      if($(this).find('span').hasClass('phrasable')) {
+        e.preventDefault();
+      }
+    });
+  }
+
+  function enable_links() {
+    $('a').off('click.phrasing')
+  }
 };
-
-function disable_links() {
-  $('a').on("click.phrasing", function(e){
-    if($(this).find('span').hasClass('phrasable')) {
-      e.preventDefault();
-    }
-  });
-}
-
-function enable_links() {
-  $('a').off('click.phrasing')
-}
 
 $(document).ready(phrasing_setup);
 
