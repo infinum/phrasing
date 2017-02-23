@@ -55,11 +55,13 @@ var phrasing_setup = function(){
   Phrasing.Bus.on('phrasing:edit-mode:on', function(){
     $('.phrasable').addClass("phrasable-on").attr("contenteditable", 'true');
     localStorage.setItem(Phrasing.EDIT_MODE_KEY, 'true');
+    disable_links();
   });
 
   Phrasing.Bus.on('phrasing:edit-mode:off', function(){
     $('.phrasable').removeClass("phrasable-on").attr("contenteditable", "false");
     localStorage.setItem(Phrasing.EDIT_MODE_KEY, "false");
+    enable_links();
   });
 
   // Initialize the editing bubble
@@ -149,6 +151,18 @@ var phrasing_setup = function(){
   }
 
 };
+
+function disable_links() {
+  $('a').on("click", function(e){
+    if($(this).find('span').hasClass('phrasable')) {
+      e.preventDefault();
+    }
+  });
+}
+
+function enable_links() {
+  $('a').unbind('click')
+}
 
 $(document).ready(phrasing_setup);
 

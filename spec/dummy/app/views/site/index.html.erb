@@ -4,6 +4,8 @@
 
 <div><%= t('site.index.footer') %></div>
 
+<div><%= link_to phrase('Phrase example page url'), example_path %></div>
+
 <div><%= phrase('test', scope: 'models.errors') %></div>
 
 <div><%= phrase('test', scope: 'models.errors') %></div>
@@ -11,3 +13,5 @@
 <div><%= phrase 'test', scope: :site %></div>
 
 <div><%= distance_of_time_in_words(Time.now, Time.now) %></div>
+
+<%= link_to 'Example page url', example_path %>
