@@ -2,6 +2,7 @@
 .ruby-version
 spec/dummy/.sass-cache/
 spec/dummy/db/development.sqlite3
+spec/dummy/db/test.sqlite3
 spec/dummy/log/development.log
 spec/dummy/log/test.log
 tmp
