@@ -123,7 +123,7 @@ scope: 'homepage.footer' # add scopes just like you would w/ I18.n. If the first
 ## Credits
 
 Phrasing is maintained and sponsored by
-[Infinum] (http://www.infinum.co).
+[Infinum](http://www.infinum.co).
 
 <img src="https://infinum.co/infinum.png" width="264">
 
