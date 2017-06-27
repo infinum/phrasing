@@ -1,7 +1,7 @@
 //= require editor
 //= require jquery
 //= require jquery_ujs
-//= require jquery.cookie
+//= require js.cookie
 
 var phrasing_setup = function(){
 
@@ -87,19 +87,19 @@ var phrasing_setup = function(){
   $('#edit-mode-onoffswitch').on('change', function(){
     if(this.checked){
       $('.phrasable').addClass("phrasable_on").attr("contenteditable", "true");
-      $.cookie("editing_mode", "true");
+      Cookies.set("editing_mode", "true");
     }
     else{
       $('.phrasable').removeClass("phrasable_on").attr("contenteditable", "false");
-      $.cookie("editing_mode", "false");
+      Cookies.set("editing_mode", "false");
     }
   });
 
-  if($.cookie("editing_mode") == null){
-    $.cookie("editing_mode", "true");
+  if(Cookies.get("editing_mode") == null){
+      Cookies.set("editing_mode", "true");
     $('#edit-mode-onoffswitch').prop('checked', true)
   }
-  else if($.cookie("editing_mode") == "true"){
+  else if(Cookies.get("editing_mode") == "true"){
     $('#edit-mode-onoffswitch').prop('checked', true)
   }else{
     $('#edit-mode-onoffswitch').prop('checked', false)
