@@ -36,7 +36,7 @@ var editor = (function() {
 				checkTextHighlighting( event );
 			}, 1);
 		};
-		
+
 		// Window bindings
 		window.addEventListener( 'resize', function( event ) {
 			updateBubblePosition();
@@ -47,15 +47,15 @@ var editor = (function() {
 		// http://ejohn.org/blog/learning-from-twitter
 		var scrollEnabled = true;
 		document.body.addEventListener( 'scroll', function() {
-			
+
 			if ( !scrollEnabled ) {
 				return;
 			}
-			
+
 			scrollEnabled = true;
-			
+
 			updateBubblePosition();
-			
+
 			return setTimeout((function() {
 				scrollEnabled = true;
 			}), 250);
@@ -100,7 +100,7 @@ var editor = (function() {
 			if (event.target.parentNode.classList.contains("ui-inputs")){
 				currentNodeList = findNodes( selection.focusNode );
 				updateBubbleStates();
-				return;				
+				return;
 			}
 		}
 
@@ -125,12 +125,12 @@ var editor = (function() {
 
 		lastType = selection.isCollapsed;
 	}
-	
+
 	function updateBubblePosition() {
 		var selection = window.getSelection();
 		var range = selection.getRangeAt(0);
 		var boundary = range.getBoundingClientRect();
-		
+
 		textOptions.style.top = boundary.top - 5 + window.pageYOffset + "px";
 		textOptions.style.left = (boundary.left + boundary.right)/2 + "px";
 	}
@@ -300,6 +300,7 @@ var editor = (function() {
 
 	function rehighlightLastSelection() {
 
+		window.getSelection().removeAllRanges();
 		window.getSelection().addRange( lastSelection );
 	}
 
