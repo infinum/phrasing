@@ -303,6 +303,7 @@ var editor = (function() {
 
 	function rehighlightLastSelection() {
 
+		window.getSelection().removeAllRanges();
 		window.getSelection().addRange( lastSelection );
 	}
 
