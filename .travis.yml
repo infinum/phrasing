@@ -1,5 +1,7 @@
 sudo: false
 language: ruby
+before_install:
+  - gem update bundler
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rspec spec/
