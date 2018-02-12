@@ -18,6 +18,11 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
     params[:locale] ||= I18n.default_locale
     @phrasing_phrases = PhrasingPhrase.fuzzy_search(params[:search], params[:locale])
     @locale_names = PhrasingPhrase.distinct.pluck(:locale)
+
+    respond_to do |format|
+      format.html {}
+      format.yaml { download }
+    end
   end
 
   def edit
@@ -33,7 +38,8 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
     app_env = Rails.env
     time = Time.now.strftime('%Y_%m_%d_%H_%M_%S')
     filename = "phrasing_phrases_#{app_name}_#{app_env}_#{time}.yml"
-    send_data Phrasing::Serializer.export_yaml, filename: filename
+    @phrasing_phrases ||= PhrasingPhrase.where("value is not null")
+    send_data Phrasing::Serializer.export_yaml(@phrasing_phrases), filename: filename
   end
 
   def upload
