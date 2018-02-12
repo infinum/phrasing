@@ -9,6 +9,7 @@ gem 'rails', "~> #{rails_version}"
 
 gem 'capybara'
 gem 'factory_girl_rails'
+gem 'jasmine-core', '~> 2.9.1'
 gem 'jasmine-rails'
 gem 'poltergeist'
 gem 'pry-rails'
