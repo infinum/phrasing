@@ -1,7 +1,7 @@
 module Phrasing
   module Serializer
     class << self
-
+      
       def import_yaml(yaml)
         number_of_changes = 0
         hash = YAML.load(yaml)
@@ -16,7 +16,7 @@ module Phrasing
             end
           end
         end
-
+        
         number_of_changes
       end
 
@@ -24,7 +24,7 @@ module Phrasing
         new_hash = {}
         hash.each do |key, value|
           if value.is_a? Hash
-            flatten_the_hash(value).each do |k,v|
+            flatten_the_hash(value).each do |k,v| 
               new_hash["#{key}.#{k}"] = v
             end
           else
@@ -34,9 +34,9 @@ module Phrasing
         new_hash
       end
 
-      def export_yaml(phrasing_phrases)
+      def export_yaml
         hash = {}
-        phrasing_phrases.each do |phrase|
+        PhrasingPhrase.where("value is not null").each do |phrase|
           hash[phrase.locale] ||= {}
           hash[phrase.locale][phrase.key] = phrase.value
         end
