@@ -1,4 +1,4 @@
-#search{ style: "display:inline-block;" }
+#search
   = form_tag phrasing_phrases_path, method: :get do
     - locale_options = options_for_select([nil] + @locale_names.map{|l| [l,l]}, params[:locale])
     = select_tag 'locale', locale_options
