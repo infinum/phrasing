@@ -16,7 +16,7 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
 
   def index
     params[:locale] ||= I18n.default_locale
-    phrasing_phrases
+    @phrasing_phrases = phrasing_phrases
     @locale_names = PhrasingPhrase.distinct.pluck(:locale)
   end
 
@@ -85,7 +85,7 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
   end
 
   def phrasing_phrases
-    @phrasing_phrases = PhrasingPhrase.fuzzy_search(params[:search], params[:locale])
+    PhrasingPhrase.fuzzy_search(params[:search], params[:locale])
   end
 
 end
