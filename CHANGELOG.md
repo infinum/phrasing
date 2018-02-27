@@ -1,6 +1,6 @@
 # Phrasing Change Log
 
-## 4.0.0 (February 27th 2018)
+## 4.0.0 (February 27th, 2018)
 
 ### Separation of I18n and Phrasing:
 
@@ -27,11 +27,15 @@ From phrasing v4.0.0rc3, add your jquery files manually:
 //= require phrasing
 ```
 
-## Switching rake tasks with Rails generators
+### Switching rake tasks with Rails generators
 
 Since Rails comes with outofbox generators that enable easy existing file detection and similar behaviors, Phrasing 4 will use Rails generators instead of the old rake tasks.
 
 To run the initial setup generator, just do: `rails generate phrasing`
+
+## 3.2.10 (October 2nd, 2015)
+
+Change order parameters in PhrasingPhrases#index to support SQLServer.
 
 ## 3.2.9 (January 7th, 2015)
 
