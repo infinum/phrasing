@@ -118,7 +118,7 @@ describe Phrasing::Serializer do
       expect(english_phrases.where(key: "site.intro").first.value).to eq("Go Home")
       expect(english_phrases.where(key: "site.outro").first.value).to eq("Kthnx Bye")
 
-      yaml = Phrasing::Serializer.export_yaml
+      yaml = Phrasing::Serializer.export_yaml(PhrasingPhrase.where("value is not null"))
 
       number_of_changes = Phrasing::Serializer.import_yaml(StringIO.new(yaml))
 
@@ -139,7 +139,7 @@ describe Phrasing::Serializer do
       expect(english_phrases.where(key: "site.intro").first.value).to eq("Go Home")
       expect(english_phrases.where(key: "site.outro").first.value).to eq("Kthnx Bye")
 
-      yaml = Phrasing::Serializer.export_yaml
+      yaml = Phrasing::Serializer.export_yaml(PhrasingPhrase.where("value is not null"))
 
       expect(yaml).to match(/site.intro:\sGo Home/)
       expect(yaml).to match(/site.outro:\sKthnx Bye/)
@@ -152,7 +152,7 @@ describe Phrasing::Serializer do
       expect(english_phrases.where(key: "site.intro").first.value).to eq("Hello")
       expect(french_phrases.where(key: "site.intro").first.value).to eq("Bonjour")
 
-      yaml = Phrasing::Serializer.export_yaml
+      yaml = Phrasing::Serializer.export_yaml(PhrasingPhrase.where("value is not null"))
 
       expect(yaml).to match(/en:\s*\n\s*site.intro:\sHello/)
       expect(yaml).to match(/fr:\s*\n\s*site.intro:\sBonjour/)

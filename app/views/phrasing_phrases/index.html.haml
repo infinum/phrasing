@@ -4,6 +4,8 @@
     = select_tag 'locale', locale_options
     = text_field_tag :search, params[:search], placeholder: 'Search for keys or values', size: 40
     = submit_tag 'Search', class: "btn btn-success"
+    = link_to 'Download', download_phrasing_phrases_path(search: params[:search], locale: params[:locale]), class: 'btn btn-success'
+
 - if @phrasing_phrases.any?
   %table.all-phrases
     %thead
