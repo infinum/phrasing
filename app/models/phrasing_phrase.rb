@@ -4,7 +4,7 @@ class PhrasingPhrase < ActiveRecord::Base
   # validate :uniqueness_of_key_on_locale_scope, on: :create
   validates_uniqueness_of :key, scope: [:locale]
 
-  has_many :versions, dependent: :destroy, class_name: PhrasingPhraseVersion
+  has_many :versions, dependent: :destroy, class_name: 'PhrasingPhraseVersion'
 
   after_update :version_it
 
