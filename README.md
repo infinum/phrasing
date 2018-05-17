@@ -42,10 +42,10 @@ module PhrasingHelper
   end
 end
 ```
-Include the phrasing **html** initializer at the top of your application layout file.
+Include the phrasing **html** initializer right below the `<body>` tag in your application layout file.
 
-```haml
-= render 'phrasing/initializer'
+```
+<%= render 'phrasing/initializer' %>
 ```
 
 Include the required **javascript** files:
@@ -72,11 +72,11 @@ Include the required **stylesheet** file:
 
 You can start adding new phrases by simply adding them in your view file:
 
-	= phrase('my-first-phrase')
+	<%= phrase('my-first-phrase') %>
 
 Aside from editing phrases (basically, Rails translations) you can also edit model attributes inline. Use the same `phrase` method, with the first attribute being the record in question, and the second one the attribute you wish to make editable:
 
-  	= phrase(@post, :title)
+    <%= phrase(@post, :title) %>
 
 In the above example, <tt>@post</tt> is the record with a <tt>title</tt> attribute.
 

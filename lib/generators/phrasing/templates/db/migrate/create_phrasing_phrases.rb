@@ -1,4 +1,4 @@
-class CreatePhrasingPhrases < ActiveRecord::Migration
+class CreatePhrasingPhrases < ActiveRecord::Migration<%= migration_version %>
   def change
     create_table :phrasing_phrases do |t|
       t.string :locale

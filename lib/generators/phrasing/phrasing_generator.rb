@@ -23,4 +23,14 @@ class PhrasingGenerator < Rails::Generators::Base
     sleep 1 # migration numbers should differentiate
     Time.now.utc.strftime("%Y%m%d%H%M%S")
   end
+
+  def migration_version
+    if rails5?
+      "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
+    end
+  end
+
+  def rails5?
+    Rails.version.start_with? '5'
+  end
 end

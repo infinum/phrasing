@@ -1,4 +1,4 @@
-class CreatePhrasingPhraseVersions < ActiveRecord::Migration
+class CreatePhrasingPhraseVersions < ActiveRecord::Migration<%= migration_version %>
   def change
     create_table :phrasing_phrase_versions do |t|
       t.integer :phrasing_phrase_id
