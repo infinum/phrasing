@@ -1,5 +1,17 @@
 # Phrasing Change Log
 
+## 4.1.0 (May 17th, 2018)
+
+Fix generated migration files for Rails 5
+```
+Directly inheriting from ActiveRecord::Migration is not supported. Please specify the Rails release the migration was written for.
+```
+
+Fixed Rails 5.2 deprecation issue with `class_name`:
+```
+A class was passed to :class_name but we are expecting a string.
+```
+
 ## 4.0.0 (February 27th, 2018)
 
 ### Separation of I18n and Phrasing:
