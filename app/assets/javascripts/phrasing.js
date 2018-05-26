@@ -163,7 +163,7 @@ var phrasing_setup = function(){
   }
 };
 
-$(document).ready(phrasing_setup);
+$(document).on('turbolinks:load', phrasing_setup);
 
 $(document).on('page:before-change', function() {
   Phrasing.Bus.off();
