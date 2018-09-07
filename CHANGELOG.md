@@ -1,5 +1,28 @@
 # Phrasing Change Log
 
+## 4.2.0 (Sep 7th, 2018)
+
+bundler-audit reported that there are DoS and RCE vulnerabilities in nokogiri:
+```
+Name: nokogiri
+Version: 1.6.8.1
+Advisory: CVE-2017-9050
+Criticality: Unknown
+URL: https://github.com/sparklemotion/nokogiri/issues/1673
+Title: Nokogiri gem, via libxml, is affected by DoS and RCE vulnerabilities
+Solution: upgrade to >= 1.8.1
+
+Name: nokogiri
+Version: 1.6.8.1
+Advisory: CVE-2018-8048
+Criticality: Unknown
+URL: https://github.com/sparklemotion/nokogiri/pull/1746
+Title: Revert libxml2 behavior in Nokogiri gem that could cause XSS
+Solution: upgrade to >= 1.8.3
+```
+
+Bumped nokogiri to 1.8.3.
+
 ## 4.1.0 (May 17th, 2018)
 
 Fix generated migration files for Rails 5
