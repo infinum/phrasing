@@ -1,5 +1,9 @@
 # Phrasing Change Log
 
+## 4.2.1 (Nov 5th, 2018)
+
+Fix linear-gradient syntax to be W3C compliant.
+
 ## 4.2.0 (Sep 7th, 2018)
 
 bundler-audit reported that there are DoS and RCE vulnerabilities in nokogiri:
