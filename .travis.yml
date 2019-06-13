@@ -1,7 +1,8 @@
 sudo: false
 language: ruby
 before_install:
-  - gem update bundler
+  - gem update --system
+  - gem --version
   - rvm reinstall ruby-head --binary
   - rvm get stable
 script:
