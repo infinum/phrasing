@@ -24,20 +24,6 @@ feature 'edit mode bubble' do
     find(:css, ".phrasing-edit-all-phrases-link").click
     expect(current_path).to eq phrasing_phrases_path
   end
-
-  xit "phrases should have class shouldn't have class phrasable on when edit mode is off", js: true do
-    edit_mode_checkbox = find(:css, ".onoffswitch-checkbox")
-    edit_mode_checkbox.click
-    expect(page.find('.header').first('.phrasable')['class']).to eq 'phrasable'
-  end
-
-  xit 'edit phrases', js: true do
-    header_phrase = page.find('.header').first('.phrasable')
-    header_phrase['class'].should eq 'phrasable phrasable_on'
-    expect(header_phrase.text).to eq 'The Header'
-    header_phrase.set "content"
-    expect(header_phrase.expect.text).to eq 'content'
-  end
 end
 
 feature "phrasing index" do

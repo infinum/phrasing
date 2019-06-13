@@ -9,7 +9,7 @@ describe PhrasingPhrase do
       it 'on #save! should raise errors if the key and locale are the same for two phrases' do
         PhrasingPhrase.create(key: "foo", locale: "en", value: "bar")
         new_phrase = PhrasingPhrase.new(key: "foo", locale: "en", value: "bar2")
-        expect { new_phrase.save! }.to raise_error
+        expect { new_phrase.save! }.to raise_error(ActiveRecord::RecordInvalid)
       end
 
       it 'on #save, if the key and locale are the same for two phrases, the latter one should be invalid' do
@@ -29,7 +29,3 @@ describe PhrasingPhrase do
   end
 
 end
-
-
-
-
