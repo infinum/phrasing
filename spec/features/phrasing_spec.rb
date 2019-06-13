@@ -24,26 +24,12 @@ feature 'edit mode bubble' do
     find(:css, ".phrasing-edit-all-phrases-link").click
     expect(current_path).to eq phrasing_phrases_path
   end
-
-  xit "phrases should have class shouldn't have class phrasable on when edit mode is off", js: true do
-    edit_mode_checkbox = find(:css, ".onoffswitch-checkbox")
-    edit_mode_checkbox.click
-    expect(page.find('.header').first('.phrasable')['class']).to eq 'phrasable'
-  end
-
-  xit 'edit phrases', js: true do
-    header_phrase = page.find('.header').first('.phrasable')
-    header_phrase['class'].should eq 'phrasable phrasable_on'
-    expect(header_phrase.text).to eq 'The Header'
-    header_phrase.set "content"
-    expect(header_phrase.expect.text).to eq 'content'
-  end
 end
 
 feature "phrasing index" do
 
   before do
-    FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar")
+    FactoryBot.create(:phrasing_phrase, key: "foo", value: "bar")
     visit phrasing_phrases_path
   end
 
@@ -87,23 +73,23 @@ feature "phrasing index" do
   end
 
   it "searches in the middles of strings" do
-    FactoryGirl.create(:phrasing_phrase, key: "site.index.something")
+    FactoryBot.create(:phrasing_phrase, key: "site.index.something")
     fill_in 'search', with: 'index'
     click_button 'Search'
     expect(page).to have_content 'site.index.something'
   end
 
   it "can show all" do
-    FactoryGirl.create(:phrasing_phrase, key: "foe", value: "beer")
+    FactoryBot.create(:phrasing_phrase, key: "foe", value: "beer")
     click_button 'Search'
     expect(page).to have_content 'foo'
     expect(page).to have_content 'foe'
   end
 
   it 'not null values first, global order by key' do
-    FactoryGirl.create(:phrasing_phrase, key: "foo1", value: nil)
-    FactoryGirl.create(:phrasing_phrase, key: "foo2", value: "beer")
-    FactoryGirl.create(:phrasing_phrase, key: "foo3", value: nil)
+    FactoryBot.create(:phrasing_phrase, key: "foo1", value: nil)
+    FactoryBot.create(:phrasing_phrase, key: "foo2", value: "beer")
+    FactoryBot.create(:phrasing_phrase, key: "foo3", value: nil)
     visit phrasing_phrases_path
     expect(page.body).to match /foo[\s\S]*foo2[\s\S]*foo1[\s\S]*foo3/
   end
@@ -112,9 +98,9 @@ feature "phrasing index" do
 
     before do
       PhrasingPhrase.destroy_all
-      FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar1", locale: "en")
-      FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar2", locale: "fa")
-      FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar3", locale: "it")
+      FactoryBot.create(:phrasing_phrase, key: "foo", value: "bar1", locale: "en")
+      FactoryBot.create(:phrasing_phrase, key: "foo", value: "bar2", locale: "fa")
+      FactoryBot.create(:phrasing_phrase, key: "foo", value: "bar3", locale: "it")
     end
 
     it "nil locale, blank search" do
@@ -216,7 +202,7 @@ end
 
 feature "phrasing edit" do
   before do
-    FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar")
+    FactoryBot.create(:phrasing_phrase, key: "foo", value: "bar")
     visit phrasing_phrases_path
   end
 
@@ -234,7 +220,7 @@ end
 
 feature "phrasing update" do
   before do
-    FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar")
+    FactoryBot.create(:phrasing_phrase, key: "foo", value: "bar")
     visit phrasing_phrases_path
     fill_in 'search', with: 'foo'
     click_button 'Search'
@@ -257,7 +243,7 @@ end
 
 feature 'phrase versions' do
   before do
-    phrase = FactoryGirl.create(:phrasing_phrase, key: "foo", value: "bar")
+    phrase = FactoryBot.create(:phrasing_phrase, key: "foo", value: "bar")
     visit edit_phrasing_phrase_path(phrase)
   end
 
@@ -299,11 +285,11 @@ feature "downloading and uploading yaml files" do
   end
 
   it "round-trips the YAML" do
-    FactoryGirl.create(:phrasing_phrase, key: "a.foo1", value: "bar1")
-    FactoryGirl.create(:phrasing_phrase, key: "a.foo2:", value: "bar2")
-    FactoryGirl.create(:phrasing_phrase, key: "a.b.foo3", value: "bar3")
-    FactoryGirl.create(:phrasing_phrase, key: "c.foo4", value: "bar4")
-    FactoryGirl.create(:phrasing_phrase, key: 2, value: "bar5")
+    FactoryBot.create(:phrasing_phrase, key: "a.foo1", value: "bar1")
+    FactoryBot.create(:phrasing_phrase, key: "a.foo2:", value: "bar2")
+    FactoryBot.create(:phrasing_phrase, key: "a.b.foo3", value: "bar3")
+    FactoryBot.create(:phrasing_phrase, key: "c.foo4", value: "bar4")
+    FactoryBot.create(:phrasing_phrase, key: 2, value: "bar5")
     expect(PhrasingPhrase.count).to eq 5
 
     visit import_export_phrasing_phrases_path
@@ -332,7 +318,7 @@ feature "downloading and uploading yaml files" do
 
   it "round-trips the yaml with complicated text" do
     value = "“hello world“ üokåa®fgsdf;::fs;kdf"
-    FactoryGirl.create(:phrasing_phrase, key: "a.foo", value: value)
+    FactoryBot.create(:phrasing_phrase, key: "a.foo", value: value)
 
     visit import_export_phrasing_phrases_path
     click_link 'Download as YAML'
@@ -396,8 +382,8 @@ feature "locales" do
   end
 
   it "exports yaml containing multiple locales" do
-    FactoryGirl.create(:phrasing_phrase, locale: 'en', key: 'hello', value: 'world')
-    FactoryGirl.create(:phrasing_phrase, locale: 'es', key: 'hello', value: 'mundo')
+    FactoryBot.create(:phrasing_phrase, locale: 'en', key: 'hello', value: 'world')
+    FactoryBot.create(:phrasing_phrase, locale: 'es', key: 'hello', value: 'mundo')
 
     visit download_phrasing_phrases_path
     yaml = page.source

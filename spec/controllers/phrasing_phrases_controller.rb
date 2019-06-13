@@ -7,7 +7,7 @@ describe PhrasingPhrasesController do
       expect(response).to render_template(:index)
     end
 
-    let(:phrase) { FactoryGirl.create(:phrasing_phrase, value: 'old_value') }
+    let(:phrase) { FactoryBot.create(:phrasing_phrase, value: 'old_value') }
 
     it 'updates phrase' do
       expect do

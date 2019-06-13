@@ -25,12 +25,10 @@ class PhrasingGenerator < Rails::Generators::Base
   end
 
   def migration_version
-    if rails5?
-      "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
-    end
+    "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]" if rails_major_version >= 5
   end
 
-  def rails5?
-    Rails.version.start_with? '5'
+  def rails_major_version
+    Rails.version.first.to_i
   end
 end

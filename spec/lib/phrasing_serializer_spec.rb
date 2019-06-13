@@ -90,8 +90,8 @@ describe Phrasing::Serializer do
     end
 
     it 'overrides old values' do
-      FactoryGirl.create(:phrasing_phrase, key: "site.intro", value: "Go Home")
-      FactoryGirl.create(:phrasing_phrase, key: "site.outro", value: "Kthnx Bye")
+      FactoryBot.create(:phrasing_phrase, key: "site.intro", value: "Go Home")
+      FactoryBot.create(:phrasing_phrase, key: "site.outro", value: "Kthnx Bye")
 
       expect(english_phrases.where(key: "site.intro").first.value).to eq("Go Home")
       expect(english_phrases.where(key: "site.outro").first.value).to eq("Kthnx Bye")
@@ -112,8 +112,8 @@ describe Phrasing::Serializer do
 
   context 'imports and exports' do
     it 'without changing, should return 0 number of changes' do
-      FactoryGirl.create(:phrasing_phrase, key: "site.intro", value: "Go Home")
-      FactoryGirl.create(:phrasing_phrase, key: "site.outro", value: "Kthnx Bye")
+      FactoryBot.create(:phrasing_phrase, key: "site.intro", value: "Go Home")
+      FactoryBot.create(:phrasing_phrase, key: "site.outro", value: "Kthnx Bye")
 
       expect(english_phrases.where(key: "site.intro").first.value).to eq("Go Home")
       expect(english_phrases.where(key: "site.outro").first.value).to eq("Kthnx Bye")
@@ -133,8 +133,8 @@ describe Phrasing::Serializer do
       PhrasingPhrase.destroy_all
     end
     it 'flattened phrases' do
-      FactoryGirl.create(:phrasing_phrase, key: "site.intro", value: "Go Home")
-      FactoryGirl.create(:phrasing_phrase, key: "site.outro", value: "Kthnx Bye")
+      FactoryBot.create(:phrasing_phrase, key: "site.intro", value: "Go Home")
+      FactoryBot.create(:phrasing_phrase, key: "site.outro", value: "Kthnx Bye")
 
       expect(english_phrases.where(key: "site.intro").first.value).to eq("Go Home")
       expect(english_phrases.where(key: "site.outro").first.value).to eq("Kthnx Bye")
@@ -146,8 +146,8 @@ describe Phrasing::Serializer do
     end
 
     it 'with different locales' do
-      FactoryGirl.create(:phrasing_phrase, key: "site.intro", value: "Hello", locale: :en)
-      FactoryGirl.create(:phrasing_phrase, key: "site.intro", value: "Bonjour", locale: :fr)
+      FactoryBot.create(:phrasing_phrase, key: "site.intro", value: "Hello", locale: :en)
+      FactoryBot.create(:phrasing_phrase, key: "site.intro", value: "Bonjour", locale: :fr)
 
       expect(english_phrases.where(key: "site.intro").first.value).to eq("Hello")
       expect(french_phrases.where(key: "site.intro").first.value).to eq("Bonjour")
