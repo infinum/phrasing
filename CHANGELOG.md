@@ -1,5 +1,10 @@
 # Phrasing Change Log
 
+## 4.3.0 (June 13th, 2019)
+
+- Add support for Rails 6
+- Remove jquery.turbolinks fix suggestion
+
 ## 4.2.1 (Nov 5th, 2018)
 
 Fix linear-gradient syntax to be W3C compliant.
