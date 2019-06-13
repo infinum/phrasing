@@ -163,7 +163,11 @@ var phrasing_setup = function(){
   }
 };
 
-$(document).ready(phrasing_setup);
+if(typeof Turbolinks == "object") {
+  $(document).on('turbolinks:load', phrasing_setup);
+} else {
+  $(document).ready(phrasing_setup);
+}
 
 $(document).on('page:before-change', function() {
   Phrasing.Bus.off();
