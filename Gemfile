@@ -8,7 +8,7 @@ gem 'nokogiri', '~> 1.8.3'
 gem 'rails', "~> #{rails_version}"
 
 gem 'capybara'
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'jasmine-core', '~> 2.9.1'
 gem 'jasmine-rails'
 gem 'poltergeist'

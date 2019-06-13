@@ -31,7 +31,7 @@
 #     end
 
 #     it "returns phrasing_phrase if present" do
-#       cct = FactoryGirl.create(:phrasing_phrase)
+#       cct = FactoryBot.create(:phrasing_phrase)
 #       base.lookup(cct.locale, cct.key).should == cct.value
 #     end
 

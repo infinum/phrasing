@@ -9,7 +9,7 @@ feature "use #phrase" do
 
   it "should see the header phrase modified if created before visiting" do
     PhrasingPhrase.where(key: 'site.index.header').destroy_all
-    FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: 'The Header1')
+    FactoryBot.create(:phrasing_phrase, key: 'site.index.header', value: 'The Header1')
     visit root_path
     expect(page).to have_content 'The Header1'
   end
@@ -30,7 +30,7 @@ feature "use #phrase" do
 
   it "shows the phrasing_phrase instead of the yaml" do
     PhrasingPhrase.where(key: 'site.index.header').destroy_all
-    FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: 'A different header')
+    FactoryBot.create(:phrasing_phrase, key: 'site.index.header', value: 'A different header')
     visit root_path
     expect(page).not_to have_content 'The Header'
     expect(page).to have_content 'A different header'
@@ -38,7 +38,7 @@ feature "use #phrase" do
 
   it "allows to treat every translation as html safe" do
     PhrasingPhrase.where(key: 'site.index.header').destroy_all
-    FactoryGirl.create(:phrasing_phrase, key: 'site.index.header', value: '<strong>Strong header</strong>')
+    FactoryBot.create(:phrasing_phrase, key: 'site.index.header', value: '<strong>Strong header</strong>')
     visit root_path
     expect(page).to have_content 'Strong header'
     visit root_path
@@ -93,8 +93,8 @@ feature "locales" do
   end
 
   it "displays different text based on users' locale" do
-    FactoryGirl.create(:phrasing_phrase, locale: 'en', key: 'site.index.intro', value: 'world')
-    FactoryGirl.create(:phrasing_phrase, locale: 'es', key: 'site.index.intro', value: 'mundo')
+    FactoryBot.create(:phrasing_phrase, locale: 'en', key: 'site.index.intro', value: 'world')
+    FactoryBot.create(:phrasing_phrase, locale: 'es', key: 'site.index.intro', value: 'mundo')
 
     I18n.locale = :en
     visit root_path

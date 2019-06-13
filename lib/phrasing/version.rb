@@ -1,3 +1,3 @@
 module Phrasing
-  VERSION = '4.3.0'.freeze
+  VERSION = '4.2.1'.freeze
 end
