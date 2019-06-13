@@ -1,7 +1,7 @@
 sudo: false
 language: ruby
 before_install:
-  - gem install -v 1.17.3 bundler --no-rdoc --no-ri
+  - gem install -v 1.17.3 bundler
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rspec spec/
