@@ -1,11 +1,8 @@
 sudo: false
 language: ruby
 before_install:
-  - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
-  - gem install bundler -v '< 2'
+  - gem update bundler
 script:
-  - RAILS_ENV=test bundle exec rake db:drop --trace
-  - RAILS_ENV=test bundle exec rake db:create --trace
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rspec spec/
 
