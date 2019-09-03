@@ -4,7 +4,7 @@ gemspec
 
 rails_version = ENV['RAILS_VERSION'] || '5.0.0'
 
-gem 'nokogiri', '~> 1.8.3'
+gem 'nokogiri', '~> 1.10.4'
 gem 'rails', "~> #{rails_version}"
 
 gem 'capybara'
