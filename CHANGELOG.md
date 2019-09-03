@@ -1,5 +1,9 @@
 # Phrasing Change Log
 
+## 4.3.1 (Sep 3rd, 2019)
+
+- Bump nokogiri version from 1.8.3 to 1.10.4 due to [security vulnerability](https://github.com/sparklemotion/nokogiri/issues/1915)
+
 ## 4.3.0 (June 13th, 2019)
 
 - Add support for Rails 6
