@@ -1,5 +1,6 @@
 require 'phrasing'
 require 'phrasing/serializer'
+require 'phrasing/string'
 require 'phrasing/rails/engine'
 require 'jquery-rails'
 require 'haml'

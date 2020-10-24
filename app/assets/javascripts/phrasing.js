@@ -119,7 +119,7 @@ var phrasing_setup = function(){
     $.ajax({
       type: "PUT",
       url: url,
-      data: { new_value: content },
+      data: { new_value: content, edit_mode_enabled: Phrasing.isEditModeEnabled() },
       success: function(e){
         userTriggeredPhrasingDOMChange = false;
         if(content === "Empty"){
@@ -135,6 +135,7 @@ var phrasing_setup = function(){
         }
       },
       error: function(e){
+        console.log("Phrasing:", e.responseText);
         statusBubbleWidget.error();
       }
     });
