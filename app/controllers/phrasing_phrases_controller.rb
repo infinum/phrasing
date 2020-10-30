@@ -1,3 +1,5 @@
+require 'phrasing/string'
+
 class PhrasingPhrasesController < Phrasing.parent_controller.constantize
 
   layout 'phrasing'
@@ -66,6 +68,7 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
     klass, attribute = params[:klass], params[:attribute]
 
     return render status: 403, text: 'Phrase not whitelisted' unless Phrasing.whitelisted?(klass, attribute)
+    return render status: 403, text: 'Edit mode is disabled' unless edit_mode?
 
     record = klass.classify.constantize.find(params[:id])
 
@@ -88,4 +91,7 @@ class PhrasingPhrasesController < Phrasing.parent_controller.constantize
     PhrasingPhrase.fuzzy_search(params[:search], params[:locale])
   end
 
+  def edit_mode?
+    Phrasing::String.new(params[:edit_mode_enabled]).to_bool
+  end
 end
