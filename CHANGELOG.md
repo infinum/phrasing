@@ -1,5 +1,9 @@
 # Phrasing Change Log
 
+## 4.3.2 (Oct 30th, 2020)
+
+- Send `edit_mode_enabled` as parameter and reject phrasing update if not `true` - fixes issue [#90](https://github.com/infinum/phrasing/issues/90)
+
 ## 4.3.1 (Sep 3rd, 2019)
 
 - Bump nokogiri version from 1.8.3 to 1.10.4 due to [security vulnerability](https://github.com/sparklemotion/nokogiri/issues/1915)
