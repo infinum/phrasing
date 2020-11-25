@@ -41,7 +41,7 @@ class PhrasingPhrase < ActiveRecord::Base
       phrasing_phrase = PhrasingPhrase.new
       phrasing_phrase.locale = I18n.locale.to_s
       phrasing_phrase.key    = key.to_s
-      phrasing_phrase.value  = value || default.to_s
+      phrasing_phrase.value  = value || default.to_s || key.to_s
       phrasing_phrase.save
       phrasing_phrase
     end
