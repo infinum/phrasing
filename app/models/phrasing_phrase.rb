@@ -8,8 +8,8 @@ class PhrasingPhrase < ActiveRecord::Base
 
   after_update :version_it
 
-  def self.find_phrase(key)
-    where(key: key, locale: I18n.locale.to_s).first || search_i18n_and_create_phrase(key)
+  def self.find_phrase(key,default=nil)
+    where(key: key, locale: I18n.locale.to_s).first || search_i18n_and_create_phrase(key,default)
   end
 
   def self.fuzzy_search(search_term, locale)
@@ -28,20 +28,20 @@ class PhrasingPhrase < ActiveRecord::Base
 
   private
 
-    def self.search_i18n_and_create_phrase(key)
+    def self.search_i18n_and_create_phrase(key,default=nil)
       begin
         value = I18n.t(key, raise: true)
         create_phrase(key, value)
       rescue I18n::MissingTranslationData
-        create_phrase(key)
+        create_phrase(key,nil,default)
       end
     end
 
-    def self.create_phrase(key, value=nil)
+    def self.create_phrase(key,value=nil, default=nil )
       phrasing_phrase = PhrasingPhrase.new
       phrasing_phrase.locale = I18n.locale.to_s
       phrasing_phrase.key    = key.to_s
-      phrasing_phrase.value  = value || key.to_s
+      phrasing_phrase.value  = value || default || key.to_s
       phrasing_phrase.save
       phrasing_phrase
     end

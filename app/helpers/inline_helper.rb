@@ -32,7 +32,7 @@ module InlineHelper
 
   def phrasing_extract_record(key, options = {})
     key = options[:scope] ? "#{options[:scope]}.#{key}" : key
-    PhrasingPhrase.find_phrase(key)
+    PhrasingPhrase.find_phrase(key,options[:default])
   end
 
   def uneditable_phrase(record, attribute)

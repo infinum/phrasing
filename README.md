@@ -74,6 +74,10 @@ You can start adding new phrases by simply adding them in your view file:
 
 	<%= phrase('my-first-phrase') %>
 
+If you want the key not to be the default phrase, you can define one like here:
+
+	<%= phrase('my-first-phrase',default: 'default phrase') %>
+
 Aside from editing phrases (basically, Rails translations) you can also edit model attributes inline. Use the same `phrase` method, with the first attribute being the record in question, and the second one the attribute you wish to make editable:
 
     <%= phrase(@post, :title) %>
