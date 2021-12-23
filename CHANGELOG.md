@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.4.0](https://github.com/infinum/phrasing/tree/v4.4.0) (2021-12-23)
+[Full Changelog](https://github.com/infinum/phrasing/compare/v4.3.2...v4.4.0)
+
+### Enhancements
+
+- Bump nokogiri version from 1.10.4 to 1.12.5 due to CVEs
+
+## [4.3.1](https://github.com/infinum/phrasing/tree/v4.3.1) (2019-09-03)
+[Full Changelog](https://github.com/infinum/phrasing/compare/v4.3.0...v4.3.1)
+
+### Enhancements
+
+- Bump nokogiri version from 1.8.3 to 1.10.4 due to [security vulnerability](https://github.com/sparklemotion/nokogiri/issues/1915)
+
 ## [4.3.2](https://github.com/infinum/phrasing/tree/v4.3.2) (2020-10-30)
 [Full Changelog](https://github.com/infinum/phrasing/compare/v4.3.1...v4.3.2)
 
