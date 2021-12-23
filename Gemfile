@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 gemspec
 
-rails_version = ENV['RAILS_VERSION'] || '5.0.0'
+rails_version = ENV['RAILS_VERSION'] || '5.2.4'
 
-gem 'nokogiri', '~> 1.10.4'
+gem 'nokogiri', '~> 1.12.5'
 gem 'rails', "~> #{rails_version}"
 
 gem 'capybara'
@@ -16,4 +16,4 @@ gem 'pry-rails'
 gem 'rdoc'
 gem 'rspec-rails', '~> 3.7.1'
 gem 'sass'
-gem 'sqlite3', '~> 1.3.6'
+gem 'sqlite3', '~> 1.4.2'
